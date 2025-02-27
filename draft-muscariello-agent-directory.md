@@ -32,9 +32,6 @@ author:
     email: lumuscar@cisco.com
 
 normative:
-  RFC2119:
-  RFC8174:
-  RFC6120:
 
 informative:
   RFC7650:
