@@ -144,7 +144,6 @@ All protocol interactions MUST use secure transport with:
 
 * Mutual authentication between nodes
 * Perfect forward secrecy
-* Strong cipher suites as defined in {{RFC8446}}
 
 Implementations MUST NOT support plaintext communications.
 
