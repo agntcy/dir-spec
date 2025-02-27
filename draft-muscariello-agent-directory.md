@@ -88,8 +88,6 @@ Agent directory records are stored in a DHT with the following properties:
 * Built-in replication and fault tolerance
 * Decentralized operation with no single point of failure
 
-[Continue with protocol details...]
-
 
 # Conventions and Definitions
 
