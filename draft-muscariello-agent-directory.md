@@ -31,7 +31,6 @@ author:
     organization: Cisco
     email: lumuscar@cisco.com
 
-normative:
 
 informative:
   RFC7650:
@@ -66,8 +65,7 @@ supporting the dynamic nature of agentic AI systems.
 
 ## OASF Attributes
 
-The protocol uses OASF to define attribute taxonomies that describe agent capabilities.
-These attributes fall into categories such as:
+The protocol uses OASF to define attribute taxonomies that describe agent capabilities. These attributes fall into categories such as:
 
 * Skills and competencies
 * Domain knowledge
