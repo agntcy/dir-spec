@@ -1,5 +1,8 @@
 ---
 ###
+# Description of Agent Directory Protocol
+###
+
 title: "Agent Directory Protocol"
 abbrev: "agent-dir"
 category: info
@@ -19,11 +22,11 @@ keyword:
  - Agent Discovery
  - DHT
 venue:
-  group: Independent Submission
+  group: WG
   type: Working Group
   mail: discussion@agntcy.org
-  github: muscariello/agent-directory
-  latest: https://example.org/latest
+  github: agntcy/dir
+  latest: https://verbose-adventure-1pnqvyr.pages.github.io/
 
 author:
  -
@@ -33,8 +36,6 @@ author:
 
 
 informative:
-  RFC7650:
-  I-D.irtf-din-agentic:
 
 --- abstract
 
@@ -70,8 +71,7 @@ The protocol uses OASF to define attribute taxonomies that describe agent capabi
 * Skills and competencies
 * Domain knowledge
 * Interaction patterns
-* Security properties
-
+* Security propertion
 Attributes are organized hierarchically and can be extended to support new capabilities.
 
 ## DHT-based Directory
@@ -151,4 +151,3 @@ This document has no IANA actions.
 
 # Acknowledgments
 {:numbered="false"}
-
