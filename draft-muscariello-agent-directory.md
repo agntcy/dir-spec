@@ -11,7 +11,7 @@ docname: draft-muscariello-agent-directory-latest
 submissiontype: independent
 number:
 date:
-consensus: true
+consensus: false
 v: 3
 area: Applications
 workgroup: Independent Submission
