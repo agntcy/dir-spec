@@ -1,3 +1,1 @@
-# Automatically generated CODEOWNERS
-# Regenerate with `make update-codeowners`
-draft-muscariello-agent-directory.md lumuscar@cisco.com
+**/ @agntcy/dir-maintainers
