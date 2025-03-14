@@ -1,7 +1,7 @@
 # Agent Directory Protocol
 
 This repo contains sources of the technical specification of the agent
-directory service.
+direcotry service.
 The sources in markdown format are compiled in HTML and txt and published
 in https://spec.dir.agntcy.org.
 
