@@ -1155,21 +1155,45 @@ agent directory records.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
         </h2>
 <nav class="toc"><ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.1">
-            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
+            <p id="section-toc.1-1.1.1" class="keepWithNext"><a href="#section-1" class="auto internal xref">1</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2">
-            <p id="section-toc.1-1.2.1"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-protocol-overview" class="internal xref">Protocol Overview</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.1">
-                <p id="section-toc.1-1.2.2.1.1" class="keepWithNext"><a href="#section-2.1" class="auto internal xref">2.1</a>.  <a href="#name-oasf-attributes" class="internal xref">OASF Attributes</a></p>
-</li>
-              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.2.2.2">
-                <p id="section-toc.1-1.2.2.2.1" class="keepWithNext"><a href="#section-2.2" class="auto internal xref">2.2</a>.  <a href="#name-dht-based-directory" class="internal xref">DHT-based Directory</a></p>
-</li>
-            </ul>
+            <p id="section-toc.1-1.2.1" class="keepWithNext"><a href="#section-2" class="auto internal xref">2</a>.  <a href="#name-introduction" class="internal xref">Introduction</a></p>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3">
-            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-conventions-and-definitions" class="internal xref">Conventions and Definitions</a></p>
+            <p id="section-toc.1-1.3.1"><a href="#section-3" class="auto internal xref">3</a>.  <a href="#name-protocol-overview" class="internal xref">Protocol Overview</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1">
+                <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-oasf-attributes" class="internal xref">OASF Attributes</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.1.2.1">
+                    <p id="section-toc.1-1.3.2.1.2.1.1" class="keepWithNext"><a href="#section-3.1.1" class="auto internal xref">3.1.1</a>.  <a href="#name-content-digest" class="internal xref">Content digest</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-network" class="internal xref">Network</a></p>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
+                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-dht-based-directory" class="internal xref">DHT-based Directory</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.1">
+                    <p id="section-toc.1-1.3.2.3.2.1.1"><a href="#section-3.3.1" class="auto internal xref">3.3.1</a>.  <a href="#name-routing-tables" class="internal xref">Routing Tables</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4">
+                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-routing" class="internal xref">Routing</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.1">
+                    <p id="section-toc.1-1.3.2.4.2.1.1"><a href="#section-3.4.1" class="auto internal xref">3.4.1</a>.  <a href="#name-announcement" class="internal xref">Announcement</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.2">
+                    <p id="section-toc.1-1.3.2.4.2.2.1"><a href="#section-3.4.2" class="auto internal xref">3.4.2</a>.  <a href="#name-discovery" class="internal xref">Discovery</a></p>
+</li>
+                </ul>
+</li>
+            </ul>
 </li>
           <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.4">
             <p id="section-toc.1-1.4.1"><a href="#section-4" class="auto internal xref">4</a>.  <a href="#name-security-considerations" class="internal xref">Security Considerations</a></p>
@@ -1207,93 +1231,218 @@ agent directory records.<a href="#section-abstract-1" class="pilcrow">¶</a></p>
 </nav>
 </section>
 </div>
-<div id="introduction">
+<div id="conventions-and-definitions">
 <section id="section-1">
-      <h2 id="name-introduction">
-<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
+      <h2 id="name-conventions-and-definitions">
+<a href="#section-1" class="section-number selfRef">1. </a><a href="#name-conventions-and-definitions" class="section-name selfRef">Conventions and Definitions</a>
       </h2>
-<p id="section-1-1">As AI systems become more prevalent, there is an increasing need for agents to
+<p id="section-1-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
+"<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
+described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
+appear in all capitals, as shown here.<a href="#section-1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="introduction">
+<section id="section-2">
+      <h2 id="name-introduction">
+<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-introduction" class="section-name selfRef">Introduction</a>
+      </h2>
+<p id="section-2-1">As AI systems become more prevalent, there is an increasing need for agents to
 discover and interact with each other dynamically based on their capabilities.
-The Agent Directory Protocol provides a standardized way for agents to:<a href="#section-1-1" class="pilcrow">¶</a></p>
+The Agent Directory Protocol provides a standardized way for agents to:<a href="#section-2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-1-2.1">
-          <p id="section-1-2.1.1">Announce their presence using OASF attribute taxonomies<a href="#section-1-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-2-2.1">
+          <p id="section-2-2.1.1">Announce their presence using OASF attribute taxonomies<a href="#section-2-2.1.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-1-2.2">
-          <p id="section-1-2.2.1">Discover other agents based on required skills and attributes<a href="#section-1-2.2.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-2-2.2">
+          <p id="section-2-2.2.1">Discover other agents based on required skills and attributes<a href="#section-2-2.2.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-1-2.3">
-          <p id="section-1-2.3.1">Maintain distributed directory information in a DHT<a href="#section-1-2.3.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-2-2.3">
+          <p id="section-2-2.3.1">Maintain distributed directory information in a DHT<a href="#section-2-2.3.1" class="pilcrow">¶</a></p>
 </li>
-        <li class="normal" id="section-1-2.4">
-          <p id="section-1-2.4.1">Enable attribute-based routing and discovery<a href="#section-1-2.4.1" class="pilcrow">¶</a></p>
+        <li class="normal" id="section-2-2.4">
+          <p id="section-2-2.4.1">Enable attribute-based routing and discovery<a href="#section-2-2.4.1" class="pilcrow">¶</a></p>
 </li>
       </ul>
-<p id="section-1-3">The protocol is designed to be fully distributed, extensible, and secure while
-supporting the dynamic nature of agentic AI systems.<a href="#section-1-3" class="pilcrow">¶</a></p>
+<p id="section-2-3">The protocol is designed to be fully distributed, extensible, and secure while
+supporting the dynamic nature of agentic AI systems.<a href="#section-2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="protocol-overview">
-<section id="section-2">
+<section id="section-3">
       <h2 id="name-protocol-overview">
-<a href="#section-2" class="section-number selfRef">2. </a><a href="#name-protocol-overview" class="section-name selfRef">Protocol Overview</a>
+<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-protocol-overview" class="section-name selfRef">Protocol Overview</a>
       </h2>
 <div id="oasf-attributes">
-<section id="section-2.1">
+<section id="section-3.1">
         <h3 id="name-oasf-attributes">
-<a href="#section-2.1" class="section-number selfRef">2.1. </a><a href="#name-oasf-attributes" class="section-name selfRef">OASF Attributes</a>
+<a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-oasf-attributes" class="section-name selfRef">OASF Attributes</a>
         </h3>
-<p id="section-2.1-1">The protocol uses OASF to define attribute taxonomies that describe agent capabilities. These attributes fall into categories such as:<a href="#section-2.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1-1">The protocol uses OASF to define attribute taxonomies that describe agent capabilities. These attributes fall into categories such as:<a href="#section-3.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-2.1-2.1">
-            <p id="section-2.1-2.1.1">Skills and competencies<a href="#section-2.1-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.1-2.1">
+            <p id="section-3.1-2.1.1">Skills and competencies<a href="#section-3.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-2.1-2.2">
-            <p id="section-2.1-2.2.1">Domain knowledge<a href="#section-2.1-2.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.1-2.2">
+            <p id="section-3.1-2.2.1">Domain knowledge<a href="#section-3.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-2.1-2.3">
-            <p id="section-2.1-2.3.1">Interaction patterns<a href="#section-2.1-2.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.1-2.3">
+            <p id="section-3.1-2.3.1">Interaction patterns<a href="#section-3.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-2.1-2.4">
-            <p id="section-2.1-2.4.1">Security propertion
-Attributes are organized hierarchically and can be extended to support new capabilities.<a href="#section-2.1-2.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.1-2.4">
+            <p id="section-3.1-2.4.1">Security propertion
+Attributes are organized hierarchically and can be extended to support new capabilities.<a href="#section-3.1-2.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
+<div id="content-digest">
+<section id="section-3.1.1">
+          <h4 id="name-content-digest">
+<a href="#section-3.1.1" class="section-number selfRef">3.1.1. </a><a href="#name-content-digest" class="section-name selfRef">Content digest</a>
+          </h4>
+<p id="section-3.1.1-1">The content digest <span class="bcp14">MUST</span> be generated using a. The purpose of the digest is to serve as a <strong>global identifier of arbitrary data</strong> on the storage layer.
+An example of calculating content digest in Golang using SHA-256 hashing function can be found in <a href="https://github.com/ipfs/go-cid#creating-a-cid-from-scratch">go-cid</a> package.<a href="#section-3.1.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.1.1-2">The current implementation of the Directory uses CID as a default standard when dealing with content digests.
+See more in the <a href="https://github.com/multiformats/cid">Content Identity</a> specs.<a href="#section-3.1.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="network">
+<section id="section-3.2">
+        <h3 id="name-network">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-network" class="section-name selfRef">Network</a>
+        </h3>
+<p id="section-3.2-1">The Directory network <span class="bcp14">MUST</span> use a cryptographically strong identity.
+A "dir node" is a program that can publish, find, and replicate objects across the network.
+Its identity is defined by a private key.<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-2">The node <span class="bcp14">MAY</span> be allowed to work in one of the following <strong>modes of operation</strong>:
+- <strong>client</strong> -- The node can interact with the public network, but it does not expose any interfaces to it.
+The interfaces can be exposed only to the local network.
+- <strong>swarm</strong> -- The node exposes all its interfaces to a subset of nodes on the network.
+- <strong>server</strong> -- The node exposes all its interfaces to the public network.<a href="#section-3.2-2" class="pilcrow">¶</a></p>
+<p id="section-3.2-3">All interfaces and operations on the network <span class="bcp14">MUST</span> be provided and performed by the node itself.<a href="#section-3.2-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="dht-based-directory">
-<section id="section-2.2">
+<section id="section-3.3">
         <h3 id="name-dht-based-directory">
-<a href="#section-2.2" class="section-number selfRef">2.2. </a><a href="#name-dht-based-directory" class="section-name selfRef">DHT-based Directory</a>
+<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-dht-based-directory" class="section-name selfRef">DHT-based Directory</a>
         </h3>
-<p id="section-2.2-1">Agent directory records are stored in a DHT with the following properties:<a href="#section-2.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.3-1">Agent directory records are stored in a DHT with the following properties:<a href="#section-3.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-2.2-2.1">
-            <p id="section-2.2-2.1.1">Records are indexed by attribute combinations<a href="#section-2.2-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.3-2.1">
+            <p id="section-3.3-2.1.1">Records are indexed by attribute combinations<a href="#section-3.3-2.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-2.2-2.2">
-            <p id="section-2.2-2.2.1">Support for partial and wildcard attribute matching<a href="#section-2.2-2.2.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.3-2.2">
+            <p id="section-3.3-2.2.1">Support for partial and wildcard attribute matching<a href="#section-3.3-2.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-2.2-2.3">
-            <p id="section-2.2-2.3.1">Built-in replication and fault tolerance<a href="#section-2.2-2.3.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.3-2.3">
+            <p id="section-3.3-2.3.1">Built-in replication and fault tolerance<a href="#section-3.3-2.3.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-2.2-2.4">
-            <p id="section-2.2-2.4.1">Decentralized operation with no single point of failure<a href="#section-2.2-2.4.1" class="pilcrow">¶</a></p>
+          <li class="normal" id="section-3.3-2.4">
+            <p id="section-3.3-2.4.1">Decentralized operation with no single point of failure<a href="#section-3.3-2.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
+<div id="routing-tables">
+<section id="section-3.3.1">
+          <h4 id="name-routing-tables">
+<a href="#section-3.3.1" class="section-number selfRef">3.3.1. </a><a href="#name-routing-tables" class="section-name selfRef">Routing Tables</a>
+          </h4>
+<div class="alignLeft art-text artwork" id="section-3.3.1-1">
+<pre>
+   +------+
+   | Node |
+   +------+
+    /    \
+   /      \ +--------+  +--------+ | Agents |  | Skills | +--------+  +--------+
+ |           |
+ |           | +---------+  +-------------+ |  Alice  |  |  TextSummary| +---------+  +-------------+
+ |           |
+ |           | +-------------+  +-------------+ | /dir/CID-   |  | /dir/CID-   | | Alice-v1    |  | Bob-v1      | +-------------+  +-------------+
+ |
+ | +-------------+ |  Bob        | +-------------+
+ |
+ | +-------------+ | /dir/CID-   | | Bob-v2      | +-------------+
+</pre><a href="#section-3.3.1-1" class="pilcrow">¶</a>
+</div>
+<p id="section-3.3.1-2">Clients <span class="bcp14">SHOULD</span> first query the Skill Routing Table to find which agents have a given skill,
+and then query the releases for a given agent using the Agent Routing Table.<a href="#section-3.3.1-2" class="pilcrow">¶</a></p>
+<p id="section-3.3.1-3">Note that each skill only points to the agent name (or subgraph) rather than having all the digests for all agents.
+This is to prevent creating record duplications between the two graphs.
+An agent with a given skill can be traversed using Agent Routing table
+once we know that the given agent has a release that contains a given skill.<a href="#section-3.3.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
 </div>
-<div id="conventions-and-definitions">
-<section id="section-3">
-      <h2 id="name-conventions-and-definitions">
-<a href="#section-3" class="section-number selfRef">3. </a><a href="#name-conventions-and-definitions" class="section-name selfRef">Conventions and Definitions</a>
-      </h2>
-<p id="section-3-1">The key words "<span class="bcp14">MUST</span>", "<span class="bcp14">MUST NOT</span>", "<span class="bcp14">REQUIRED</span>", "<span class="bcp14">SHALL</span>", "<span class="bcp14">SHALL NOT</span>", "<span class="bcp14">SHOULD</span>", "<span class="bcp14">SHOULD NOT</span>", "<span class="bcp14">RECOMMENDED</span>", "<span class="bcp14">NOT RECOMMENDED</span>",
-"<span class="bcp14">MAY</span>", and "<span class="bcp14">OPTIONAL</span>" in this document are to be interpreted as
-described in BCP 14 <span>[<a href="#RFC2119" class="cite xref">RFC2119</a>]</span> <span>[<a href="#RFC8174" class="cite xref">RFC8174</a>]</span> when, and only when, they
-appear in all capitals, as shown here.<a href="#section-3-1" class="pilcrow">¶</a></p>
+<div id="routing">
+<section id="section-3.4">
+        <h3 id="name-routing">
+<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-routing" class="section-name selfRef">Routing</a>
+        </h3>
+<p id="section-3.4-1">Implementations <span class="bcp14">MUST</span> expose a <strong>routing interface</strong> that allows the <strong>announcement and discovery</strong> of agent records across the network.
+The routing layer serves two important purposes:<a href="#section-3.4-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.4-2.1">
+            <p id="section-3.4-2.1.1">peer routing -- to find and connect with other nodes on the network<a href="#section-3.4-2.1.1" class="pilcrow">¶</a></p>
+</li>
+          <li class="normal" id="section-3.4-2.2">
+            <p id="section-3.4-2.2.1">content routing -- to find the data published across the network<a href="#section-3.4-2.2.1" class="pilcrow">¶</a></p>
+</li>
+        </ul>
+<p id="section-3.4-3">The routing system can be satisfied with various kinds of implementations.
+The current implementation of the Directory uses DHT (distributed hash table) for routing.
+See more in the <a href="https://github.com/libp2p/specs">libp2p</a> specs.
+The interface currently used across the system is defined in <a href="api/routing">api/routing</a>.<a href="#section-3.4-3" class="pilcrow">¶</a></p>
+<div id="announcement">
+<section id="section-3.4.1">
+          <h4 id="name-announcement">
+<a href="#section-3.4.1" class="section-number selfRef">3.4.1. </a><a href="#name-announcement" class="section-name selfRef">Announcement</a>
+          </h4>
+<p id="section-3.4.1-1">The nodes participating in the network <span class="bcp14">MUST</span> be able to <strong>receive the announcement events</strong> when
+the new data is published to the network to be able to update their routing tables.
+Nodes <span class="bcp14">MAY</span> also optionally pull the data if needed from the node that sent the event.<a href="#section-3.4.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.4.1-2">The minimal interface required to implement the Announcement API consists of a method that broadcasts locally available Agent data models to the rest of the network.
+For example, <code>Announce(node routing.Node, model core.ObjectRef)</code>.<a href="#section-3.4.1-2" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="discovery">
+<section id="section-3.4.2">
+          <h4 id="name-discovery">
+<a href="#section-3.4.2" class="section-number selfRef">3.4.2. </a><a href="#name-discovery" class="section-name selfRef">Discovery</a>
+          </h4>
+<p id="section-3.4.2-1">The nodes participating in the network <span class="bcp14">MUST</span> be able to <strong>find published contents</strong>.
+The minimal interface required to implement the Discovery API consists of two sub-interfaces
+for querying and traversing the objects on a given node based on:<a href="#section-3.4.2-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.4.2-2.1">
+              <p id="section-3.4.2-2.1.1"><strong>Discovery By Name</strong><a href="#section-3.4.2-2.1.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.4.2-2.1.2.1">
+                  <p id="section-3.4.2-2.1.2.1.1"><code>List(path=/agents)</code> -- returns a list of unique agent names<a href="#section-3.4.2-2.1.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                <li class="normal" id="section-3.4.2-2.1.2.2">
+                  <p id="section-3.4.2-2.1.2.2.1"><code>List(path=/agents/{agent})</code> -- returns a list of all release digests associated with a given agent<a href="#section-3.4.2-2.1.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              </ul>
+</li>
+            <li class="normal" id="section-3.4.2-2.2">
+              <p id="section-3.4.2-2.2.1"><strong>Discovery By Skill</strong><a href="#section-3.4.2-2.2.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.4.2-2.2.2.1">
+                  <p id="section-3.4.2-2.2.2.1.1"><code>List(path=/skills)</code> -- returns a list of unique skill names<a href="#section-3.4.2-2.2.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                <li class="normal" id="section-3.4.2-2.2.2.2">
+                  <p id="section-3.4.2-2.2.2.2.1"><code>List(path=/skills/{skill})</code> -- returns a list of unique agent names that have a release with a given skill<a href="#section-3.4.2-2.2.2.2.1" class="pilcrow">¶</a></p>
+</li>
+              </ul>
+</li>
+          </ul>
+<p id="section-3.4.2-3">Implementations <span class="bcp14">MAY</span> allow more granular querying logic for the Discovery API.<a href="#section-3.4.2-3" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
 </section>
 </div>
 <div id="security-considerations">
