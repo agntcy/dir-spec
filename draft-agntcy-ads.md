@@ -85,11 +85,15 @@ Attributes are organized hierarchically and can be extended to support new capab
 
 ### Content digest
 
-The content digest MUST be generated using a. The purpose of the digest is to serve as a **global identifier of arbitrary data** on the storage layer.
-An example of calculating content digest in Golang using SHA-256 hashing function can be found in [go-cid](https://github.com/ipfs/go-cid#creating-a-cid-from-scratch) package.
+The content digest MUST be generated using a. The purpose of the digest is to
+serve as a **global identifier of arbitrary data** on the storage layer. An
+example of calculating content digest in Golang using SHA-256 hashing function
+can be found in
+[go-cid](https://github.com/ipfs/go-cid#creating-a-cid-from-scratch) package.
 
-The current implementation of the Directory uses CID as a default standard when dealing with content digests.
-See more in the [Content Identity](https://github.com/multiformats/cid) specs.
+The current implementation of the Directory uses CID as a default standard when
+dealing with content digests. See more in the [Content
+Identity](https://github.com/multiformats/cid) specs.
 
 ## Network
 
@@ -117,81 +121,90 @@ Agent directory records are stored in a DHT with the following properties:
 
 ### Routing Tables
 
-       +------+
-       | Node |
-       +------+
-        /    \
-       /      \
-+--------+  +--------+
-| Agents |  | Skills |
-+--------+  +--------+
-     |           |
-     |           |
-+---------+  +-------------+
-|  Alice  |  |  TextSummary|
-+---------+  +-------------+
-     |           |
-     |           |
-+-------------+  +-------------+
-| /dir/CID-   |  | /dir/CID-   |
-| Alice-v1    |  | Bob-v1      |
-+-------------+  +-------------+
-     |
-     |
-+-------------+
-|  Bob        |
-+-------------+
-     |
-     |
-+-------------+
-| /dir/CID-   |
-| Bob-v2      |
-+-------------+
+         +------+
+         | Node |
+         +------+
+          /    \
+         /      \
+  +--------+  +--------+
+  | Agents |  | Skills |
+  +--------+  +--------+
+       |           |
+       |           |
+  +---------+  +-------------+
+  |  Alice  |  |  TextSummary|
+  +---------+  +-------------+
+       |           |
+       |           |
+  +-------------+  +-------------+
+  | /dir/CID-   |  | /dir/CID-   |
+  | Alice-v1    |  | Bob-v1      |
+  +-------------+  +-------------+
+       |
+       |
+  +-------------+
+  |  Bob        |
+  +-------------+
+       |
+       |
+  +-------------+
+  | /dir/CID-   |
+  | Bob-v2      |
+  +-------------+
 
-Clients SHOULD first query the Skill Routing Table to find which agents have a given skill,
-and then query the releases for a given agent using the Agent Routing Table.
+Clients SHOULD first query the Skill Routing Table to find which agents have a
+given skill, and then query the releases for a given agent using the Agent
+Routing Table.
 
-Note that each skill only points to the agent name (or subgraph) rather than having all the digests for all agents.
-This is to prevent creating record duplications between the two graphs.
-An agent with a given skill can be traversed using Agent Routing table
-once we know that the given agent has a release that contains a given skill.
+Note that each skill only points to the agent name (or subgraph) rather than
+having all the digests for all agents. This is to prevent creating record
+duplications between the two graphs. An agent with a given skill can be
+traversed using Agent Routing table once we know that the given agent has a
+release that contains a given skill.
 
 
 ## Routing
 
-Implementations MUST expose a **routing interface** that allows the **announcement and discovery** of agent records across the network.
-The routing layer serves two important purposes:
+Implementations MUST expose a **routing interface** that allows the
+**announcement and discovery** of agent records across the network. The routing
+layer serves two important purposes:
 
 - peer routing -- to find and connect with other nodes on the network
 - content routing -- to find the data published across the network
 
-The routing system can be satisfied with various kinds of implementations.
-The current implementation of the Directory uses DHT (distributed hash table) for routing.
-See more in the [libp2p](https://github.com/libp2p/specs) specs.
-The interface currently used across the system is defined in [api/routing](api/routing).
+The routing system can be satisfied with various kinds of implementations. The
+current implementation of the Directory uses DHT (distributed hash table) for
+routing. See more in the [libp2p](https://github.com/libp2p/specs) specs. The
+interface currently used across the system is defined in
+[api/routing](api/routing).
 
 ### Announcement
 
-The nodes participating in the network MUST be able to **receive the announcement events** when
-the new data is published to the network to be able to update their routing tables.
-Nodes MAY also optionally pull the data if needed from the node that sent the event.
+The nodes participating in the network MUST be able to **receive the
+announcement events** when the new data is published to the network to be able
+to update their routing tables. Nodes MAY also optionally pull the data if
+needed from the node that sent the event.
 
-The minimal interface required to implement the Announcement API consists of a method that broadcasts locally available Agent data models to the rest of the network.
-For example, `Announce(node routing.Node, model core.ObjectRef)`.
+The minimal interface required to implement the Announcement API consists of a
+method that broadcasts locally available Agent data models to the rest of the
+network. For example, `Announce(node routing.Node, model core.ObjectRef)`.
 
 ### Discovery
 
-The nodes participating in the network MUST be able to **find published contents**.
-The minimal interface required to implement the Discovery API consists of two sub-interfaces
-for querying and traversing the objects on a given node based on:
+The nodes participating in the network MUST be able to **find published
+contents**. The minimal interface required to implement the Discovery API
+consists of two sub-interfaces for querying and traversing the objects on a
+given node based on:
 
 - **Discovery By Name**
   - `List(path=/agents)` -- returns a list of unique agent names
-  - `List(path=/agents/{agent})` -- returns a list of all release digests associated with a given agent
+  - `List(path=/agents/{agent})` -- returns a list of all release digests
+    associated with a given agent
 
 - **Discovery By Skill**
   - `List(path=/skills)` -- returns a list of unique skill names
-  - `List(path=/skills/{skill})` -- returns a list of unique agent names that have a release with a given skill
+  - `List(path=/skills/{skill})` -- returns a list of unique agent names that
+    have a release with a given skill
 
 Implementations MAY allow more granular querying logic for the Discovery API.
 
@@ -223,7 +236,8 @@ cryptographic signatures rather than network location. This means:
 
 ## Key Management
 
-Agents MUST generate and maintain cryptographic key pairs following these requirements:
+Agents MUST generate and maintain cryptographic key pairs following these
+requirements:
 
 * Use of asymmetric cryptography (e.g., Ed25519)
 * Private keys MUST be properly secured by agents
