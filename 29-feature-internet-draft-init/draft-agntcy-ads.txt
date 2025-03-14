@@ -8,8 +8,8 @@ Intended status: Informational                             14 March 2025
 Expires: 15 September 2025
 
 
-                        Agent Directory Protocol
-                draft-muscariello-agent-directory-latest
+                        Agent Directory Service
+                        draft-agntcy-ads-latest
 
 Abstract
 
@@ -28,7 +28,7 @@ About This Document
    The latest revision of this draft can be found at https://verbose-
    adventure-1pnqvyr.pages.github.io/.  Status information for this
    document may be found at https://datatracker.ietf.org/doc/draft-
-   muscariello-agent-directory/.
+   agntcy-ads/.
 
    Discussion of this document takes place on the WG Working Group
    mailing list (mailto:discussion@agntcy.org).
