@@ -121,11 +121,12 @@ Agent directory records are stored in a DHT with the following properties:
 
 ### Routing Tables
 
-         +------+
-         | Node |
-         +------+
-          /    \
-         /      \
+~~~
+        +------+
+        | Node |
+        +------+
+         /    \
+        /      \
   +--------+  +--------+
   | Agents |  | Skills |
   +--------+  +--------+
@@ -151,6 +152,9 @@ Agent directory records are stored in a DHT with the following properties:
   | /dir/CID-   |
   | Bob-v2      |
   +-------------+
+~~~
+
+{: #fig-routing title="Routing Example."}
 
 Clients SHOULD first query the Skill Routing Table to find which agents have a
 given skill, and then query the releases for a given agent using the Agent
