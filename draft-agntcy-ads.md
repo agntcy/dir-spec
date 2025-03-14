@@ -1,13 +1,13 @@
 ---
 ###
-# Description of Agent Directory Protocol
+# Description of Agent Directory Service
 ###
 
-title: "Agent Directory Protocol"
+title: "Agent Directory Service"
 abbrev: "agent-dir"
 category: info
 
-docname: draft-muscariello-agent-directory-latest
+docname: draft-agntcy-ads-latest
 submissiontype: independent
 number:
 date:
