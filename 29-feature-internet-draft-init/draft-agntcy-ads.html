@@ -1354,19 +1354,36 @@ The interfaces can be exposed only to the local network.
           </h4>
 <div class="alignLeft art-text artwork" id="section-3.3.1-1">
 <pre>
-     +------+
-     | Node |
-     +------+
-      /    \
-     /      \   +--------+  +--------+   | Agents |  | Skills |   +--------+  +--------+
-   |           |
-   |           |   +---------+  +-------------+   |  Alice  |  |  TextSummary|   +---------+  +-------------+
-   |           |
-   |           |   +-------------+  +-------------+   | /dir/CID-   |  | /dir/CID-   |   | Alice-v1    |  | Bob-v1      |   +-------------+  +-------------+
-   |
-   |   +-------------+   |  Bob        |   +-------------+
-   |
-   |   +-------------+   | /dir/CID-   |   | Bob-v2      |   +-------------+
+        +------+
+        | Node |
+        +------+
+         /    \
+        /      \
+  +--------+  +--------+
+  | Agents |  | Skills |
+  +--------+  +--------+
+       |           |
+       |           |
+  +---------+  +-------------+
+  |  Alice  |  |  TextSummary|
+  +---------+  +-------------+
+       |           |
+       |           |
+  +-------------+  +-------------+
+  | /dir/CID-   |  | /dir/CID-   |
+  | Alice-v1    |  | Bob-v1      |
+  +-------------+  +-------------+
+       |
+       |
+  +-------------+
+  |  Bob        |
+  +-------------+
+       |
+       |
+  +-------------+
+  | /dir/CID-   |
+  | Bob-v2      |
+  +-------------+
 </pre><a href="#section-3.3.1-1" class="pilcrow">¶</a>
 </div>
 <p id="section-3.3.1-2">Clients <span class="bcp14">SHOULD</span> first query the Skill Routing Table to find which agents have a
