@@ -1,0 +1,208 @@
+
+
+
+
+Independent Submission                                    L. Muscariello
+Internet-Draft                                                  R. Polic
+Intended status: Informational                                     Cisco
+Expires: 28 September 2025                                 27 March 2025
+
+
+                        Agent Directory Service
+                        draft-agntcy-ads-latest
+
+Abstract
+
+   The Agent Directory Service (ADS) is a distributed directory service
+   designed to store metadata for AI agent applications.  This metadata,
+   stored as directory records, enables the discovery of agent
+   applications with specific skills for solving various problems.  The
+   implementation features distributed directories that interconnect
+   through a content-routing protocol.
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   The latest revision of this draft can be found at
+   https://spec.dir.agncty.org.  Status information for this document
+   may be found at https://datatracker.ietf.org/doc/draft-agntcy-ads/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/agntcy/dir.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 28 September 2025.
+
+Copyright Notice
+
+   Copyright (c) 2025 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.
+
+Table of Contents
+
+   1.  Conventions and Definitions
+   2.  Introduction
+   3.  Naming
+   4.  Content Routing
+     4.1.  Capability Announcement
+     4.2.  Discovery Process
+     4.3.  Distributed Object Storage
+       4.3.1.  Simplified Content Retrieval
+       4.3.2.  OCI Integration
+   5.  IANA Considerations
+   6.  Normative References
+   Authors' Addresses
+
+1.  Conventions and Definitions
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+2.  Introduction
+
+   The Agent Directory Service (ADS) provides a mechanism for
+   discovering AI agent applications based on their capabilities.  It
+   uses a distributed directory architecture to map agent skills to
+   directory record identifiers and maintains a list of directory
+   servers hosting those records.
+
+   Directory records are identified by globally unique names that are
+   routable within a DHT (Distributed Hash Table) to locate peer
+   directory servers.  The skill taxonomy is also routable in the DHT to
+   map skillsets to records that announce those skills.
+
+   Each directory record includes skills from a defined taxonomy, as
+   specified in the [Taxonomy of AI Agent Skills] from [OASF].  While
+   all record data is modeled using [OASF], only skills are leveraged
+   for content routing in the distributed network of directory servers.
+
+   This document describes the core concepts and architecture of the
+   Agent Directory Service.
+
+3.  Naming
+
+   In distributed systems, a reliable and collision-resistant naming
+   scheme is crucial.  The agent directory uses cryptographic hashes to
+   generate globally unique identifiers for data records.
+
+   ADS leverages OCI as object storage, and therefore identifiers are
+   made available as described in [OCI digest].
+
+4.  Content Routing
+
+   ADS implements capability-based record discovery through a
+   hierarchical skill taxonomy.  This architecture enables:
+
+4.1.  Capability Announcement
+
+   Multi-agent systems publish their capabilities by encoding them as
+   skill taxonomies.  Each record contains metadata describing the
+   agent's functional abilities.  Skills are structured in a
+   hierarchical format for efficient matching.
+
+4.2.  Discovery Process
+
+   The system performs a two-phase discovery operation:
+
+   1.  Matches queried capabilities against the skill taxonomy to
+       determine records by their identifier
+
+   2.  Identifies the server nodes storing relevant records.
+
+   ## Distributed Resolution
+
+   Local nodes execute targeted retrievals based on:
+
+   1.  Skill matching results: Evaluates capability requirements.
+
+   2.  Server location information: Determines optimal data sources.
+
+   ADS uses libp2p [Kad-DHT] for server and content discovery.
+
+4.3.  Distributed Object Storage
+
+   ADS differs from block storage systems like [IPFS] in its approach to
+   distributed object storage.
+
+4.3.1.  Simplified Content Retrieval
+
+   1.  ADS directly stores complete records rather than splitting them
+       into blocks.
+
+   2.  No special optimizations are needed for retrieving content from
+       multiple sources.
+
+   3.  Records are retrieved as complete units using standard OCI
+       protocols.
+
+4.3.2.  OCI Integration
+
+   ADS leverages the OCI distribution specification for content storage
+   and retrieval:
+
+   1.  Records are stored and transferred using OCI artifacts.
+
+   2.  Any OCI distribution-compliant server can participate in the
+       network.
+
+   3.  Servers retrieve records directly from each other using standard
+       OCI protocols.
+
+   While ADS uses zot as its reference OCI server implementation, the
+   system works with any server that implements the OCI distribution
+   specification.
+
+5.  IANA Considerations
+
+   This document has no IANA actions.
+
+6.  Normative References
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC6920]  Farrell, S., Kutscher, D., Dannewitz, C., Ohlman, B.,
+              Keranen, A., and P. Hallam-Baker, "Naming Things with
+              Hashes", RFC 6920, DOI 10.17487/RFC6920, April 2013,
+              <https://www.rfc-editor.org/rfc/rfc6920>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+Authors' Addresses
+
+   Luca Muscariello
+   Cisco
+   Email: lumuscar@cisco.com
+
+
+   Ramiz Polic
+   Cisco
+   Email: rpolic@cisco.com
