@@ -42,7 +42,6 @@ normative:
 informative:
      DHT: 10.5555/646334.687801
 
-
 --- abstract
 
 The Agent Directory Service (ADS) is a distributed directory service designed to
