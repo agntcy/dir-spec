@@ -38,10 +38,10 @@ author:
     email: rpolic@cisco.com
 
 normative:
-     RFC6920:
+   RFC6920:
 
 informative:
-     DHT: DOI.10.5555/646334.687801
+   DHT: DOI.10.5555/646334.687801
 
 --- abstract
 
@@ -113,7 +113,7 @@ The system performs a two-phase discovery operation:
 1. Skill matching results: Evaluates capability requirements.
 2. Server location information: Determines optimal data sources.
 
-ADS uses libp2p [Kad-DHT] [DHT] for server and content discovery.
+ADS uses libp2p [Kad-DHT] {{DHT}} for server and content discovery.
 
 
 
@@ -143,7 +143,6 @@ Flow:
 4. DHT returns list of servers hosting content
 5. Servers download content from peers
 ~~~
-
 
 ## Distributed Object Storage
 
