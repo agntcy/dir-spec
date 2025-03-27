@@ -112,7 +112,7 @@ The system performs a two-phase discovery operation:
 1. Skill matching results: Evaluates capability requirements.
 2. Server location information: Determines optimal data sources.
 
-ADS uses libp2p [Kad-DHT]{{DHT}} for server and content discovery.
+ADS uses libp2p [Kad-DHT] [DHT] for server and content discovery.
 
 ## Distributed Object Storage
 
