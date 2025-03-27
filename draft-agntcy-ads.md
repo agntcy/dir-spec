@@ -38,9 +38,9 @@ author:
     email: rpolic@cisco.com
 
 normative:
-     RFC6920
+     RFC6920:
 informative:
-    
+
 
 --- abstract
 
