@@ -71,7 +71,9 @@ Table of Contents
        4.3.1.  Simplified Content Retrieval
        4.3.2.  OCI Integration
    5.  IANA Considerations
-   6.  Normative References
+   6.  References
+     6.1.  Normative References
+     6.2.  Informative References
    Authors' Addresses
 
 1.  Conventions and Definitions
@@ -106,8 +108,8 @@ Table of Contents
 3.  Naming
 
    In distributed systems, a reliable and collision-resistant naming
-   scheme is crucial.  The agent directory uses cryptographic hashes to
-   generate globally unique identifiers for data records.
+   scheme is crucial.  The agent directory uses cryptographic hashes
+   [RFC7838] to generate globally unique identifiers for data records.
 
    ADS leverages OCI as object storage, and therefore identifiers are
    made available as described in [OCI digest].
@@ -141,7 +143,7 @@ Table of Contents
 
    2.  Server location information: Determines optimal data sources.
 
-   ADS uses libp2p [Kad-DHT] for server and content discovery.
+   ADS uses libp2p Kad-DHT [DHT] for server and content discovery.
 
 4.3.  Distributed Object Storage
 
@@ -180,7 +182,9 @@ Table of Contents
 
    This document has no IANA actions.
 
-6.  Normative References
+6.  References
+
+6.1.  Normative References
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -192,9 +196,17 @@ Table of Contents
               Hashes", RFC 6920, DOI 10.17487/RFC6920, April 2013,
               <https://www.rfc-editor.org/rfc/rfc6920>.
 
+   [RFC7838]  Nottingham, M., McManus, P., and J. Reschke, "HTTP
+              Alternative Services", RFC 7838, DOI 10.17487/RFC7838,
+              April 2016, <https://www.rfc-editor.org/rfc/rfc7838>.
+
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+6.2.  Informative References
+
+   [DHT]      "*** BROKEN REFERENCE ***".
 
 Authors' Addresses
 
