@@ -1294,6 +1294,34 @@ by their identifier<a href="#section-4.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
         </ol>
 <p id="section-4.2-6">ADS uses libp2p <span><a href="#DHT" class="internal xref">Kad-DHT</a> [<a href="#DHT" class="cite xref">DHT</a>]</span> for server and content discovery.<a href="#section-4.2-6" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-4.2-7">
+<pre>
+                             +----------------+
+                             |    DHT Node    |
+                             | Content Index  |
+                             +----------------+
+                                    ^
+                                    |
+                   +----------------+-----------------+
+                   |                |                |
+           +-------v------+  +------v-------+  +-----v--------+
+           | Server Node A |  | Server Node B|  | Server Node C|
+           |   Content X  |  |   Content Y  |  |   Content Z  |
+           +-------+------+  +------+-------+  +------+-------+
+                   |               |                  |
+                   |        Content Exchange          |
+                   +---------------+------------------+
+                                  |
+                          Content Replication
+
+Flow:
+1. Servers register content with DHT
+2. DHT maintains content-to-server mappings
+3. Servers query DHT to locate content
+4. DHT returns list of servers hosting content
+5. Servers download content from peers
+</pre><a href="#section-4.2-7" class="pilcrow">¶</a>
+</div>
 </section>
 </div>
 <div id="distributed-object-storage">
