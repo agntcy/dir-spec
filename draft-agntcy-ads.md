@@ -115,6 +115,36 @@ The system performs a two-phase discovery operation:
 
 ADS uses libp2p [Kad-DHT] [DHT] for server and content discovery.
 
+
+
+~~~
+                             +----------------+
+                             |    DHT Node    |
+                             | Content Index  |
+                             +----------------+
+                                    ^
+                                    |
+                   +----------------+-----------------+
+                   |                |                |
+           +-------v------+  +------v-------+  +-----v--------+
+           | Server Node A |  | Server Node B|  | Server Node C|
+           |   Content X  |  |   Content Y  |  |   Content Z  |
+           +-------+------+  +------+-------+  +------+-------+
+                   |               |                  |
+                   |        Content Exchange          |
+                   +---------------+------------------+
+                                  |
+                          Content Replication
+
+Flow:
+1. Servers register content with DHT
+2. DHT maintains content-to-server mappings
+3. Servers query DHT to locate content
+4. DHT returns list of servers hosting content
+5. Servers download content from peers
+~~~
+
+
 ## Distributed Object Storage
 
 ADS differs from block storage systems like [IPFS] in its approach to
