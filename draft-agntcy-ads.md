@@ -79,8 +79,8 @@ Directory Service.
 # Naming
 
 In distributed systems, a reliable and collision-resistant naming scheme is
-crucial. The agent directory uses cryptographic hashes to generate globally
-unique identifiers for data records.
+crucial. The agent directory uses cryptographic hashes {{!RFC7838}} to generate
+globally unique identifiers for data records.
 
 ADS leverages OCI as object storage, and therefore identifiers are made
 available as described in [OCI digest].
