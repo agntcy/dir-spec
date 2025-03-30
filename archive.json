@@ -1,0 +1,254 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2025-03-30T00:20:35.596175+00:00",
+  "repo": "agntcy/dir-spec",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDON_UBTc6MxRdI",
+      "title": "docs: first init",
+      "url": "https://github.com/agntcy/dir-spec/pull/1",
+      "state": "MERGED",
+      "author": "muscariello",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-02-27T09:48:21Z",
+      "updatedAt": "2025-03-14T13:59:59Z",
+      "baseRepository": "agntcy/dir-spec",
+      "baseRefName": "main",
+      "baseRefOid": "2c710d6699099ca0e0113058f705482965e073c3",
+      "headRepository": "agntcy/dir-spec",
+      "headRefName": "29-feature-internet-draft-init",
+      "headRefOid": "8a155bbed06c29b677b33aa2208c1bed3569d032",
+      "closedAt": "2025-03-14T13:59:59Z",
+      "mergedAt": "2025-03-14T13:59:59Z",
+      "mergedBy": "muscariello",
+      "mergeCommit": {
+        "oid": "1bb0ba3b0e3e3e8df334a6d513935bf943281054"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDON_UBTc6gBwNV",
+          "commit": {
+            "abbreviatedOid": "321e82c"
+          },
+          "author": "paralta",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "LGTM \ud83d\ude80 ",
+          "createdAt": "2025-03-14T08:54:37Z",
+          "updatedAt": "2025-03-14T08:54:37Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 2,
+      "id": "PR_kwDON_UBTc6Orauw",
+      "title": "29 feature internet draft init",
+      "url": "https://github.com/agntcy/dir-spec/pull/2",
+      "state": "MERGED",
+      "author": "muscariello",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "- docs: fix LICENSE file",
+      "createdAt": "2025-03-14T14:01:55Z",
+      "updatedAt": "2025-03-14T14:17:30Z",
+      "baseRepository": "agntcy/dir-spec",
+      "baseRefName": "main",
+      "baseRefOid": "1bb0ba3b0e3e3e8df334a6d513935bf943281054",
+      "headRepository": "agntcy/dir-spec",
+      "headRefName": "29-feature-internet-draft-init",
+      "headRefOid": "4f4ad5dec66a15b25aba0071d1d6ac0a2bd7ce1d",
+      "closedAt": "2025-03-14T14:17:30Z",
+      "mergedAt": "2025-03-14T14:17:29Z",
+      "mergedBy": "muscariello",
+      "mergeCommit": {
+        "oid": "1d0cda7e032ac5e6eeddc8147350583c5338c370"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDON_UBTc6gFH2I",
+          "commit": {
+            "abbreviatedOid": "35c61e3"
+          },
+          "author": "adamtagscherer",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "LGTM! :shipit: ",
+          "createdAt": "2025-03-14T14:12:07Z",
+          "updatedAt": "2025-03-14T14:12:07Z",
+          "comments": []
+        },
+        {
+          "id": "PRR_kwDON_UBTc6gFKDp",
+          "commit": {
+            "abbreviatedOid": "4f4ad5d"
+          },
+          "author": "paralta",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-03-14T14:15:40Z",
+          "updatedAt": "2025-03-14T14:15:40Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 3,
+      "id": "PR_kwDON_UBTc6OsCB3",
+      "title": "29 feature internet draft init",
+      "url": "https://github.com/agntcy/dir-spec/pull/3",
+      "state": "MERGED",
+      "author": "muscariello",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "- **docs: first init**\n- **docs: first init**\n- **docs: first init**\n- **docs: first init**\n- **docs: first init**\n- **Setup repository for draft-muscariello-agent-directory using https://github.com/martinthomson/i-d-template**\n- **docs: first init**\n- **docs: first init**\n- **docs: linting**\n- **chore: add CODEOWNERS file**\n- **docs: init spec**\n- **feat: update draft**\n- **feat: update draft**\n- **feat: update draft**\n- **feat: update draft**\n- **feat: update draft**\n- **feat: update draft**\n- **feat: update draft**\n",
+      "createdAt": "2025-03-14T15:08:53Z",
+      "updatedAt": "2025-03-14T15:52:58Z",
+      "baseRepository": "agntcy/dir-spec",
+      "baseRefName": "main",
+      "baseRefOid": "1d0cda7e032ac5e6eeddc8147350583c5338c370",
+      "headRepository": "agntcy/dir-spec",
+      "headRefName": "29-feature-internet-draft-init",
+      "headRefOid": "0ea2c4ef0a73d778d54b1f49230268bea53a0139",
+      "closedAt": "2025-03-14T15:52:58Z",
+      "mergedAt": "2025-03-14T15:52:58Z",
+      "mergedBy": "muscariello",
+      "mergeCommit": {
+        "oid": "5225849595ec757757e7f972a64a7fffe258d7c0"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDON_UBTc6gF0LN",
+          "commit": {
+            "abbreviatedOid": "1d0c7f7"
+          },
+          "author": "paralta",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-03-14T15:10:44Z",
+          "updatedAt": "2025-03-14T15:10:45Z",
+          "comments": [
+            {
+              "originalPosition": 31,
+              "body": "```suggestion\r\ndirectory service.\r\n```",
+              "createdAt": "2025-03-14T15:10:44Z",
+              "updatedAt": "2025-03-14T15:10:45Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON_UBTc6gF0yf",
+          "commit": {
+            "abbreviatedOid": "a31972b"
+          },
+          "author": "paralta",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "small comment, but looks good \u2705 ",
+          "createdAt": "2025-03-14T15:11:38Z",
+          "updatedAt": "2025-03-14T15:51:51Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "PR_kwDON_UBTc6QY9Xq",
+      "title": "docs: firs version -0",
+      "url": "https://github.com/agntcy/dir-spec/pull/4",
+      "state": "OPEN",
+      "author": "muscariello",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "Signed-off-by: Luca Muscariello <lumuscar@cisco.com>\n",
+      "createdAt": "2025-03-27T13:16:21Z",
+      "updatedAt": "2025-03-28T17:46:41Z",
+      "baseRepository": "agntcy/dir-spec",
+      "baseRefName": "main",
+      "baseRefOid": "5225849595ec757757e7f972a64a7fffe258d7c0",
+      "headRepository": "agntcy/dir-spec",
+      "headRefName": "75-update-spec",
+      "headRefOid": "acc97aae9925d9e18b92e508ced8846031aa2aa4",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDON_UBTc6if6hg",
+          "commit": {
+            "abbreviatedOid": "acc97aa"
+          },
+          "author": "ramizpolic",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-03-28T17:46:41Z",
+          "updatedAt": "2025-03-28T17:46:41Z",
+          "comments": []
+        }
+      ]
+    }
+  ]
+}
