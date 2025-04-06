@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-04-03T00:18:46.234981+00:00",
+  "timestamp": "2025-04-06T00:20:12.683383+00:00",
   "repo": "agntcy/dir-spec",
   "labels": [
     {
@@ -215,24 +215,26 @@
       "id": "PR_kwDON_UBTc6QY9Xq",
       "title": "docs: firs version -0",
       "url": "https://github.com/agntcy/dir-spec/pull/4",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "muscariello",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "Signed-off-by: Luca Muscariello <lumuscar@cisco.com>\n",
       "createdAt": "2025-03-27T13:16:21Z",
-      "updatedAt": "2025-03-28T17:46:41Z",
+      "updatedAt": "2025-04-04T20:36:04Z",
       "baseRepository": "agntcy/dir-spec",
       "baseRefName": "main",
       "baseRefOid": "5225849595ec757757e7f972a64a7fffe258d7c0",
       "headRepository": "agntcy/dir-spec",
       "headRefName": "75-update-spec",
       "headRefOid": "acc97aae9925d9e18b92e508ced8846031aa2aa4",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-04-04T20:36:04Z",
+      "mergedAt": "2025-04-04T20:36:04Z",
+      "mergedBy": "muscariello",
+      "mergeCommit": {
+        "oid": "0f1729331bb38cb89df0406052e47596f6da81c4"
+      },
       "comments": [],
       "reviews": [
         {
