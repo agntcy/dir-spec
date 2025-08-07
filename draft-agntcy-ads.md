@@ -59,23 +59,41 @@ that interconnect through a content-routing protocol.
 
 # Introduction
 
-The Agent Directory Service (ADS) provides a mechanism for discovering AI agent
-applications based on their capabilities. It uses a distributed directory
-architecture to map agent skills to directory record identifiers and maintains a
-list of directory servers hosting those records.
+Multi-Agent Systems (MAS) represent a new paradigm in distributed computing where software components leverage Large Language Models (LLMs) to perform specialized tasks and solve complex problems through collaborative intelligence. These systems combine LLMs with contextual knowledge and tool-calling capabilities, often abstracted through Model Context Protocol (MCP) servers, enabling dynamic workflows that adapt based on stored state and environmental conditions.
 
-Directory records are identified by globally unique names that are routable
-within a DHT (Distributed Hash Table) to locate peer directory servers.
-The skill taxonomy is also routable in the DHT to map skillsets to records
-that announce those skills.
+The diversity and complexity of MAS architectures present unique challenges for discovery and composition. As the ecosystem of AI agents expands, developers need efficient mechanisms to:
 
-Each directory record includes skills from a defined taxonomy, as specified
-in the [Taxonomy of AI Agent Skills] from [OASF]. While all record data is
-modeled using [OASF], only skills are leveraged for content routing in the
-distributed network of directory servers.
+- **Discover compatible agents** with specific skills and capabilities
+- **Evaluate performance characteristics** including cost, latency, and resource requirements
+- **Compose multi-agent workflows** by linking agents with complementary capabilities
+- **Verify claims** about agent performance and reliability
+- **Track versioning and dependencies** between agent components
 
-This document describes the core concepts and architecture of the Agent
-Directory Service.
+The Agent Directory Service (ADS) addresses these challenges by providing a distributed directory infrastructure specifically designed for the agentic AI ecosystem. Rather than attempting to formally define MAS architectures—which would constrain the creative composition patterns emerging in this rapidly evolving field—ADS focuses on providing flexible metadata storage and discovery mechanisms.
+
+## Core Capabilities
+
+ADS enables several key capabilities for the agentic AI ecosystem:
+
+**Capability-Based Discovery**: Agents publish structured metadata describing their functional abilities, costs, and performance characteristics. The system organizes this information using hierarchical skill taxonomies, enabling efficient matching of capabilities to requirements.
+
+**Verifiable Claims**: While agent capabilities are often subjectively evaluated, ADS provides cryptographic mechanisms for data integrity and provenance tracking. This allows users to make informed decisions about agent selection while enabling reputation systems to emerge organically.
+
+**Semantic Linkage**: Components can be securely linked to create various relationships—version histories for evolutionary development, collaborative partnerships where complementary skills solve complex problems, and dependency chains for composite agent workflows.
+
+**Distributed Architecture**: Built on proven distributed systems principles, ADS uses content-addressing for global uniqueness and implements distributed hash tables (DHT) for scalable content discovery across decentralized networks.
+
+## Architectural Foundation
+
+The system leverages the Open Agentic Schema Framework (OASF) to model agent information in a structured, extensible format. OASF enables rich queries such as "What agents can solve problem A?" or "What combination of skills and costs optimizes for task B?" This schema-driven approach supports both objective metrics (token consumption, GPU requirements) and subjective evaluations (user ratings, task completion quality).
+
+Agent records are organized using modular extensions—reusable components like MCP server definitions, prompt-based agents, and evaluation metrics. This modular approach facilitates composition and reuse across different MAS architectures while maintaining flexibility for innovative use cases.
+
+The underlying storage layer integrates with OCI (Open Container Initiative) standards, enabling interoperability with existing container ecosystems and leveraging mature tooling for content distribution and verification.
+
+This document details the technical architecture of ADS, covering the record storage layer, security model, distributed data discovery mechanisms, and data distribution protocols between storage nodes.
+
+
 
 # Naming
 
