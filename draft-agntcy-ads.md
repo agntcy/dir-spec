@@ -59,50 +59,256 @@ that interconnect through a content-routing protocol.
 
 # Introduction
 
-Multi-Agent Systems (MAS) represent a new paradigm in distributed computing where software components leverage Large Language Models (LLMs) to perform specialized tasks and solve complex problems through collaborative intelligence. These systems combine LLMs with contextual knowledge and tool-calling capabilities, often abstracted through Model Context Protocol (MCP) servers, enabling dynamic workflows that adapt based on stored state and environmental conditions.
+Multi-Agent Systems (MAS) represent a new paradigm in distributed computing
+where software components leverage Large Language Models (LLMs) to perform
+specialized tasks and solve complex problems through collaborative intelligence.
+These systems combine LLMs with contextual knowledge and tool-calling
+capabilities, often abstracted through Model Context Protocol (MCP) servers,
+enabling dynamic workflows that adapt based on stored state and environmental
+conditions.
 
-The diversity and complexity of MAS architectures present unique challenges for discovery and composition. As the ecosystem of AI agents expands, developers need efficient mechanisms to:
+The diversity and complexity of MAS architectures present unique challenges for
+discovery and composition. As the ecosystem of AI agents expands, developers
+need efficient mechanisms to:
 
 - **Discover compatible agents** with specific skills and capabilities
-- **Evaluate performance characteristics** including cost, latency, and resource requirements
-- **Compose multi-agent workflows** by linking agents with complementary capabilities
+- **Evaluate performance characteristics** including cost, latency, and resource
+requirements
+- **Compose multi-agent workflows** by linking agents with
+complementary capabilities
 - **Verify claims** about agent performance and reliability
 - **Track versioning and dependencies** between agent components
 
-The Agent Directory Service (ADS) addresses these challenges by providing a distributed directory infrastructure specifically designed for the agentic AI ecosystem. Rather than attempting to formally define MAS architectures—which would constrain the creative composition patterns emerging in this rapidly evolving field—ADS focuses on providing flexible metadata storage and discovery mechanisms.
+The Agent Directory Service (ADS) addresses these challenges by providing a
+distributed directory infrastructure specifically designed for the agentic AI
+ecosystem. Rather than attempting to formally define MAS architectures, which
+would constrain the creative composition patterns emerging in this rapidly
+evolving field—ADS focuses on providing flexible metadata storage and discovery
+mechanisms.
 
 ## Core Capabilities
 
 ADS enables several key capabilities for the agentic AI ecosystem:
 
-**Capability-Based Discovery**: Agents publish structured metadata describing their functional abilities, costs, and performance characteristics. The system organizes this information using hierarchical skill taxonomies, enabling efficient matching of capabilities to requirements.
+**Capability-Based Discovery**:
+Agents publish structured metadata describing their functional abilities, costs,
+and performance characteristics. The system organizes this information using
+hierarchical skill taxonomies, enabling efficient matching of capabilities to
+requirements.
 
-**Verifiable Claims**: While agent capabilities are often subjectively evaluated, ADS provides cryptographic mechanisms for data integrity and provenance tracking. This allows users to make informed decisions about agent selection while enabling reputation systems to emerge organically.
+**Verifiable Claims**:
+While agent capabilities are often subjectively evaluated, ADS provides
+cryptographic mechanisms for data integrity and provenance tracking. This allows
+users to make informed decisions about agent selection while enabling reputation
+systems to emerge organically.
 
-**Semantic Linkage**: Components can be securely linked to create various relationships—version histories for evolutionary development, collaborative partnerships where complementary skills solve complex problems, and dependency chains for composite agent workflows.
+**Semantic Linkage**:
+Components can be securely linked to create various relationships like version
+histories for evolutionary development, collaborative partnerships where
+complementary skills solve complex problems, and dependency chains for composite
+agent workflows.
 
-**Distributed Architecture**: Built on proven distributed systems principles, ADS uses content-addressing for global uniqueness and implements distributed hash tables (DHT) for scalable content discovery across decentralized networks.
+**Distributed Architecture**:
+Built on proven distributed systems principles, ADS uses content-addressing for
+global uniqueness and implements distributed hash tables (DHT) for scalable
+content discovery across decentralized networks.
 
 ## Architectural Foundation
 
-The system leverages the Open Agentic Schema Framework (OASF) to model agent information in a structured, extensible format. OASF enables rich queries such as "What agents can solve problem A?" or "What combination of skills and costs optimizes for task B?" This schema-driven approach supports both objective metrics (token consumption, GPU requirements) and subjective evaluations (user ratings, task completion quality).
+The system leverages the Open Agentic Schema Framework (OASF) to model agent
+information in a structured, extensible format. OASF enables rich queries such
+as "What agents can solve problem A?" or "What combination of skills and costs
+optimizes for task B?" This schema-driven approach supports both objective
+metrics (token consumption, GPU requirements) and subjective evaluations (user
+ratings, task completion quality).
 
-Agent records are organized using modular extensions—reusable components like MCP server definitions, prompt-based agents, and evaluation metrics. This modular approach facilitates composition and reuse across different MAS architectures while maintaining flexibility for innovative use cases.
+Agent records are organized using modular extensions—reusable components like
+MCP server definitions, prompt-based agents, and evaluation metrics. This
+modular approach facilitates composition and reuse across different MAS
+architectures while maintaining flexibility for innovative use cases.
 
-The underlying storage layer integrates with OCI (Open Container Initiative) standards, enabling interoperability with existing container ecosystems and leveraging mature tooling for content distribution and verification.
+The underlying storage layer integrates with OCI (Open Container Initiative)
+standards, enabling interoperability with existing container ecosystems and
+leveraging mature tooling for content distribution and verification.
 
-This document details the technical architecture of ADS, covering the record storage layer, security model, distributed data discovery mechanisms, and data distribution protocols between storage nodes.
+This document details the technical architecture of ADS, covering the record
+storage layer, security model, distributed data discovery mechanisms, and data
+distribution protocols between storage nodes.
 
+# Storage Architecture
 
+ADS implements a decentralized storage architecture built on OCI (Open Container
+Initiative) registries using ORAS (OCI Registry as Storage) as the foundational
+object storage layer. This design choice enables the system to leverage mature,
+standardized container registry infrastructure while achieving the speed,
+scalability, and security requirements of a distributed agent directory.
 
-# Naming
+## Content-Addressed Storage
 
-In distributed systems, a reliable and collision-resistant naming scheme is
-crucial. The agent directory uses cryptographic hashes {{!RFC7838}} to generate
-globally unique identifiers for data records.
+The storage architecture centers on globally unique Content Identifiers (CID)
+that provide several critical properties for a distributed agent directory:
 
-ADS leverages OCI as object storage, and therefore identifiers are made
-available as described in [OCI digest].
+**Immutability**: Content identifiers are cryptographically derived from the data they represent, ensuring that any modification results in a different identifier. This property is essential for maintaining data integrity in agent records and enabling verifiable claims about agent capabilities.
+
+**Deduplication**: Identical content automatically receives the same identifier across all nodes in the network, eliminating storage redundancy and reducing bandwidth requirements when the same agent components are referenced by multiple systems.
+
+**Verifiability**: Any node can independently verify that received content matches its identifier, providing built-in protection against data corruption or tampering during transmission.
+
+**Location Independence**: Content can be retrieved from any node that possesses it, as the identifier serves as a universal pointer that abstracts away physical storage locations.
+
+## ORAS Integration
+
+ORAS provides a standardized interface for treating OCI registries as general-purpose object storage, offering several advantages for ADS:
+
+### Standards Compliance
+
+By building on OCI specifications, ADS inherits compatibility with the extensive ecosystem of container registry tools, security scanners, and management platforms. This includes:
+
+- **Authentication and authorization** mechanisms already deployed in enterprise environments
+- **Content signing and verification** through tools like Notary and cosign
+- **Vulnerability scanning** capabilities that can be extended to agent security assessments
+- **Content delivery networks** optimized for OCI artifact distribution
+
+### Artifact Organization
+
+Agent records are stored as OCI artifacts with a structured organization. Multiple records can be stored under the same OCI name and tag, with each record uniquely identified by its content-addressed SHA256 digest:
+
+```
+registry.example.com/agents/
+├── skills/
+│   ├── nlp/sentiment-analysis:v1.0.0@sha256:abc123...  # BERT-based implementation
+│   ├── nlp/sentiment-analysis:v1.0.0@sha256:def456...  # RoBERTa-based implementation
+│   ├── nlp/sentiment-analysis:v1.0.0@sha256:ghi789...  # DistilBERT-based implementation
+│   ├── nlp/text-classification:v2.0.0@sha256:abc123... # Same BERT agent, different skill
+│   ├── nlp/emotion-detection:v1.5.0@sha256:abc123...   # Same BERT agent, different skill
+│   ├── vision/object-detection:v2.1.0@sha256:jkl012... # YOLO implementation
+│   ├── vision/object-detection:v2.1.0@sha256:mno345... # R-CNN implementation
+│   ├── vision/scene-understanding:v1.0.0@sha256:jkl012... # Same YOLO agent, different skill
+│   └── reasoning/mathematical:v1.5.0@sha256:pqr678...
+├── evaluations/
+│   ├── performance-metrics:latest@sha256:stu901...
+│   └── benchmark-results:v1.0.0@sha256:vwx234...
+└── compositions/
+    ├── security-analyst:v3.0.0@sha256:yza567...
+    └── research-assistant:v2.2.0@sha256:bcd890...
+```
+
+This naming scheme demonstrates that the same content identifier can belong to
+multiple skills, reflecting the reality that many AI agents are multi-capable.
+For example, the BERT-based agent (`sha256:abc123...`) appears under multiple
+skill categories: `nlp/sentiment-analysis`, `nlp/text-classification`, and
+`nlp/emotion-detection`, representing different capabilities of the same
+underlying agent implementation. Similarly, the YOLO vision model
+(`sha256:jkl012...`) provides both `object-detection` and `scene-understanding`
+capabilities.
+
+This cross-referencing approach allows agents to be discovered through any of
+their supported capabilities while maintaining unique addressability through
+content identifiers. Each skill category can have its own versioning and
+metadata, enabling fine-grained capability management even when multiple skills
+share the same underlying implementation.
+
+Each artifact contains structured metadata following OASF schemas, enabling rich
+queries and capability matching across all variants within a given category.
+
+### Multi-Registry Federation
+
+The architecture supports federation across multiple registry instances, enabling:
+
+- **Organizational boundaries**: Different organizations can maintain their own registries while participating in the global directory
+- **Geographic distribution**: Content can be replicated to registries closer to consumers, reducing latency
+- **Specialization**: Registries can focus on specific domains (e.g., medical AI agents, financial analysis tools)
+- **Redundancy**: Critical agent records can be replicated across multiple registries for availability
+
+## Decentralized Indexing
+
+While individual records are stored in OCI registries, the system maintains decentralized indexes for efficient discovery:
+
+### Content Index Structure
+
+```
+{
+  "content_id": "sha256:abc123...",
+  "capabilities": ["nlp.sentiment", "nlp.translation"],
+  "cost_metrics": {
+    "tokens_per_second": 1000,
+    "gpu_memory_mb": 4096
+  },
+  "registries": [
+    "registry.example.com",
+    "hub.agents.org"
+  ],
+  "last_updated": "2025-08-07T10:30:00Z"
+}
+```
+
+### Distributed Hash Table Integration
+
+ADS uses a DHT overlay network to maintain these indexes across participating nodes:
+
+- **Consistent hashing** distributes index entries across nodes based on content
+identifiers
+- **Replication factor** ensures index availability even when nodes leave the
+network
+- **Eventual consistency** propagates updates across the network while
+maintaining performance
+- **Query routing** efficiently locates relevant content without broadcasting to
+all nodes
+
+## Security Model
+
+The OCI-based architecture provides multiple layers of security:
+
+### Cryptographic Integrity
+
+- **Content addressing** ensures tamper detection through cryptographic hash verification
+- **Digital signatures** on artifacts provide authenticity guarantees using established PKI infrastructure
+- **Supply chain security** through integration with software bill of materials (SBOM) tools
+
+### Access Control
+
+- **Registry-level permissions** control who can publish and retrieve agent
+records
+- **Fine-grained policies** can restrict access to specific agent categories or
+capability types
+- **Audit trails** leverage existing registry logging capabilities to track
+access patterns
+
+### Trust Boundaries
+
+- **Organizational isolation** through separate registries maintains security boundaries
+- **Content verification** allows nodes to validate artifact integrity without trusting transport layers
+- **Reputation systems** can build on cryptographic proofs of past agent performance
+
+## Performance Optimizations
+
+The architecture incorporates several optimizations for the specific
+requirements of agent discovery:
+
+### Caching Strategy
+
+- **Capability indexes** are cached at edge nodes for sub-second query response
+- **Popular agent records** are automatically replicated to reduce retrieval latency
+- **Negative caching** prevents repeated queries for non-existent capabilities
+
+### Bandwidth Optimization
+
+- **Incremental updates** use OCI layer semantics to transmit only changed portions of agent records
+- **Content compression** reduces storage and transmission costs for large agent definitions
+- **Selective replication** based on query patterns minimizes unnecessary data transfer
+
+### Scalability Architecture
+
+The system scales horizontally through several mechanisms:
+
+- **Registry sharding** distributes storage load across multiple OCI registry instances
+- **Index partitioning** in the DHT allows query load to scale with the number
+of participating nodes
+- **Lazy loading** defers retrieval of detailed agent specifications until actually needed
+
+This architecture provides a robust foundation for a decentralized agent
+directory that can scale to support the growing ecosystem of AI agents while
+maintaining the security and reliability requirements of production systems.
 
 # Content Routing
 
@@ -121,7 +327,7 @@ matching.
 The system performs a two-phase discovery operation:
 
 1. Matches queried capabilities against the skill taxonomy to determine records
-   by their identifier
+by their identifier
 2. Identifies the server nodes storing relevant records.
 
  ## Distributed Resolution
@@ -162,30 +368,7 @@ Flow:
 5. Servers download content from peers
 ~~~
 
-## Distributed Object Storage
 
-ADS differs from block storage systems like [IPFS] in its approach to
-distributed object storage.
-
-### Simplified Content Retrieval
-
-1. ADS directly stores complete records rather than splitting them into blocks.
-2. No special optimizations are needed for retrieving content from multiple
-   sources.
-3. Records are retrieved as complete units using standard OCI protocols.
-
-### OCI Integration
-
-ADS leverages the OCI distribution specification for content storage and
-retrieval:
-
-1. Records are stored and transferred using OCI artifacts.
-2. Any OCI distribution-compliant server can participate in the network.
-3. Servers retrieve records directly from each other using standard OCI
-   protocols.
-
-While ADS uses zot as its reference OCI server implementation, the system works
-with any server that implements the OCI distribution specification.
 
 # IANA Considerations
 
