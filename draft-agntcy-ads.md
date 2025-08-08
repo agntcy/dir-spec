@@ -223,13 +223,108 @@ The architecture supports federation across multiple registry instances, enablin
 - **Specialization**: Registries can focus on specific domains (e.g., medical AI agents, financial analysis tools)
 - **Redundancy**: Critical agent records can be replicated across multiple registries for availability
 
-## Decentralized Indexing
+# MAS Data Discovery
 
-While individual records are stored in OCI registries, the system maintains decentralized indexes for efficient discovery:
+ADS implements a two-level mapping system that enables efficient discovery of Multi-Agent System components through a distributed hash table (DHT) architecture. This approach separates capability-based discovery from content location, providing both scalability and flexibility in agent retrieval.
 
-### Content Index Structure
+## Two-Level Mapping Architecture
 
-The content index maintains OASF-compliant metadata for efficient discovery. Examples of indexed records following the OASF schema:
+The discovery system operates through two distinct mapping layers:
+
+### Skills-to-CID Mapping
+
+The first level maps agent capabilities and skills to their corresponding Content Identifiers (CID):
+
+~~~
+Skills Index:
+"natural_language_processing" → ["sha256:abc123...", "sha256:def456...", "sha256:ghi789..."]
+"images_computer_vision"      → ["sha256:jkl012...", "sha256:mno345..."]
+"analytical_skills"           → ["sha256:pqr678...", "sha256:abc123..."]
+"multi_modal"                 → ["sha256:stu901...", "sha256:vwx234..."]
+~~~
+
+This mapping enables queries such as "find all agents capable of natural language processing" to quickly resolve to a set of content identifiers without needing to search through individual agent records.
+
+### CID-to-PeerID Mapping
+
+The second level maps Content Identifiers to the Peer IDs of nodes that store the corresponding agent records:
+
+~~~
+Content Location Index:
+"sha256:abc123..." → ["12D3KooWBhvxmvKvTYGJvXjnGBp7Ybr9WyoXkZvFnRtC4aBcDeFg",
+                      "12D3KooWXyZrUvHzPqKvTYGJvXjnGBp7Ybr9WyoXkZvFnRtC5gHi"]
+"sha256:jkl012..." → ["12D3KooWZaBcDeFgXyZrUvHzPqKvTYGJvXjnGBp7Ybr9WyoXkZvF",
+                      "12D3KooWGHiJkLmNoPqRsTuVwXyZ123456789AbCdEfGhIjKlMnO"]
+~~~
+
+This separation allows the system to:
+- **Optimize for capability queries** without requiring knowledge of data locations
+- **Enable dynamic content replication** as peer availability changes
+- **Support multiple storage strategies** for the same content across different peers
+
+## DHT-Based Discovery Process
+
+The Distributed Hash Table stores and maintains both mapping layers across the network:
+
+### Skill Registration
+
+When agents are published to the network:
+
+1. **Capability Extraction**: The system parses OASF records to extract skills, domains, and capabilities
+2. **DHT Updates**: Skills-to-CID mappings are distributed across DHT nodes using consistent hashing
+3. **Location Registration**: Peer nodes register themselves as providers for specific CIDs
+
+### Discovery Query Resolution
+
+Agent discovery follows a two-phase process:
+
+1. **Capability Resolution**: Query "agents with skill X" resolves to a list of relevant CIDs via DHT lookup
+2. **Location Resolution**: For each discovered CID, query DHT to find peer nodes storing the content
+3. **Result Aggregation**: Combine capability matches with location information to produce actionable discovery results
+
+~~~
+Discovery Flow:
+Query: "natural_language_processing" AND "finance_and_business"
+   ↓
+Phase 1: Skills → CIDs
+   DHT["natural_language_processing"] → ["sha256:abc123...", "sha256:def456..."]
+   DHT["finance_and_business"] → ["sha256:abc123...", "sha256:yza567..."]
+   Intersection → ["sha256:abc123..."]
+   ↓
+Phase 2: CIDs → Peer IDs
+   DHT["sha256:abc123..."] → ["12D3KooW...", "12D3KooX..."]
+   ↓
+Result: Agent sha256:abc123... available from peers 12D3KooW... and 12D3KooX...
+~~~
+
+## Content Distribution via OCI Protocol
+
+Once discovery identifies the relevant CIDs and their hosting peers, the actual agent records are retrieved using the OCI distribution protocol:
+
+### Peer-to-Peer Synchronization
+
+The discovered list of CIDs enables efficient content synchronization between peers:
+
+1. **Content Negotiation**: Requesting peer queries hosting peers for available agent records
+2. **OCI Pull Operations**: Standard OCI registry pull commands retrieve agent artifacts and metadata
+3. **Incremental Sync**: Only missing or updated content is transferred, reducing bandwidth requirements
+4. **Verification**: Content integrity is verified through cryptographic hash validation during transfer
+
+### Distribution Strategies
+
+The system supports multiple distribution patterns:
+
+**On-Demand Retrieval**: Agents are pulled from remote peers only when specifically requested, minimizing local storage requirements.
+
+**Proactive Caching**: Popular or frequently accessed agents are automatically replicated to improve query response times.
+
+**Strategic Replication**: Critical agents can be replicated across multiple peers to ensure high availability and reduce single points of failure.
+
+This architecture provides a scalable foundation for MAS data discovery that can efficiently handle large networks of distributed agents while maintaining low latency for capability-based queries.
+
+## Agent Directory Record Examples
+
+The following examples illustrate the structure of OASF-compliant agent records stored in the directory:
 
 ~~~
 {
@@ -336,28 +431,60 @@ The content index maintains OASF-compliant metadata for efficient discovery. Exa
 }
 ~~~
 
-### Distributed Hash Table Integration
-
-ADS uses a DHT overlay network to maintain these indexes across participating nodes:
-
-- **Consistent hashing** distributes index entries across nodes based on content
-identifiers
-- **Replication factor** ensures index availability even when nodes leave the
-network
-- **Eventual consistency** propagates updates across the network while
-maintaining performance
-- **Query routing** efficiently locates relevant content without broadcasting to
-all nodes
+These examples demonstrate how the DHT indexing system extracts skills and domains from agent records to populate the Skills-to-CID mappings, enabling efficient capability-based discovery across the distributed network.
 
 ## Security Model
 
-The OCI-based architecture provides multiple layers of security:
+The OCI-based architecture provides multiple layers of security that address the unique challenges of distributed agent directories:
 
 ### Cryptographic Integrity
 
-- **Content addressing** ensures tamper detection through cryptographic hash verification
-- **Digital signatures** on artifacts provide authenticity guarantees using established PKI infrastructure
-- **Supply chain security** through integration with software bill of materials (SBOM) tools
+ADS leverages the OCI layer's built-in cryptographic mechanisms to ensure data integrity:
+
+**Automatic Hash Computation**: The OCI registry layer automatically computes SHA-256 hash digests for all stored artifacts. These content identifiers are generated transparently during the push operation, ensuring that every agent record has a cryptographically verifiable fingerprint without additional overhead.
+
+**Tamper Detection**: Content addressing ensures immediate tamper detection through cryptographic hash verification. Any modification to an agent record—whether malicious or accidental—results in a different hash digest, making unauthorized changes immediately detectable during retrieval operations.
+
+**End-to-End Verification**: Clients can independently verify that received content matches its advertised identifier, providing built-in protection against data corruption during transmission or storage without trusting intermediate network components.
+
+### Content Provenance and Digital Signatures
+
+ADS integrates with Sigstore, a security framework for OCI storage, to provide comprehensive content provenance and authenticity guarantees:
+
+**Sigstore Integration**: The system leverages Sigstore's security framework to provide verifiable proof of when and by whom agent records were signed. This creates an immutable audit trail that cannot be retroactively modified, enabling forensic analysis of agent deployment history.
+
+**Keyless Signing**: Sigstore's keyless signing approach eliminates the complexity and security risks associated with long-lived cryptographic keys:
+
+- **Identity-Based Authentication**: Uses OpenID Connect (OIDC) tokens from trusted identity providers (GitHub, Google, Microsoft) to authenticate publishers at signing time
+- **Short-Lived Certificates**: Issues ephemeral signing certificates valid only for minutes, reducing the window of potential key compromise
+- **Automatic Key Rotation**: Eliminates the need for manual key management, distribution, and rotation procedures
+- **Scalable Trust**: Publishers don't need to maintain or distribute public keys, making the system accessible to individual developers and large organizations alike
+
+**Transparency and Verification**: All signatures are stored directly in OCI storage alongside the agent artifacts and public keys, providing:
+
+- **Public Auditability**: Anyone can verify the signing history of agent records stored in accessible registries
+- **Non-Repudiation**: Publishers cannot deny having signed records that are cryptographically linked to their identity
+- **Supply Chain Security**: Enables detection of compromised or unauthorized agent publications
+
+### Trust Boundaries and Isolation
+
+**Organizational Isolation**: Separate registries maintain security boundaries between different organizations, allowing each entity to control their own agent ecosystem while still participating in the broader federated network.
+
+**Content Verification**: Nodes can validate artifact integrity and signature authenticity without trusting transport layers or intermediate storage systems. This zero-trust approach ensures security even when using untrusted storage infrastructure.
+
+**Reputation Systems**: The cryptographic foundation enables the development of reputation systems based on verifiable evidence rather than subjective claims. Publishers with consistent signing practices and high-quality agents can build measurable trust over time.
+
+### Threat Mitigation
+
+The security model addresses several key threats to distributed agent directories:
+
+**Supply Chain Attacks**: Sigstore integration and transparency logs make it difficult for attackers to inject malicious agents without detection, as all publications are cryptographically signed and publicly auditable.
+
+**Data Integrity Attacks**: Automatic hash verification prevents tampering with agent records during storage or transmission, ensuring users receive authentic content.
+
+**Identity Spoofing**: OIDC-based keyless signing prevents attackers from impersonating legitimate publishers without compromising their identity provider credentials.
+
+**Availability Attacks**: The distributed nature of the system, combined with content replication across multiple registries, provides resilience against denial-of-service attacks targeting individual nodes.
 
 ### Access Control
 
@@ -378,12 +505,6 @@ access patterns
 
 The architecture incorporates several optimizations for the specific
 requirements of agent discovery:
-
-### Caching Strategy
-
-- **Capability indexes** are cached at edge nodes for sub-second query response
-- **Popular agent records** are automatically replicated to reduce retrieval latency
-- **Negative caching** prevents repeated queries for non-existent capabilities
 
 ### Bandwidth Optimization
 
