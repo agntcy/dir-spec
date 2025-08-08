@@ -229,7 +229,7 @@ While individual records are stored in OCI registries, the system maintains dece
 
 ### Content Index Structure
 
-```
+~~~
 {
   "content_id": "sha256:abc123...",
   "capabilities": ["nlp.sentiment", "nlp.translation"],
@@ -243,7 +243,7 @@ While individual records are stored in OCI registries, the system maintains dece
   ],
   "last_updated": "2025-08-07T10:30:00Z"
 }
-```
+~~~
 
 ### Distributed Hash Table Integration
 
