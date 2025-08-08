@@ -1497,14 +1497,34 @@ queries and capability matching across all variants within a given category.<a h
           <h4 id="name-content-index-structure">
 <a href="#section-3.3.1" class="section-number selfRef">3.3.1. </a><a href="#name-content-index-structure" class="section-name selfRef">Content Index Structure</a>
           </h4>
-<div class="alignLeft art-text artwork" id="section-3.3.1-1">
+<p id="section-3.3.1-1">The content index maintains OASF-compliant metadata for efficient discovery. Examples of indexed records following the OASF schema:<a href="#section-3.3.1-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.3.1-2">
 <pre>
 {
   "content_id": "sha256:abc123...",
-  "capabilities": ["nlp.sentiment", "nlp.translation"],
-  "cost_metrics": {
+  "record": {
+    "name": "BERT Sentiment Analyzer",
+    "version": "1.0.0",
+    "schema_version": "0.2.0",
+    "description": "Multi-capability NLP agent providing sentiment analysis, text classification, and emotion detection",
+    "skills": ["natural_language_processing"],
+    "domains": ["finance_and_business", "trust_and_safety"],
+    "capabilities": {
+      "threads": true,
+      "interrupt_support": false,
+      "callbacks": true,
+      "streaming": ["text", "json"]
+    }
+  },
+  "performance_metrics": {
     "tokens_per_second": 1000,
-    "gpu_memory_mb": 4096
+    "gpu_memory_mb": 4096,
+    "latency_p99_ms": 150,
+    "accuracy_score": 0.94
+  },
+  "evaluation_data": {
+    "overall_rating": 4.2,
+    "cost_per_million_tokens": 2.50
   },
   "registries": [
     "registry.example.com",
@@ -1512,7 +1532,79 @@ queries and capability matching across all variants within a given category.<a h
   ],
   "last_updated": "2025-08-07T10:30:00Z"
 }
-</pre><a href="#section-3.3.1-1" class="pilcrow">¶</a>
+</pre><a href="#section-3.3.1-2" class="pilcrow">¶</a>
+</div>
+<div class="alignLeft art-text artwork" id="section-3.3.1-3">
+<pre>
+{
+  "content_id": "sha256:jkl012...",
+  "record": {
+    "name": "YOLO Vision Agent",
+    "version": "2.1.0",
+    "schema_version": "0.2.0",
+    "description": "Computer vision agent for object detection and scene understanding",
+    "skills": ["images_computer_vision"],
+    "domains": ["transportation", "industrial_manufacturing"],
+    "capabilities": {
+      "threads": false,
+      "interrupt_support": true,
+      "callbacks": false,
+      "streaming": ["image", "json"]
+    }
+  },
+  "performance_metrics": {
+    "inference_fps": 30,
+    "gpu_memory_mb": 8192,
+    "detection_accuracy_map": 0.89,
+    "processing_latency_ms": 33
+  },
+  "evaluation_data": {
+    "overall_rating": 4.7,
+    "cost_per_image": 0.05
+  },
+  "registries": [
+    "vision.agents.com",
+    "registry.example.com"
+  ],
+  "last_updated": "2025-08-07T14:20:00Z"
+}
+</pre><a href="#section-3.3.1-3" class="pilcrow">¶</a>
+</div>
+<div class="alignLeft art-text artwork" id="section-3.3.1-4">
+<pre>
+{
+  "content_id": "sha256:pqr678...",
+  "record": {
+    "name": "Mathematical Reasoning Agent",
+    "version": "1.5.0",
+    "schema_version": "0.2.0",
+    "description": "Agent specialized in mathematical problem solving and analytical reasoning",
+    "skills": ["analytical_skills", "tabular_text"],
+    "domains": ["education", "finance_and_business"],
+    "capabilities": {
+      "threads": true,
+      "interrupt_support": true,
+      "callbacks": true,
+      "streaming": ["text", "latex"]
+    }
+  },
+  "performance_metrics": {
+    "problems_per_minute": 12,
+    "cpu_cores": 4,
+    "memory_mb": 2048,
+    "accuracy_on_gsm8k": 0.87
+  },
+  "evaluation_data": {
+    "overall_rating": 4.5,
+    "cost_per_problem": 0.10
+  },
+  "registries": [
+    "math.agents.edu",
+    "registry.example.com"
+  ],
+  "last_updated": "2025-08-07T16:45:00Z"
+}
+</pre><a href="#section-3.3.1-4" class="pilcrow">¶</a>
 </div>
 </section>
 </div>
