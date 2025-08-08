@@ -250,7 +250,7 @@ Table of Contents
    and tag, with each record uniquely identified by its content-
    addressed SHA256 digest:
 
-   registry.example.com/agents/
+   null_repo/records/
    ├── skills/
    │   ├── nlp/
    │   │   ├── sentiment-analysis:v1.0.0@sha256:abc123... # BERT
@@ -316,10 +316,19 @@ Table of Contents
 
 3.3.1.  Content Index Structure
 
-   { "content_id": "sha256:abc123...", "capabilities": ["nlp.sentiment",
-   "nlp.translation"], "cost_metrics": { "tokens_per_second": 1000,
-   "gpu_memory_mb": 4096 }, "registries": [ "registry.example.com",
-   "hub.agents.org" ], "last_updated": "2025-08-07T10:30:00Z" }
+   {
+     "content_id": "sha256:abc123...",
+     "capabilities": ["nlp.sentiment", "nlp.translation"],
+     "cost_metrics": {
+       "tokens_per_second": 1000,
+       "gpu_memory_mb": 4096
+     },
+     "registries": [
+       "registry.example.com",
+       "hub.agents.org"
+     ],
+     "last_updated": "2025-08-07T10:30:00Z"
+   }
 
 3.3.2.  Distributed Hash Table Integration
 

@@ -1423,7 +1423,7 @@ that provide several critical properties for a distributed agent directory:<a hr
 <p id="section-3.2.2-1">Agent records are stored as OCI artifacts with a structured organization. Multiple records can be stored under the same OCI name and tag, with each record uniquely identified by its content-addressed SHA256 digest:<a href="#section-3.2.2-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3.2.2-2">
 <pre>
-registry.example.com/agents/
+null_repo/records/
 ├── skills/
 │   ├── nlp/
 │   │   ├── sentiment-analysis:v1.0.0@sha256:abc123... # BERT
@@ -1497,7 +1497,8 @@ queries and capability matching across all variants within a given category.<a h
           <h4 id="name-content-index-structure">
 <a href="#section-3.3.1" class="section-number selfRef">3.3.1. </a><a href="#name-content-index-structure" class="section-name selfRef">Content Index Structure</a>
           </h4>
-<p id="section-3.3.1-1"><code>
+<div class="alignLeft art-text artwork" id="section-3.3.1-1">
+<pre>
 {
   "content_id": "sha256:abc123...",
   "capabilities": ["nlp.sentiment", "nlp.translation"],
@@ -1511,7 +1512,8 @@ queries and capability matching across all variants within a given category.<a h
   ],
   "last_updated": "2025-08-07T10:30:00Z"
 }
-</code><a href="#section-3.3.1-1" class="pilcrow">¶</a></p>
+</pre><a href="#section-3.3.1-1" class="pilcrow">¶</a>
+</div>
 </section>
 </div>
 <div id="distributed-hash-table-integration">
