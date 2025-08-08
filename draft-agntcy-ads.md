@@ -173,25 +173,28 @@ By building on OCI specifications, ADS inherits compatibility with the extensive
 
 Agent records are stored as OCI artifacts with a structured organization. Multiple records can be stored under the same OCI name and tag, with each record uniquely identified by its content-addressed SHA256 digest:
 
-```
+~~~
 registry.example.com/agents/
 ├── skills/
-│   ├── nlp/sentiment-analysis:v1.0.0@sha256:abc123...  # BERT-based implementation
-│   ├── nlp/sentiment-analysis:v1.0.0@sha256:def456...  # RoBERTa-based implementation
-│   ├── nlp/sentiment-analysis:v1.0.0@sha256:ghi789...  # DistilBERT-based implementation
-│   ├── nlp/text-classification:v2.0.0@sha256:abc123... # Same BERT agent, different skill
-│   ├── nlp/emotion-detection:v1.5.0@sha256:abc123...   # Same BERT agent, different skill
-│   ├── vision/object-detection:v2.1.0@sha256:jkl012... # YOLO implementation
-│   ├── vision/object-detection:v2.1.0@sha256:mno345... # R-CNN implementation
-│   ├── vision/scene-understanding:v1.0.0@sha256:jkl012... # Same YOLO agent, different skill
-│   └── reasoning/mathematical:v1.5.0@sha256:pqr678...
+│   ├── nlp/
+│   │   ├── sentiment-analysis:v1.0.0@sha256:abc123... # BERT
+│   │   ├── sentiment-analysis:v1.0.0@sha256:def456... # RoBERTa
+│   │   ├── sentiment-analysis:v1.0.0@sha256:ghi789... # DistilBERT
+│   │   ├── text-classification:v2.0.0@sha256:abc123... # Same BERT
+│   │   └── emotion-detection:v1.5.0@sha256:abc123...   # Same BERT
+│   ├── vision/
+│   │   ├── object-detection:v2.1.0@sha256:jkl012...    # YOLO
+│   │   ├── object-detection:v2.1.0@sha256:mno345...    # R-CNN
+│   │   └── scene-understanding:v1.0.0@sha256:jkl012... # Same YOLO
+│   └── reasoning/
+│       └── mathematical:v1.5.0@sha256:pqr678...
 ├── evaluations/
 │   ├── performance-metrics:latest@sha256:stu901...
 │   └── benchmark-results:v1.0.0@sha256:vwx234...
 └── compositions/
     ├── security-analyst:v3.0.0@sha256:yza567...
     └── research-assistant:v2.2.0@sha256:bcd890...
-```
+~~~
 
 This naming scheme demonstrates that the same content identifier can belong to
 multiple skills, reflecting the reality that many AI agents are multi-capable.
