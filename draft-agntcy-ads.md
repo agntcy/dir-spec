@@ -174,7 +174,7 @@ By building on OCI specifications, ADS inherits compatibility with the extensive
 Agent records are stored as OCI artifacts with a structured organization. Multiple records can be stored under the same OCI name and tag, with each record uniquely identified by its content-addressed SHA256 digest:
 
 ~~~
-registry.example.com/agents/
+null_repo/records/
 ├── skills/
 │   ├── nlp/
 │   │   ├── sentiment-analysis:v1.0.0@sha256:abc123... # BERT
