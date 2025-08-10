@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-08-07T00:22:26.672054+00:00",
+  "timestamp": "2025-08-10T00:23:48.059019+00:00",
   "repo": "agntcy/dir-spec",
   "labels": [
     {
@@ -248,6 +248,48 @@
           "body": "",
           "createdAt": "2025-03-28T17:46:41Z",
           "updatedAt": "2025-03-28T17:46:41Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "PR_kwDON_UBTc6ipEvH",
+      "title": "docs: init docs",
+      "url": "https://github.com/agntcy/dir-spec/pull/5",
+      "state": "MERGED",
+      "author": "muscariello",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "Signed-off-by: Luca Muscariello <muscariello@ieee.org>\n",
+      "createdAt": "2025-08-07T18:39:07Z",
+      "updatedAt": "2025-08-08T15:42:50Z",
+      "baseRepository": "agntcy/dir-spec",
+      "baseRefName": "main",
+      "baseRefOid": "0f1729331bb38cb89df0406052e47596f6da81c4",
+      "headRepository": "agntcy/dir-spec",
+      "headRefName": "279-dir-spect-internet-draft--0",
+      "headRefOid": "42c8ddfa8200087d48e17022470be1b3a105ce6e",
+      "closedAt": "2025-08-08T15:42:50Z",
+      "mergedAt": "2025-08-08T15:42:49Z",
+      "mergedBy": "muscariello",
+      "mergeCommit": {
+        "oid": "191a9ce98cdb81f8028f8451fc0cc441d800523b"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDON_UBTc642dy2",
+          "commit": {
+            "abbreviatedOid": "42c8ddf"
+          },
+          "author": "msardara",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-08-08T15:42:17Z",
+          "updatedAt": "2025-08-08T15:42:17Z",
           "comments": []
         }
       ]
