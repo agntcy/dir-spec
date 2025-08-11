@@ -384,7 +384,7 @@ Content Location Index:
 
 4.2.2.  Discovery Query Resolution
 
-   Agent discovery follows a two-phase process:
+   Agent discovery follows a three-phase process:
 
    1.  *Capability Resolution*: Query "agents with skill X" resolves to
        a list of relevant CIDs via DHT lookup
