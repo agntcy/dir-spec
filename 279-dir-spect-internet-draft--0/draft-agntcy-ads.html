@@ -1708,41 +1708,99 @@ validation during transfer<a href="#section-4.3.1-2.4.1" class="pilcrow">¶</a><
           <h4 id="name-distribution-strategies">
 <a href="#section-4.3.2" class="section-number selfRef">4.3.2. </a><a href="#name-distribution-strategies" class="section-name selfRef">Distribution Strategies</a>
           </h4>
-<p id="section-4.3.2-1">The system supports multiple distribution patterns, each with distinct trade-offs and operational considerations:<a href="#section-4.3.2-1" class="pilcrow">¶</a></p>
-<p id="section-4.3.2-2"><strong>On-Demand Retrieval</strong>: Agents are pulled from remote peers only when specifically requested, minimizing local storage requirements.<a href="#section-4.3.2-2" class="pilcrow">¶</a></p>
-<p id="section-4.3.2-3"><em>Trade-offs</em>: While this approach minimizes storage costs and ensures fresh content, it introduces several challenges:
-- <strong>Query Latency</strong>: Each request requires network round-trips to locate and retrieve content, increasing response times
-- <strong>Network Cost</strong>: Spurious or exploratory requests generate unnecessary network traffic and computational overhead
-- <strong>DoS Vulnerability</strong>: The system becomes susceptible to denial-of-service attacks where malicious actors can trigger expensive content retrieval operations by flooding the network with requests for non-existent or rarely-accessed agents
-- <strong>Scalability Limits</strong>: Performance degrades as the network grows due to increased query coordination overhead<a href="#section-4.3.2-3" class="pilcrow">¶</a></p>
-<p id="section-4.3.2-4"><strong>Proactive Caching</strong>: Popular or frequently accessed agents are automatically replicated to improve query response times.<a href="#section-4.3.2-4" class="pilcrow">¶</a></p>
-<p id="section-4.3.2-5"><em>Trade-offs</em>: This strategy offers significant scalability benefits but requires sophisticated management:
-- <strong>Performance Gains</strong>: Dramatic reduction in query latency for popular content, enabling sub-second response times
-- <strong>Scalability</strong>: Can handle high query volumes efficiently once popular content is cached locally
-- <strong>Popularity Measurement</strong>: Requires implementing metrics collection and analysis to identify which agents warrant caching. This includes tracking query frequencies, download patterns, and usage statistics across the network
-- <strong>Storage Requirements</strong>: Needs sufficient local storage capacity to maintain cached copies of popular agents
-- <strong>Cache Management</strong>: Must implement cache eviction policies, freshness validation, and synchronization mechanisms
-- <strong>Administrator Oversight</strong>: Proactive caching policies must be configured and monitored by agent directory node administrators to balance storage costs with performance benefits<a href="#section-4.3.2-5" class="pilcrow">¶</a></p>
-<p id="section-4.3.2-6"><strong>Strategic Replication</strong>: Critical agents can be replicated across multiple peers to ensure high availability and reduce single points of failure.<a href="#section-4.3.2-6" class="pilcrow">¶</a></p>
-<p id="section-4.3.2-7"><em>Trade-offs</em>: This approach addresses availability concerns but introduces subjective complexity:
-- <strong>High Availability</strong>: Ensures critical agents remain accessible even during peer failures or network partitions<br>
-- <strong>Reduced Single Points of Failure</strong>: Distributes risk across multiple storage locations
-- <strong>Subjective Criticality</strong>: The definition of "critical" or "useful" agents varies significantly between users, organizations, and use cases. What constitutes strategic value for financial services may be irrelevant for manufacturing applications
-- <strong>Administrative Burden</strong>: Requires agent directory node administrators to make strategic decisions about which agents warrant replication, considering factors like:
-  - Organizational priorities and business requirements
-  - Compliance and regulatory considerations<br>
-  - Cost-benefit analysis of storage versus availability
-  - Community consensus on agent importance
-- <strong>Resource Allocation</strong>: Strategic replication consumes storage resources that could otherwise be used for proactive caching of popular content<a href="#section-4.3.2-7" class="pilcrow">¶</a></p>
-<p id="section-4.3.2-8"><strong>Administrative Management</strong>: Both Proactive Caching and Strategic Replication require active management by agent directory node administrators. Administrators must:
+<p id="section-4.3.2-1">The system supports multiple distribution patterns, each with distinct
+trade-offs and operational considerations:<a href="#section-4.3.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.3.2-2"><strong>On-Demand Retrieval</strong>: Agents are pulled from remote peers only when
+specifically requested, minimizing local storage requirements.<a href="#section-4.3.2-2" class="pilcrow">¶</a></p>
+<p id="section-4.3.2-3"><em>Trade-offs</em>: While this approach minimizes storage costs and ensures fresh
+content, it introduces several challenges:<a href="#section-4.3.2-3" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.3.2-4.1">
+              <p id="section-4.3.2-4.1.1"><strong>Query Latency</strong>: Each request requires network round-trips to locate and
+retrieve content, increasing response times<a href="#section-4.3.2-4.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-4.3.2-4.2">
+              <p id="section-4.3.2-4.2.1"><strong>Network Cost</strong>: Spurious or exploratory requests generate unnecessary
+network traffic and computational overhead<a href="#section-4.3.2-4.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-4.3.2-4.3">
+              <p id="section-4.3.2-4.3.1"><strong>DoS Vulnerability</strong>: The system becomes susceptible to denial-of-service
+attacks where malicious actors can trigger expensive content retrieval
+operations by flooding the network with requests for non-existent or
+rarely-accessed agents<a href="#section-4.3.2-4.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-4.3.2-4.4">
+              <p id="section-4.3.2-4.4.1"><strong>Scalability Limits</strong>: Performance degrades as the network grows due to
+increased query coordination overhead<a href="#section-4.3.2-4.4.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="section-4.3.2-5"><strong>Proactive Caching</strong>: Popular or frequently accessed agents are automatically
+replicated to improve query response times.<a href="#section-4.3.2-5" class="pilcrow">¶</a></p>
+<p id="section-4.3.2-6"><em>Trade-offs</em>: This strategy offers significant scalability benefits but requires sophisticated management:<a href="#section-4.3.2-6" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.3.2-7.1">
+              <p id="section-4.3.2-7.1.1"><strong>Performance Gains</strong>: Dramatic reduction in query latency for popular content, enabling sub-second response times<a href="#section-4.3.2-7.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-4.3.2-7.2">
+              <p id="section-4.3.2-7.2.1"><strong>Scalability</strong>: Can handle high query volumes efficiently once popular content is cached locally<a href="#section-4.3.2-7.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-4.3.2-7.3">
+              <p id="section-4.3.2-7.3.1"><strong>Popularity Measurement</strong>: Requires implementing metrics collection and analysis to identify which agents warrant caching. This includes tracking query frequencies, download patterns, and usage statistics across the network<a href="#section-4.3.2-7.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-4.3.2-7.4">
+              <p id="section-4.3.2-7.4.1"><strong>Storage Requirements</strong>: Needs sufficient local storage capacity to maintain cached copies of popular agents<a href="#section-4.3.2-7.4.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-4.3.2-7.5">
+              <p id="section-4.3.2-7.5.1"><strong>Cache Management</strong>: Must implement cache eviction policies, freshness validation, and synchronization mechanisms<a href="#section-4.3.2-7.5.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-4.3.2-7.6">
+              <p id="section-4.3.2-7.6.1"><strong>Administrator Oversight</strong>: Proactive caching policies must be configured and monitored by agent directory node administrators to balance storage costs with performance benefits<a href="#section-4.3.2-7.6.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="section-4.3.2-8"><strong>Strategic Replication</strong>: Critical agents can be replicated across multiple peers to ensure high availability and reduce single points of failure.<a href="#section-4.3.2-8" class="pilcrow">¶</a></p>
+<p id="section-4.3.2-9"><em>Trade-offs</em>: This approach addresses availability concerns but introduces
+subjective complexity:<a href="#section-4.3.2-9" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.3.2-10.1">
+              <p id="section-4.3.2-10.1.1"><strong>High Availability</strong>: Ensures critical agents remain accessible even during
+peer failures or network partitions<a href="#section-4.3.2-10.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-4.3.2-10.2">
+              <p id="section-4.3.2-10.2.1"><strong>Reduced Single Points of Failure</strong>: Distributes risk across multiple storage locations<a href="#section-4.3.2-10.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-4.3.2-10.3">
+              <p id="section-4.3.2-10.3.1"><strong>Subjective Criticality</strong>: The definition of "critical" or "useful" agents varies significantly between users, organizations, and use cases. What constitutes strategic value for financial services may be irrelevant for manufacturing applications<a href="#section-4.3.2-10.3.1" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-4.3.2-10.4">
+              <p id="section-4.3.2-10.4.1"><strong>Administrative Burden</strong>: Requires agent directory node administrators to make strategic decisions about which agents warrant replication, considering factors like:<a href="#section-4.3.2-10.4.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-4.3.2-10.4.2.1">
+                  <p id="section-4.3.2-10.4.2.1.1">Organizational priorities and business requirements<a href="#section-4.3.2-10.4.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                <li class="normal" id="section-4.3.2-10.4.2.2">
+                  <p id="section-4.3.2-10.4.2.2.1">Compliance and regulatory considerations<a href="#section-4.3.2-10.4.2.2.1" class="pilcrow">¶</a></p>
+</li>
+                <li class="normal" id="section-4.3.2-10.4.2.3">
+                  <p id="section-4.3.2-10.4.2.3.1">Cost-benefit analysis of storage versus availability<a href="#section-4.3.2-10.4.2.3.1" class="pilcrow">¶</a></p>
+</li>
+                <li class="normal" id="section-4.3.2-10.4.2.4">
+                  <p id="section-4.3.2-10.4.2.4.1">Community consensus on agent importance<a href="#section-4.3.2-10.4.2.4.1" class="pilcrow">¶</a></p>
+</li>
+              </ul>
+</li>
+            <li class="normal" id="section-4.3.2-10.5">
+              <p id="section-4.3.2-10.5.1"><strong>Resource Allocation</strong>: Strategic replication consumes storage resources that could otherwise be used for proactive caching of popular content<a href="#section-4.3.2-10.5.1" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+<p id="section-4.3.2-11"><strong>Administrative Management</strong>: Both Proactive Caching and Strategic Replication require active management by agent directory node administrators. Administrators must:
 - Configure caching policies based on local network characteristics and storage capacity
-- Monitor popularity metrics and adjust caching strategies accordingly<br>
+- Monitor popularity metrics and adjust caching strategies accordingly
 - Define strategic replication criteria aligned with organizational objectives
 - Balance resource allocation between different distribution strategies
-- Implement governance policies for content lifecycle management<a href="#section-4.3.2-8" class="pilcrow">¶</a></p>
-<p id="section-4.3.2-9">This architecture provides a scalable foundation for MAS data discovery that can
+- Implement governance policies for content lifecycle management<a href="#section-4.3.2-11" class="pilcrow">¶</a></p>
+<p id="section-4.3.2-12">This architecture provides a scalable foundation for MAS data discovery that can
 efficiently handle large networks of distributed agents while maintaining low
-latency for capability-based queries.<a href="#section-4.3.2-9" class="pilcrow">¶</a></p>
+latency for capability-based queries.<a href="#section-4.3.2-12" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
