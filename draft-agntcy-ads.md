@@ -148,30 +148,47 @@ scalability, and security requirements of a distributed agent directory.
 The storage architecture centers on globally unique Content Identifiers (CID)
 that provide several critical properties for a distributed agent directory:
 
-**Immutability**: Content identifiers are cryptographically derived from the data they represent, ensuring that any modification results in a different identifier. This property is essential for maintaining data integrity in agent records and enabling verifiable claims about agent capabilities.
+**Immutability**: Content identifiers are cryptographically derived from the
+data they represent, ensuring that any modification results in a different
+identifier. This property is essential for maintaining data integrity in agent
+records and enabling verifiable claims about agent capabilities.
 
-**Deduplication**: Identical content automatically receives the same identifier across all nodes in the network, eliminating storage redundancy and reducing bandwidth requirements when the same agent components are referenced by multiple systems.
+**Deduplication**: Identical content automatically receives the same identifier
+across all nodes in the network, eliminating storage redundancy and reducing
+bandwidth requirements when the same agent components are referenced by
+multiple systems.
 
-**Verifiability**: Any node can independently verify that received content matches its identifier, providing built-in protection against data corruption or tampering during transmission.
+**Verifiability**: Any node can independently verify that received content
+matches its identifier, providing built-in protection against data corruption or
+tampering during transmission.
 
-**Location Independence**: Content can be retrieved from any node that possesses it, as the identifier serves as a universal pointer that abstracts away physical storage locations.
+**Location Independence**: Content can be retrieved from any node that possesses
+it, as the identifier serves as a universal pointer that abstracts away physical
+storage locations.
 
 ## ORAS Integration
 
-ORAS provides a standardized interface for treating OCI registries as general-purpose object storage, offering several advantages for ADS:
+ORAS provides a standardized interface for treating OCI registries as
+general-purpose object storage, offering several advantages for ADS:
 
 ### Standards Compliance
 
-By building on OCI specifications, ADS inherits compatibility with the extensive ecosystem of container registry tools, security scanners, and management platforms. This includes:
+By building on OCI specifications, ADS inherits compatibility with the extensive
+ecosystem of container registry tools, security scanners, and management
+platforms. This includes:
 
-- **Authentication and authorization** mechanisms already deployed in enterprise environments
+- **Authentication and authorization** mechanisms already deployed in enterprise
+environments
 - **Content signing and verification** through tools like Notary and cosign
-- **Vulnerability scanning** capabilities that can be extended to agent security assessments
+- **Vulnerability scanning** capabilities that can be extended to agent security
+assessments
 - **Content delivery networks** optimized for OCI artifact distribution
 
 ### Artifact Organization
 
-Agent records are stored as OCI artifacts with a structured organization. Multiple records can be stored under the same OCI name and tag, with each record uniquely identified by its content-addressed SHA256 digest:
+Agent records are stored as OCI artifacts with a structured organization.
+Multiple records can be stored under the same OCI name and tag, with each record
+uniquely identified by its content-addressed SHA256 digest:
 
 ~~~
 null_repo/records/
@@ -225,7 +242,10 @@ The architecture supports federation across multiple registry instances, enablin
 
 # MAS Data Discovery
 
-ADS implements a two-level mapping system that enables efficient discovery of Multi-Agent System components through a distributed hash table (DHT) architecture. This approach separates capability-based discovery from content location, providing both scalability and flexibility in agent retrieval.
+ADS implements a two-level mapping system that enables efficient discovery of
+Multi-Agent System components through a distributed hash table (DHT)
+architecture. This approach separates capability-based discovery from content
+location, providing both scalability and flexibility in agent retrieval.
 
 ## Two-Level Mapping Architecture
 
@@ -233,7 +253,8 @@ The discovery system operates through two distinct mapping layers:
 
 ### Skills-to-CID Mapping
 
-The first level maps agent capabilities and skills to their corresponding Content Identifiers (CID):
+The first level maps agent capabilities and skills to their corresponding
+Content Identifiers (CID):
 
 ~~~
 Skills Index:
@@ -243,11 +264,14 @@ Skills Index:
 "multi_modal"                 → ["sha256:stu901...", "sha256:vwx234..."]
 ~~~
 
-This mapping enables queries such as "find all agents capable of natural language processing" to quickly resolve to a set of content identifiers without needing to search through individual agent records.
+This mapping enables queries such as "find all agents capable of natural
+language processing" to quickly resolve to a set of content identifiers without
+needing to search through individual agent records.
 
 ### CID-to-PeerID Mapping
 
-The second level maps Content Identifiers to the Peer IDs of nodes that store the corresponding agent records:
+The second level maps Content Identifiers to the Peer IDs of nodes that store
+the corresponding agent records:
 
 ~~~
 Content Location Index:
@@ -264,23 +288,29 @@ This separation allows the system to:
 
 ## DHT-Based Discovery Process
 
-The Distributed Hash Table stores and maintains both mapping layers across the network:
+The Distributed Hash Table stores and maintains both mapping layers across the
+network:
 
 ### Skill Registration
 
 When agents are published to the network:
 
-1. **Capability Extraction**: The system parses OASF records to extract skills, domains, and capabilities
-2. **DHT Updates**: Skills-to-CID mappings are distributed across DHT nodes using consistent hashing
+1. **Capability Extraction**: The system parses OASF records to extract skills,
+domains, and capabilities
+2. **DHT Updates**: Skills-to-CID mappings are distributed across DHT nodes
+using consistent hashing
 3. **Location Registration**: Peer nodes register themselves as providers for specific CIDs
 
 ### Discovery Query Resolution
 
 Agent discovery follows a two-phase process:
 
-1. **Capability Resolution**: Query "agents with skill X" resolves to a list of relevant CIDs via DHT lookup
-2. **Location Resolution**: For each discovered CID, query DHT to find peer nodes storing the content
-3. **Result Aggregation**: Combine capability matches with location information to produce actionable discovery results
+1. **Capability Resolution**: Query "agents with skill X" resolves to a list of
+relevant CIDs via DHT lookup
+2. **Location Resolution**: For each discovered CID, query DHT to find peer
+nodes storing the content
+3. **Result Aggregation**: Combine capability matches with location information
+to produce actionable discovery results
 
 ~~~
 Discovery Flow:
@@ -299,32 +329,76 @@ Result: Agent sha256:abc123... available from peers 12D3KooW... and 12D3KooX...
 
 ## Content Distribution via OCI Protocol
 
-Once discovery identifies the relevant CIDs and their hosting peers, the actual agent records are retrieved using the OCI distribution protocol:
+Once discovery identifies the relevant CIDs and their hosting peers, the actual
+agent records are retrieved using the OCI distribution protocol:
 
 ### Peer-to-Peer Synchronization
 
-The discovered list of CIDs enables efficient content synchronization between peers:
+The discovered list of CIDs enables efficient content synchronization between
+peers:
 
-1. **Content Negotiation**: Requesting peer queries hosting peers for available agent records
-2. **OCI Pull Operations**: Standard OCI registry pull commands retrieve agent artifacts and metadata
-3. **Incremental Sync**: Only missing or updated content is transferred, reducing bandwidth requirements
-4. **Verification**: Content integrity is verified through cryptographic hash validation during transfer
+1. **Content Negotiation**: Requesting peer queries hosting peers for available
+agent records
+
+2. **OCI Pull Operations**: Standard OCI registry pull commands retrieve agent
+artifacts and metadata
+
+3. **Incremental Sync**: Only missing or updated content is transferred,
+reducing bandwidth requirements
+
+4. **Verification**: Content integrity is verified through cryptographic hash
+validation during transfer
 
 ### Distribution Strategies
 
-The system supports multiple distribution patterns:
+The system supports multiple distribution patterns, each with distinct trade-offs and operational considerations:
 
 **On-Demand Retrieval**: Agents are pulled from remote peers only when specifically requested, minimizing local storage requirements.
 
+*Trade-offs*: While this approach minimizes storage costs and ensures fresh content, it introduces several challenges:
+- **Query Latency**: Each request requires network round-trips to locate and retrieve content, increasing response times
+- **Network Cost**: Spurious or exploratory requests generate unnecessary network traffic and computational overhead
+- **DoS Vulnerability**: The system becomes susceptible to denial-of-service attacks where malicious actors can trigger expensive content retrieval operations by flooding the network with requests for non-existent or rarely-accessed agents
+- **Scalability Limits**: Performance degrades as the network grows due to increased query coordination overhead
+
 **Proactive Caching**: Popular or frequently accessed agents are automatically replicated to improve query response times.
+
+*Trade-offs*: This strategy offers significant scalability benefits but requires sophisticated management:
+- **Performance Gains**: Dramatic reduction in query latency for popular content, enabling sub-second response times
+- **Scalability**: Can handle high query volumes efficiently once popular content is cached locally
+- **Popularity Measurement**: Requires implementing metrics collection and analysis to identify which agents warrant caching. This includes tracking query frequencies, download patterns, and usage statistics across the network
+- **Storage Requirements**: Needs sufficient local storage capacity to maintain cached copies of popular agents
+- **Cache Management**: Must implement cache eviction policies, freshness validation, and synchronization mechanisms
+- **Administrator Oversight**: Proactive caching policies must be configured and monitored by agent directory node administrators to balance storage costs with performance benefits
 
 **Strategic Replication**: Critical agents can be replicated across multiple peers to ensure high availability and reduce single points of failure.
 
-This architecture provides a scalable foundation for MAS data discovery that can efficiently handle large networks of distributed agents while maintaining low latency for capability-based queries.
+*Trade-offs*: This approach addresses availability concerns but introduces subjective complexity:
+- **High Availability**: Ensures critical agents remain accessible even during peer failures or network partitions  
+- **Reduced Single Points of Failure**: Distributes risk across multiple storage locations
+- **Subjective Criticality**: The definition of "critical" or "useful" agents varies significantly between users, organizations, and use cases. What constitutes strategic value for financial services may be irrelevant for manufacturing applications
+- **Administrative Burden**: Requires agent directory node administrators to make strategic decisions about which agents warrant replication, considering factors like:
+  - Organizational priorities and business requirements
+  - Compliance and regulatory considerations  
+  - Cost-benefit analysis of storage versus availability
+  - Community consensus on agent importance
+- **Resource Allocation**: Strategic replication consumes storage resources that could otherwise be used for proactive caching of popular content
+
+**Administrative Management**: Both Proactive Caching and Strategic Replication require active management by agent directory node administrators. Administrators must:
+- Configure caching policies based on local network characteristics and storage capacity
+- Monitor popularity metrics and adjust caching strategies accordingly  
+- Define strategic replication criteria aligned with organizational objectives
+- Balance resource allocation between different distribution strategies
+- Implement governance policies for content lifecycle management
+
+This architecture provides a scalable foundation for MAS data discovery that can
+efficiently handle large networks of distributed agents while maintaining low
+latency for capability-based queries.
 
 ## Agent Directory Record Examples
 
-The following examples illustrate the structure of OASF-compliant agent records stored in the directory:
+The following examples illustrate the structure of OASF-compliant agent records
+stored in the directory:
 
 ~~~
 {
@@ -431,7 +505,9 @@ The following examples illustrate the structure of OASF-compliant agent records 
 }
 ~~~
 
-These examples demonstrate how the DHT indexing system extracts skills and domains from agent records to populate the Skills-to-CID mappings, enabling efficient capability-based discovery across the distributed network.
+These examples demonstrate how the DHT indexing system extracts skills and
+domains from agent records to populate the Skills-to-CID mappings, enabling
+efficient capability-based discovery across the distributed network.
 
 ## Security Model
 
