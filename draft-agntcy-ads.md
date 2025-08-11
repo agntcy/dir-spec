@@ -410,7 +410,8 @@ peer failures or network partitions
   - Cost-benefit analysis of storage versus availability
   - Community consensus on agent importance
 
-- **Resource Allocation**: Strategic replication consumes storage resources that could otherwise be used for proactive caching of popular content
+- **Resource Allocation**: Strategic replication consumes storage resources that
+could otherwise be used for proactive caching of popular content
 
 **Administrative Management**: Both Proactive Caching and Strategic Replication require active management by agent directory node administrators. Administrators must:
 
