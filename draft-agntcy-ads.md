@@ -413,10 +413,15 @@ peer failures or network partitions
 - **Resource Allocation**: Strategic replication consumes storage resources that could otherwise be used for proactive caching of popular content
 
 **Administrative Management**: Both Proactive Caching and Strategic Replication require active management by agent directory node administrators. Administrators must:
+
 - Configure caching policies based on local network characteristics and storage capacity
+
 - Monitor popularity metrics and adjust caching strategies accordingly
+
 - Define strategic replication criteria aligned with organizational objectives
+
 - Balance resource allocation between different distribution strategies
+
 - Implement governance policies for content lifecycle management
 
 This architecture provides a scalable foundation for MAS data discovery that can
