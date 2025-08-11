@@ -306,7 +306,7 @@ using consistent hashing
 
 ### Discovery Query Resolution
 
-Agent discovery follows a two-phase process:
+Agent discovery follows a three-phase process:
 
 1. **Capability Resolution**: Query "agents with skill X" resolves to a list of
 relevant CIDs via DHT lookup
@@ -383,19 +383,27 @@ replicated to improve query response times.
 
 *Trade-offs*: This strategy offers significant scalability benefits but requires sophisticated management:
 
-- **Performance Gains**: Dramatic reduction in query latency for popular content, enabling sub-second response times
+- **Performance Gains**: Dramatic reduction in query latency for popular
+content, enabling sub-second response times
 
-- **Scalability**: Can handle high query volumes efficiently once popular content is cached locally
+- **Scalability**: Can handle high query volumes efficiently once popular
+content is cached locally
 
-- **Popularity Measurement**: Requires implementing metrics collection and analysis to identify which agents warrant caching. This includes tracking query frequencies, download patterns, and usage statistics across the network
+- **Popularity Measurement**: Requires implementing metrics collection and
+analysis to identify which agents warrant caching. This includes tracking query
+frequencies, download patterns, and usage statistics across the network
 
-- **Storage Requirements**: Needs sufficient local storage capacity to maintain cached copies of popular agents
+- **Storage Requirements**: Needs sufficient local storage capacity to maintain
+cached copies of popular agents
 
 - **Cache Management**: Must implement cache eviction policies, freshness validation, and synchronization mechanisms
 
-- **Administrator Oversight**: Proactive caching policies must be configured and monitored by agent directory node administrators to balance storage costs with performance benefits
+- **Administrator Oversight**: Proactive caching policies must be configured and
+monitored by agent directory node administrators to balance storage costs with
+performance benefits
 
-**Strategic Replication**: Critical agents can be replicated across multiple peers to ensure high availability and reduce single points of failure.
+**Strategic Replication**: Critical agents can be replicated across multiple
+peers to ensure high availability and reduce single points of failure.
 
 *Trade-offs*: This approach addresses availability concerns but introduces
 subjective complexity:
@@ -405,9 +413,14 @@ peer failures or network partitions
 
 - **Reduced Single Points of Failure**: Distributes risk across multiple storage locations
 
-- **Subjective Criticality**: The definition of "critical" or "useful" agents varies significantly between users, organizations, and use cases. What constitutes strategic value for financial services may be irrelevant for manufacturing applications
+- **Subjective Criticality**: The definition of "critical" or "useful" agents
+varies significantly between users, organizations, and use cases. What
+constitutes strategic value for financial services may be irrelevant for
+manufacturing applications
 
-- **Administrative Burden**: Requires agent directory node administrators to make strategic decisions about which agents warrant replication, considering factors like:
+- **Administrative Burden**: Requires agent directory node administrators to
+make strategic decisions about which agents warrant replication, considering
+factors like:
   - Organizational priorities and business requirements
   - Compliance and regulatory considerations
   - Cost-benefit analysis of storage versus availability
@@ -416,7 +429,9 @@ peer failures or network partitions
 - **Resource Allocation**: Strategic replication consumes storage resources that
 could otherwise be used for proactive caching of popular content
 
-**Administrative Management**: Both Proactive Caching and Strategic Replication require active management by agent directory node administrators. Administrators must:
+**Administrative Management**: Both Proactive Caching and Strategic Replication
+require active management by agent directory node administrators.
+Administrators must:
 
 - Configure caching policies based on local network characteristics and storage capacity
 
