@@ -1057,7 +1057,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Muscariello &amp; Polic</td>
-<td class="center">Expires 9 February 2026</td>
+<td class="center">Expires 12 February 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1070,12 +1070,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-agntcy-ads-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-08-08" class="published">8 August 2025</time>
+<time datetime="2025-08-11" class="published">11 August 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-02-09">9 February 2026</time></dd>
+<dd class="expires"><time datetime="2026-02-12">12 February 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1128,7 +1128,7 @@ that interconnect through a content-routing protocol.<a href="#section-abstract-
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 9 February 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 12 February 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1417,10 +1417,20 @@ scalability, and security requirements of a distributed agent directory.<a href=
         </h3>
 <p id="section-3.1-1">The storage architecture centers on globally unique Content Identifiers (CID)
 that provide several critical properties for a distributed agent directory:<a href="#section-3.1-1" class="pilcrow">¶</a></p>
-<p id="section-3.1-2"><strong>Immutability</strong>: Content identifiers are cryptographically derived from the data they represent, ensuring that any modification results in a different identifier. This property is essential for maintaining data integrity in agent records and enabling verifiable claims about agent capabilities.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
-<p id="section-3.1-3"><strong>Deduplication</strong>: Identical content automatically receives the same identifier across all nodes in the network, eliminating storage redundancy and reducing bandwidth requirements when the same agent components are referenced by multiple systems.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
-<p id="section-3.1-4"><strong>Verifiability</strong>: Any node can independently verify that received content matches its identifier, providing built-in protection against data corruption or tampering during transmission.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
-<p id="section-3.1-5"><strong>Location Independence</strong>: Content can be retrieved from any node that possesses it, as the identifier serves as a universal pointer that abstracts away physical storage locations.<a href="#section-3.1-5" class="pilcrow">¶</a></p>
+<p id="section-3.1-2"><strong>Immutability</strong>: Content identifiers are cryptographically derived from the
+data they represent, ensuring that any modification results in a different
+identifier. This property is essential for maintaining data integrity in agent
+records and enabling verifiable claims about agent capabilities.<a href="#section-3.1-2" class="pilcrow">¶</a></p>
+<p id="section-3.1-3"><strong>Deduplication</strong>: Identical content automatically receives the same identifier
+across all nodes in the network, eliminating storage redundancy and reducing
+bandwidth requirements when the same agent components are referenced by
+multiple systems.<a href="#section-3.1-3" class="pilcrow">¶</a></p>
+<p id="section-3.1-4"><strong>Verifiability</strong>: Any node can independently verify that received content
+matches its identifier, providing built-in protection against data corruption or
+tampering during transmission.<a href="#section-3.1-4" class="pilcrow">¶</a></p>
+<p id="section-3.1-5"><strong>Location Independence</strong>: Content can be retrieved from any node that possesses
+it, as the identifier serves as a universal pointer that abstracts away physical
+storage locations.<a href="#section-3.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="oras-integration">
@@ -1428,22 +1438,27 @@ that provide several critical properties for a distributed agent directory:<a hr
         <h3 id="name-oras-integration">
 <a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-oras-integration" class="section-name selfRef">ORAS Integration</a>
         </h3>
-<p id="section-3.2-1">ORAS provides a standardized interface for treating OCI registries as general-purpose object storage, offering several advantages for ADS:<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-1">ORAS provides a standardized interface for treating OCI registries as
+general-purpose object storage, offering several advantages for ADS:<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <div id="standards-compliance">
 <section id="section-3.2.1">
           <h4 id="name-standards-compliance">
 <a href="#section-3.2.1" class="section-number selfRef">3.2.1. </a><a href="#name-standards-compliance" class="section-name selfRef">Standards Compliance</a>
           </h4>
-<p id="section-3.2.1-1">By building on OCI specifications, ADS inherits compatibility with the extensive ecosystem of container registry tools, security scanners, and management platforms. This includes:<a href="#section-3.2.1-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.1-1">By building on OCI specifications, ADS inherits compatibility with the extensive
+ecosystem of container registry tools, security scanners, and management
+platforms. This includes:<a href="#section-3.2.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2.1-2.1">
-              <p id="section-3.2.1-2.1.1"><strong>Authentication and authorization</strong> mechanisms already deployed in enterprise environments<a href="#section-3.2.1-2.1.1" class="pilcrow">¶</a></p>
+              <p id="section-3.2.1-2.1.1"><strong>Authentication and authorization</strong> mechanisms already deployed in enterprise
+environments<a href="#section-3.2.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.2.1-2.2">
               <p id="section-3.2.1-2.2.1"><strong>Content signing and verification</strong> through tools like Notary and cosign<a href="#section-3.2.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.2.1-2.3">
-              <p id="section-3.2.1-2.3.1"><strong>Vulnerability scanning</strong> capabilities that can be extended to agent security assessments<a href="#section-3.2.1-2.3.1" class="pilcrow">¶</a></p>
+              <p id="section-3.2.1-2.3.1"><strong>Vulnerability scanning</strong> capabilities that can be extended to agent security
+assessments<a href="#section-3.2.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.2.1-2.4">
               <p id="section-3.2.1-2.4.1"><strong>Content delivery networks</strong> optimized for OCI artifact distribution<a href="#section-3.2.1-2.4.1" class="pilcrow">¶</a></p>
@@ -1456,7 +1471,9 @@ that provide several critical properties for a distributed agent directory:<a hr
           <h4 id="name-artifact-organization">
 <a href="#section-3.2.2" class="section-number selfRef">3.2.2. </a><a href="#name-artifact-organization" class="section-name selfRef">Artifact Organization</a>
           </h4>
-<p id="section-3.2.2-1">Agent records are stored as OCI artifacts with a structured organization. Multiple records can be stored under the same OCI name and tag, with each record uniquely identified by its content-addressed SHA256 digest:<a href="#section-3.2.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2.2-1">Agent records are stored as OCI artifacts with a structured organization.
+Multiple records can be stored under the same OCI name and tag, with each record
+uniquely identified by its content-addressed SHA256 digest:<a href="#section-3.2.2-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-3.2.2-2">
 <pre>
 null_repo/records/
@@ -1529,7 +1546,10 @@ queries and capability matching across all variants within a given category.<a h
       <h2 id="name-mas-data-discovery">
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-mas-data-discovery" class="section-name selfRef">MAS Data Discovery</a>
       </h2>
-<p id="section-4-1">ADS implements a two-level mapping system that enables efficient discovery of Multi-Agent System components through a distributed hash table (DHT) architecture. This approach separates capability-based discovery from content location, providing both scalability and flexibility in agent retrieval.<a href="#section-4-1" class="pilcrow">¶</a></p>
+<p id="section-4-1">ADS implements a two-level mapping system that enables efficient discovery of
+Multi-Agent System components through a distributed hash table (DHT)
+architecture. This approach separates capability-based discovery from content
+location, providing both scalability and flexibility in agent retrieval.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <div id="two-level-mapping-architecture">
 <section id="section-4.1">
         <h3 id="name-two-level-mapping-architect">
@@ -1541,7 +1561,8 @@ queries and capability matching across all variants within a given category.<a h
           <h4 id="name-skills-to-cid-mapping">
 <a href="#section-4.1.1" class="section-number selfRef">4.1.1. </a><a href="#name-skills-to-cid-mapping" class="section-name selfRef">Skills-to-CID Mapping</a>
           </h4>
-<p id="section-4.1.1-1">The first level maps agent capabilities and skills to their corresponding Content Identifiers (CID):<a href="#section-4.1.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.1.1-1">The first level maps agent capabilities and skills to their corresponding
+Content Identifiers (CID):<a href="#section-4.1.1-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.1.1-2">
 <pre>
 Skills Index:
@@ -1551,7 +1572,9 @@ Skills Index:
 "multi_modal"                 → ["sha256:stu901...", "sha256:vwx234..."]
 </pre><a href="#section-4.1.1-2" class="pilcrow">¶</a>
 </div>
-<p id="section-4.1.1-3">This mapping enables queries such as "find all agents capable of natural language processing" to quickly resolve to a set of content identifiers without needing to search through individual agent records.<a href="#section-4.1.1-3" class="pilcrow">¶</a></p>
+<p id="section-4.1.1-3">This mapping enables queries such as "find all agents capable of natural
+language processing" to quickly resolve to a set of content identifiers without
+needing to search through individual agent records.<a href="#section-4.1.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="cid-to-peerid-mapping">
@@ -1559,7 +1582,8 @@ Skills Index:
           <h4 id="name-cid-to-peerid-mapping">
 <a href="#section-4.1.2" class="section-number selfRef">4.1.2. </a><a href="#name-cid-to-peerid-mapping" class="section-name selfRef">CID-to-PeerID Mapping</a>
           </h4>
-<p id="section-4.1.2-1">The second level maps Content Identifiers to the Peer IDs of nodes that store the corresponding agent records:<a href="#section-4.1.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.1.2-1">The second level maps Content Identifiers to the Peer IDs of nodes that store
+the corresponding agent records:<a href="#section-4.1.2-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.1.2-2">
 <pre>
 Content Location Index:
@@ -1582,7 +1606,8 @@ Content Location Index:
         <h3 id="name-dht-based-discovery-process">
 <a href="#section-4.2" class="section-number selfRef">4.2. </a><a href="#name-dht-based-discovery-process" class="section-name selfRef">DHT-Based Discovery Process</a>
         </h3>
-<p id="section-4.2-1">The Distributed Hash Table stores and maintains both mapping layers across the network:<a href="#section-4.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.2-1">The Distributed Hash Table stores and maintains both mapping layers across the
+network:<a href="#section-4.2-1" class="pilcrow">¶</a></p>
 <div id="skill-registration">
 <section id="section-4.2.1">
           <h4 id="name-skill-registration">
@@ -1591,10 +1616,12 @@ Content Location Index:
 <p id="section-4.2.1-1">When agents are published to the network:<a href="#section-4.2.1-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-4.2.1-2">
 <li id="section-4.2.1-2.1">
-              <p id="section-4.2.1-2.1.1"><strong>Capability Extraction</strong>: The system parses OASF records to extract skills, domains, and capabilities<a href="#section-4.2.1-2.1.1" class="pilcrow">¶</a></p>
+              <p id="section-4.2.1-2.1.1"><strong>Capability Extraction</strong>: The system parses OASF records to extract skills,
+domains, and capabilities<a href="#section-4.2.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-4.2.1-2.2">
-              <p id="section-4.2.1-2.2.1"><strong>DHT Updates</strong>: Skills-to-CID mappings are distributed across DHT nodes using consistent hashing<a href="#section-4.2.1-2.2.1" class="pilcrow">¶</a></p>
+              <p id="section-4.2.1-2.2.1"><strong>DHT Updates</strong>: Skills-to-CID mappings are distributed across DHT nodes
+using consistent hashing<a href="#section-4.2.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-4.2.1-2.3">
               <p id="section-4.2.1-2.3.1"><strong>Location Registration</strong>: Peer nodes register themselves as providers for specific CIDs<a href="#section-4.2.1-2.3.1" class="pilcrow">¶</a></p>
@@ -1610,13 +1637,16 @@ Content Location Index:
 <p id="section-4.2.2-1">Agent discovery follows a two-phase process:<a href="#section-4.2.2-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-4.2.2-2">
 <li id="section-4.2.2-2.1">
-              <p id="section-4.2.2-2.1.1"><strong>Capability Resolution</strong>: Query "agents with skill X" resolves to a list of relevant CIDs via DHT lookup<a href="#section-4.2.2-2.1.1" class="pilcrow">¶</a></p>
+              <p id="section-4.2.2-2.1.1"><strong>Capability Resolution</strong>: Query "agents with skill X" resolves to a list of
+relevant CIDs via DHT lookup<a href="#section-4.2.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-4.2.2-2.2">
-              <p id="section-4.2.2-2.2.1"><strong>Location Resolution</strong>: For each discovered CID, query DHT to find peer nodes storing the content<a href="#section-4.2.2-2.2.1" class="pilcrow">¶</a></p>
+              <p id="section-4.2.2-2.2.1"><strong>Location Resolution</strong>: For each discovered CID, query DHT to find peer
+nodes storing the content<a href="#section-4.2.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-4.2.2-2.3">
-              <p id="section-4.2.2-2.3.1"><strong>Result Aggregation</strong>: Combine capability matches with location information to produce actionable discovery results<a href="#section-4.2.2-2.3.1" class="pilcrow">¶</a></p>
+              <p id="section-4.2.2-2.3.1"><strong>Result Aggregation</strong>: Combine capability matches with location information
+to produce actionable discovery results<a href="#section-4.2.2-2.3.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
 <div class="alignLeft art-text artwork" id="section-4.2.2-3">
@@ -1644,25 +1674,31 @@ Result: Agent sha256:abc123... available from peers 12D3KooW... and 12D3KooX...
         <h3 id="name-content-distribution-via-oc">
 <a href="#section-4.3" class="section-number selfRef">4.3. </a><a href="#name-content-distribution-via-oc" class="section-name selfRef">Content Distribution via OCI Protocol</a>
         </h3>
-<p id="section-4.3-1">Once discovery identifies the relevant CIDs and their hosting peers, the actual agent records are retrieved using the OCI distribution protocol:<a href="#section-4.3-1" class="pilcrow">¶</a></p>
+<p id="section-4.3-1">Once discovery identifies the relevant CIDs and their hosting peers, the actual
+agent records are retrieved using the OCI distribution protocol:<a href="#section-4.3-1" class="pilcrow">¶</a></p>
 <div id="peer-to-peer-synchronization">
 <section id="section-4.3.1">
           <h4 id="name-peer-to-peer-synchronizatio">
 <a href="#section-4.3.1" class="section-number selfRef">4.3.1. </a><a href="#name-peer-to-peer-synchronizatio" class="section-name selfRef">Peer-to-Peer Synchronization</a>
           </h4>
-<p id="section-4.3.1-1">The discovered list of CIDs enables efficient content synchronization between peers:<a href="#section-4.3.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.3.1-1">The discovered list of CIDs enables efficient content synchronization between
+peers:<a href="#section-4.3.1-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-4.3.1-2">
 <li id="section-4.3.1-2.1">
-              <p id="section-4.3.1-2.1.1"><strong>Content Negotiation</strong>: Requesting peer queries hosting peers for available agent records<a href="#section-4.3.1-2.1.1" class="pilcrow">¶</a></p>
+              <p id="section-4.3.1-2.1.1"><strong>Content Negotiation</strong>: Requesting peer queries hosting peers for available
+agent records<a href="#section-4.3.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-4.3.1-2.2">
-              <p id="section-4.3.1-2.2.1"><strong>OCI Pull Operations</strong>: Standard OCI registry pull commands retrieve agent artifacts and metadata<a href="#section-4.3.1-2.2.1" class="pilcrow">¶</a></p>
+              <p id="section-4.3.1-2.2.1"><strong>OCI Pull Operations</strong>: Standard OCI registry pull commands retrieve agent
+artifacts and metadata<a href="#section-4.3.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-4.3.1-2.3">
-              <p id="section-4.3.1-2.3.1"><strong>Incremental Sync</strong>: Only missing or updated content is transferred, reducing bandwidth requirements<a href="#section-4.3.1-2.3.1" class="pilcrow">¶</a></p>
+              <p id="section-4.3.1-2.3.1"><strong>Incremental Sync</strong>: Only missing or updated content is transferred,
+reducing bandwidth requirements<a href="#section-4.3.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
             <li id="section-4.3.1-2.4">
-              <p id="section-4.3.1-2.4.1"><strong>Verification</strong>: Content integrity is verified through cryptographic hash validation during transfer<a href="#section-4.3.1-2.4.1" class="pilcrow">¶</a></p>
+              <p id="section-4.3.1-2.4.1"><strong>Verification</strong>: Content integrity is verified through cryptographic hash
+validation during transfer<a href="#section-4.3.1-2.4.1" class="pilcrow">¶</a></p>
 </li>
           </ol>
 </section>
@@ -1672,11 +1708,41 @@ Result: Agent sha256:abc123... available from peers 12D3KooW... and 12D3KooX...
           <h4 id="name-distribution-strategies">
 <a href="#section-4.3.2" class="section-number selfRef">4.3.2. </a><a href="#name-distribution-strategies" class="section-name selfRef">Distribution Strategies</a>
           </h4>
-<p id="section-4.3.2-1">The system supports multiple distribution patterns:<a href="#section-4.3.2-1" class="pilcrow">¶</a></p>
+<p id="section-4.3.2-1">The system supports multiple distribution patterns, each with distinct trade-offs and operational considerations:<a href="#section-4.3.2-1" class="pilcrow">¶</a></p>
 <p id="section-4.3.2-2"><strong>On-Demand Retrieval</strong>: Agents are pulled from remote peers only when specifically requested, minimizing local storage requirements.<a href="#section-4.3.2-2" class="pilcrow">¶</a></p>
-<p id="section-4.3.2-3"><strong>Proactive Caching</strong>: Popular or frequently accessed agents are automatically replicated to improve query response times.<a href="#section-4.3.2-3" class="pilcrow">¶</a></p>
-<p id="section-4.3.2-4"><strong>Strategic Replication</strong>: Critical agents can be replicated across multiple peers to ensure high availability and reduce single points of failure.<a href="#section-4.3.2-4" class="pilcrow">¶</a></p>
-<p id="section-4.3.2-5">This architecture provides a scalable foundation for MAS data discovery that can efficiently handle large networks of distributed agents while maintaining low latency for capability-based queries.<a href="#section-4.3.2-5" class="pilcrow">¶</a></p>
+<p id="section-4.3.2-3"><em>Trade-offs</em>: While this approach minimizes storage costs and ensures fresh content, it introduces several challenges:
+- <strong>Query Latency</strong>: Each request requires network round-trips to locate and retrieve content, increasing response times
+- <strong>Network Cost</strong>: Spurious or exploratory requests generate unnecessary network traffic and computational overhead
+- <strong>DoS Vulnerability</strong>: The system becomes susceptible to denial-of-service attacks where malicious actors can trigger expensive content retrieval operations by flooding the network with requests for non-existent or rarely-accessed agents
+- <strong>Scalability Limits</strong>: Performance degrades as the network grows due to increased query coordination overhead<a href="#section-4.3.2-3" class="pilcrow">¶</a></p>
+<p id="section-4.3.2-4"><strong>Proactive Caching</strong>: Popular or frequently accessed agents are automatically replicated to improve query response times.<a href="#section-4.3.2-4" class="pilcrow">¶</a></p>
+<p id="section-4.3.2-5"><em>Trade-offs</em>: This strategy offers significant scalability benefits but requires sophisticated management:
+- <strong>Performance Gains</strong>: Dramatic reduction in query latency for popular content, enabling sub-second response times
+- <strong>Scalability</strong>: Can handle high query volumes efficiently once popular content is cached locally
+- <strong>Popularity Measurement</strong>: Requires implementing metrics collection and analysis to identify which agents warrant caching. This includes tracking query frequencies, download patterns, and usage statistics across the network
+- <strong>Storage Requirements</strong>: Needs sufficient local storage capacity to maintain cached copies of popular agents
+- <strong>Cache Management</strong>: Must implement cache eviction policies, freshness validation, and synchronization mechanisms
+- <strong>Administrator Oversight</strong>: Proactive caching policies must be configured and monitored by agent directory node administrators to balance storage costs with performance benefits<a href="#section-4.3.2-5" class="pilcrow">¶</a></p>
+<p id="section-4.3.2-6"><strong>Strategic Replication</strong>: Critical agents can be replicated across multiple peers to ensure high availability and reduce single points of failure.<a href="#section-4.3.2-6" class="pilcrow">¶</a></p>
+<p id="section-4.3.2-7"><em>Trade-offs</em>: This approach addresses availability concerns but introduces subjective complexity:
+- <strong>High Availability</strong>: Ensures critical agents remain accessible even during peer failures or network partitions<br>
+- <strong>Reduced Single Points of Failure</strong>: Distributes risk across multiple storage locations
+- <strong>Subjective Criticality</strong>: The definition of "critical" or "useful" agents varies significantly between users, organizations, and use cases. What constitutes strategic value for financial services may be irrelevant for manufacturing applications
+- <strong>Administrative Burden</strong>: Requires agent directory node administrators to make strategic decisions about which agents warrant replication, considering factors like:
+  - Organizational priorities and business requirements
+  - Compliance and regulatory considerations<br>
+  - Cost-benefit analysis of storage versus availability
+  - Community consensus on agent importance
+- <strong>Resource Allocation</strong>: Strategic replication consumes storage resources that could otherwise be used for proactive caching of popular content<a href="#section-4.3.2-7" class="pilcrow">¶</a></p>
+<p id="section-4.3.2-8"><strong>Administrative Management</strong>: Both Proactive Caching and Strategic Replication require active management by agent directory node administrators. Administrators must:
+- Configure caching policies based on local network characteristics and storage capacity
+- Monitor popularity metrics and adjust caching strategies accordingly<br>
+- Define strategic replication criteria aligned with organizational objectives
+- Balance resource allocation between different distribution strategies
+- Implement governance policies for content lifecycle management<a href="#section-4.3.2-8" class="pilcrow">¶</a></p>
+<p id="section-4.3.2-9">This architecture provides a scalable foundation for MAS data discovery that can
+efficiently handle large networks of distributed agents while maintaining low
+latency for capability-based queries.<a href="#section-4.3.2-9" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -1686,7 +1752,8 @@ Result: Agent sha256:abc123... available from peers 12D3KooW... and 12D3KooX...
         <h3 id="name-agent-directory-record-exam">
 <a href="#section-4.4" class="section-number selfRef">4.4. </a><a href="#name-agent-directory-record-exam" class="section-name selfRef">Agent Directory Record Examples</a>
         </h3>
-<p id="section-4.4-1">The following examples illustrate the structure of OASF-compliant agent records stored in the directory:<a href="#section-4.4-1" class="pilcrow">¶</a></p>
+<p id="section-4.4-1">The following examples illustrate the structure of OASF-compliant agent records
+stored in the directory:<a href="#section-4.4-1" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-4.4-2">
 <pre>
 {
@@ -1795,7 +1862,9 @@ Result: Agent sha256:abc123... available from peers 12D3KooW... and 12D3KooX...
 }
 </pre><a href="#section-4.4-4" class="pilcrow">¶</a>
 </div>
-<p id="section-4.4-5">These examples demonstrate how the DHT indexing system extracts skills and domains from agent records to populate the Skills-to-CID mappings, enabling efficient capability-based discovery across the distributed network.<a href="#section-4.4-5" class="pilcrow">¶</a></p>
+<p id="section-4.4-5">These examples demonstrate how the DHT indexing system extracts skills and
+domains from agent records to populate the Skills-to-CID mappings, enabling
+efficient capability-based discovery across the distributed network.<a href="#section-4.4-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-model">
