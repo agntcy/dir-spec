@@ -236,8 +236,11 @@ queries and capability matching across all variants within a given category.
 The architecture supports federation across multiple registry instances, enabling:
 
 - **Organizational boundaries**: Different organizations can maintain their own registries while participating in the global directory
+
 - **Geographic distribution**: Content can be replicated to registries closer to consumers, reducing latency
+
 - **Specialization**: Registries can focus on specific domains (e.g., medical AI agents, financial analysis tools)
+
 - **Redundancy**: Critical agent records can be replicated across multiple registries for availability
 
 # MAS Data Discovery
