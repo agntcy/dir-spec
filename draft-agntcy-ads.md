@@ -42,18 +42,18 @@ normative:
    OpenID.Auth:
       title: "OpenID Authentication 2.0 - Final"
       author:
-         - name: OpenID Foundation
-      target: <https://openid.net/specs/openid-authentication-2_0.txt>
+         - name: "OpenID Foundation"
+      target: https://openid.net/specs/openid-authentication-2_0.txt
    OCI.Image:
       title: "OCI Image Format Specification"
       author:
-         - name: Open Container Initiative
-      target: <https://github.com/opencontainers/image-spec>
+         - name: "Open Container Initiative"
+      target: https://github.com/opencontainers/image-spec
    OCI.Distribution:
       title: "OCI Distribution Specification"
       author:
-         - name: Open Container Initiative
-      target: <https://github.com/opencontainers/distribution-spec>
+         - name: "Open Container Initiative"
+      target: https://github.com/opencontainers/distribution-spec
 
 informative:
    DHT:
@@ -69,7 +69,7 @@ informative:
       title: "Sigstore: A New Standard for Signing, Verifying and Protecting Software"
       author:
          - name: Cloud Native Computing Foundation
-      target: <https://www.sigstore.dev>
+      target: https://www.sigstore.dev
 --- abstract
 
 The Agent Directory Service (ADS) is a distributed directory service designed to
