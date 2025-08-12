@@ -417,9 +417,13 @@ Content Location Index:
 ~~~
 
 This separation allows the system to:
-- **Optimize for capability queries** without requiring knowledge of data locations
+- **Optimize for capability queries** without requiring knowledge of data
+locations
+
 - **Enable dynamic content replication** as peer availability changes
-- **Support multiple storage strategies** for the same content across different peers
+
+- **Support multiple storage strategies** for the same content across different
+peers
 
 ## DHT-Based Discovery Process
 
