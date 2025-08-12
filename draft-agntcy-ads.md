@@ -63,7 +63,7 @@ that interconnect through a content-routing protocol.
 
 --- middle
 
-D# Conventions an{{! Definitions
+# Conventions and Definitions
 
 {::boilerplate bcp14-tagged}
 
@@ -614,7 +614,7 @@ enabling forensic analysis of agent deployment history.
 **Keyless Signing**: Sigstore's keyless signing approach eliminates the
 complexity and security risks associated with long-lived cryptographic keys:
 
-- **Identity-Based Authentication**: Uses OpenID Connect (OIDC) {{OpenID.Auth}
+- **Identity-Based Authentication**: Uses OpenID Connect (OIDC) {{OpenID.Auth}}
 tokens from trusted identity providers (GitHub, Google, Microsoft) to
 authenticate publishers at signing time
 
