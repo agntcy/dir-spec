@@ -386,6 +386,105 @@ This hierarchy enables both specific queries ("sentiment analysis agents") and b
 
 **Scalable Indexing**: The hierarchical structure enables efficient distributed indexing where different DHT nodes can specialize in specific taxonomy branches, distributing both storage load and query processing across the network.
 
+## Additional Taxonomies
+
+While skills form the primary taxonomy for capability-based discovery, ADS
+supports multiple parallel taxonomies to enable rich, multi-dimensional agent
+classification and search.
+
+### Domain Taxonomy
+
+The domain taxonomy organizes agents by their application domains, representing
+the broader problem spaces or industries where agents are designed to operate:
+
+~~~
+Application Domains
+├── Networking
+│   ├── Network Configuration
+│   ├── Traffic Analysis
+│   └── Protocol Implementation
+├── Security
+│   ├── Threat Detection
+│   ├── Vulnerability Assessment
+│   └── Access Control
+├── Software Development
+│   ├── Code Generation
+│   ├── Testing Automation
+│   └── Documentation
+├── Finance and Business
+│   ├── Risk Analysis
+│   ├── Market Research
+│   └── Process Automation
+└── Healthcare
+    ├── Medical Imaging
+    ├── Clinical Decision Support
+    └── Drug Discovery
+~~~
+
+Domain classification enables users to discover agents that are specifically
+tuned for their operational context, even if those agents share similar
+underlying skills with agents from other domains.
+
+### Feature Taxonomy
+
+The feature taxonomy categorizes agents by the integration frameworks and
+architectural patterns they support, facilitating the discovery of agents
+compatible with specific system architectures:
+
+~~~
+Integration Features
+├── MCP (Model Context Protocol)
+│   ├── MCP Server Implementation
+│   ├── MCP Client Integration
+│   └── MCP Tool Providers
+├── A2A (Agent-to-Agent Communication)
+│   ├── Direct Messaging
+│   ├── Event-Driven Architecture
+│   └── Workflow Orchestration
+├── Agent Evaluation
+│   ├── Performance Benchmarking
+│   ├── Quality Assessment
+│   └── Comparative Analysis
+└── Observability
+    ├── Metrics Collection
+    ├── Distributed Tracing
+    └── Health Monitoring
+~~~
+
+### Multi-Dimensional Search
+
+The parallel taxonomy system enables sophisticated multi-dimensional queries
+that combine criteria across different classification axes.
+**All searches must include at least one skill criterion as the mandatory
+foundation**, with domain and feature taxonomies providing additional filtering
+dimensions:
+
+- **Skill + Domain**: "Find natural language processing agents specialized for healthcare applications"
+- **Skill + Feature**: "Discover computer vision agents that support MCP integration"
+- **Skill + Feature + Domain**: "Locate natural language processing agents with observability features for manufacturing applications"
+
+**Skills as Search Foundation**: The skills taxonomy serves as the primary index
+structure in the DHT, making skill-based criteria mandatory for efficient query
+resolution. This design ensures that:
+
+- **Query Performance**: All searches leverage the optimized skills-to-CID
+mapping as the starting point, providing consistent performance characteristics
+
+- **Result Relevance**: Domain and feature filters are applied to skill-based
+result sets, ensuring functional capability remains the core selection criterion
+
+- **Index Efficiency**: The DHT can optimize storage and lookup patterns around
+the skills taxonomy while supporting supplementary filtering through domains and
+features
+
+Domain-only or feature-only queries are not supported, as they would bypass the
+primary indexing structure and provide results that may not have the functional
+capabilities required by the requesting system.
+
+This multi-taxonomic approach provides the flexibility to support diverse use
+cases while maintaining efficient indexing and search performance across all
+dimensions.
+
 ### Skills-to-CID Mapping
 
 The first level maps agent capabilities and skills to their corresponding
@@ -499,6 +598,8 @@ Phase 2: CIDs → Peer IDs
    ↓
 Result: Agent sha256:abc123... available from peers 12D3KooW... and 12D3KooX...
 ~~~
+
+### Additional Tanomoxies
 
 ## Content Distribution via OCI Protocol
 
