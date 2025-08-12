@@ -1391,6 +1391,7 @@ MCP server definitions, prompt-based agents, and evaluation metrics. This
 modular approach facilitates composition and reuse across different MAS
 architectures while maintaining flexibility for innovative use cases.<a href="#section-2.2-2" class="pilcrow">¶</a></p>
 <p id="section-2.2-3">The underlying storage layer integrates with OCI (Open Container Initiative)
+<span>[<a href="#OCI.Image" class="cite xref">OCI.Image</a>]</span>
 standards, enabling interoperability with existing container ecosystems and
 leveraging mature tooling for content distribution and verification.<a href="#section-2.2-3" class="pilcrow">¶</a></p>
 <p id="section-2.2-4">This document details the technical architecture of ADS, covering the record
@@ -1685,8 +1686,8 @@ agent records are retrieved using the OCI distribution protocol:<a href="#sectio
           <h4 id="name-peer-to-peer-synchronizatio">
 <a href="#section-4.3.1" class="section-number selfRef">4.3.1. </a><a href="#name-peer-to-peer-synchronizatio" class="section-name selfRef">Peer-to-Peer Synchronization</a>
           </h4>
-<p id="section-4.3.1-1">The discovered list of CIDs enables efficient content synchronization between
-peers:<a href="#section-4.3.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.3.1-1">The discovered list of CIDs enables efficient content synchronization
+<span>[<a href="#OCI.Distribution" class="cite xref">OCI.Distribution</a>]</span> between peers:<a href="#section-4.3.1-1" class="pilcrow">¶</a></p>
 <ol start="1" type="1" class="normal type-1" id="section-4.3.1-2">
 <li id="section-4.3.1-2.1">
               <p id="section-4.3.1-2.1.1"><strong>Content Negotiation</strong>: Requesting peer queries hosting peers for available
@@ -2000,9 +2001,9 @@ enabling forensic analysis of agent deployment history.<a href="#section-4.5.2-2
 complexity and security risks associated with long-lived cryptographic keys:<a href="#section-4.5.2-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4.5.2-4.1">
-              <p id="section-4.5.2-4.1.1"><strong>Identity-Based Authentication</strong>: Uses OpenID Connect (OIDC) tokens from
-trusted identity providers (GitHub, Google, Microsoft) to authenticate
-publishers at signing time<a href="#section-4.5.2-4.1.1" class="pilcrow">¶</a></p>
+              <p id="section-4.5.2-4.1.1"><strong>Identity-Based Authentication</strong>: Uses OpenID Connect (OIDC) <span>[<a href="#OpenID.Auth" class="cite xref">OpenID.Auth</a>]</span>
+tokens from trusted identity providers (GitHub, Google, Microsoft) to
+authenticate publishers at signing time<a href="#section-4.5.2-4.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-4.5.2-4.2">
               <p id="section-4.5.2-4.2.1"><strong>Short-Lived Certificates</strong>: Issues ephemeral signing certificates valid only
@@ -2270,6 +2271,18 @@ Flow:
 <a href="#section-7.1" class="section-number selfRef">7.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
+<dt id="OCI.Distribution">[OCI.Distribution]</dt>
+        <dd>
+<span class="refAuthor">Initiative, O. C.</span>, <span class="refTitle">"OCI Distribution Specification"</span>, <span>n.d.</span>, <span>&lt;<a href="&lt;https://github.com/opencontainers/distribution-spec&gt;">&lt;https://github.com/opencontainers/distribution-spec&gt;</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="OCI.Image">[OCI.Image]</dt>
+        <dd>
+<span class="refAuthor">Initiative, O. C.</span>, <span class="refTitle">"OCI Image Format Specification"</span>, <span>n.d.</span>, <span>&lt;<a href="&lt;https://github.com/opencontainers/image-spec&gt;">&lt;https://github.com/opencontainers/image-spec&gt;</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="OpenID.Auth">[OpenID.Auth]</dt>
+        <dd>
+<span class="refAuthor">Foundation, O.</span>, <span class="refTitle">"OpenID Authentication 2.0 - Final"</span>, <span>n.d.</span>, <span>&lt;<a href="&lt;https://openid.net/specs/openid-authentication-2_0.txt&gt;">&lt;https://openid.net/specs/openid-authentication-2_0.txt&gt;</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
@@ -2292,8 +2305,12 @@ Flow:
         </h3>
 <dl class="references">
 <dt id="DHT">[DHT]</dt>
+        <dd>
+<span class="refAuthor">Maymounkov, P.</span> and <span class="refAuthor">D. Mazieres</span>, <span class="refTitle">"Kademlia: A peer-to-peer information system based on the xor metric"</span>, <span class="seriesInfo">IPTPS '01 </span>, <time datetime="2001" class="refDate">2001</time>. </dd>
+<dd class="break"></dd>
+<dt id="Sigstore">[Sigstore]</dt>
       <dd>
-<span class="refTitle">"*** BROKEN REFERENCE ***"</span>. </dd>
+<span class="refAuthor">Foundation, C. N. C.</span>, <span class="refTitle">"Sigstore: A New Standard for Signing, Verifying and Protecting Software"</span>, <span>n.d.</span>, <span>&lt;<a href="&lt;https://www.sigstore.dev&gt;">&lt;https://www.sigstore.dev&gt;</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 </dl>
 </section>

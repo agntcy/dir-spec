@@ -188,9 +188,9 @@ Table of Contents
    flexibility for innovative use cases.
 
    The underlying storage layer integrates with OCI (Open Container
-   Initiative) standards, enabling interoperability with existing
-   container ecosystems and leveraging mature tooling for content
-   distribution and verification.
+   Initiative) [OCI.Image] standards, enabling interoperability with
+   existing container ecosystems and leveraging mature tooling for
+   content distribution and verification.
 
    This document details the technical architecture of ADS, covering the
    record storage layer, security model, distributed data discovery
@@ -417,7 +417,7 @@ Result: Agent sha256:abc123... available from peers 12D3KooW... and 12D3KooX...
 4.3.1.  Peer-to-Peer Synchronization
 
    The discovered list of CIDs enables efficient content synchronization
-   between peers:
+   [OCI.Distribution] between peers:
 
    1.  *Content Negotiation*: Requesting peer queries hosting peers for
        available agent records
@@ -691,9 +691,9 @@ Result: Agent sha256:abc123... available from peers 12D3KooW... and 12D3KooX...
    complexity and security risks associated with long-lived
    cryptographic keys:
 
-   *  *Identity-Based Authentication*: Uses OpenID Connect (OIDC) tokens
-      from trusted identity providers (GitHub, Google, Microsoft) to
-      authenticate publishers at signing time
+   *  *Identity-Based Authentication*: Uses OpenID Connect (OIDC)
+      [OpenID.Auth] tokens from trusted identity providers (GitHub,
+      Google, Microsoft) to authenticate publishers at signing time
 
    *  *Short-Lived Certificates*: Issues ephemeral signing certificates
       valid only for minutes, reducing the window of potential key
@@ -879,6 +879,19 @@ Result: Agent sha256:abc123... available from peers 12D3KooW... and 12D3KooX...
 
 7.1.  Normative References
 
+   [OCI.Distribution]
+              Initiative, O. C., "OCI Distribution Specification", n.d.,
+              <<https://github.com/opencontainers/distribution-spec>>.
+
+   [OCI.Image]
+              Initiative, O. C., "OCI Image Format Specification", n.d.,
+              <<https://github.com/opencontainers/image-spec>>.
+
+   [OpenID.Auth]
+              Foundation, O., "OpenID Authentication 2.0 - Final", n.d.,
+              <<https://openid.net/specs/openid-authentication-
+              2_0.txt>>.
+
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
               DOI 10.17487/RFC2119, March 1997,
@@ -895,7 +908,13 @@ Result: Agent sha256:abc123... available from peers 12D3KooW... and 12D3KooX...
 
 7.2.  Informative References
 
-   [DHT]      "*** BROKEN REFERENCE ***".
+   [DHT]      Maymounkov, P. and D. Mazieres, "Kademlia: A peer-to-peer
+              information system based on the xor metric", IPTPS '01 ,
+              2001.
+
+   [Sigstore] Foundation, C. N. C., "Sigstore: A New Standard for
+              Signing, Verifying and Protecting Software", n.d.,
+              <<https://www.sigstore.dev>>.
 
 Authors' Addresses
 
