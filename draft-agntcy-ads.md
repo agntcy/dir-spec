@@ -44,7 +44,15 @@ normative:
    OCI.Distribution: <https://github.com/opencontainers/distribution-spec>
 
 informative:
-   DHT: DOI.10.5555/646334.687801
+   DHT:
+      title: "Kademlia: A peer-to-peer information system based on the xor metric"
+      author:
+         - ins: P. Maymounkov
+           name: Petar Maymounkov
+         - ins: D. Mazieres
+           name: David Mazieres
+      date: 2002
+      seriesinfo: International workshop on peer-to-peer systems. Berlin, Heidelberg: Springer Berlin Heidelberg10.5555/646334.687801
 
 --- abstract
 
