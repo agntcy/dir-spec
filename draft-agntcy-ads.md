@@ -527,7 +527,7 @@ validation during transfer
 The system supports multiple distribution patterns, each with distinct
 trade-offs and operational considerations:
 
-**On-Demand Retrieval**: Agents are pulled from remote peers only when
+**On-Demand Retrieval**: Records are pulled from remote peers only when
 specifically requested, minimizing local storage requirements.
 
 *Trade-offs*: While this approach minimizes storage costs and ensures fresh
@@ -564,7 +564,7 @@ analysis to identify which agents warrant caching. This includes tracking query
 frequencies, download patterns, and usage statistics across the network
 
 - **Storage Requirements**: Needs sufficient local storage capacity to maintain
-cached copies of popular agents
+cached copies of popular records
 
 - **Cache Management**: Must implement cache eviction policies, freshness validation, and synchronization mechanisms
 
