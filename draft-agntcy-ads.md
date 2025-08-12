@@ -51,9 +51,8 @@ informative:
            name: Petar Maymounkov
          - ins: D. Mazieres
            name: David Mazieres
-      date: 2002
-      seriesinfo: International workshop on peer-to-peer systems. Berlin, Heidelberg: Springer Berlin Heidelberg10.5555/646334.687801
-
+      date: 2001
+      seriesinfo: "IPTPS '01"
 --- abstract
 
 The Agent Directory Service (ADS) is a distributed directory service designed to
