@@ -296,9 +296,14 @@ operations across the distributed network.
 
 ### The Challenge of Capability Search
 
-Traditional keyword-based search approaches face significant limitations when applied to agent discovery:
+Traditional keyword-based search approaches face significant limitations when
+applied to agent discovery:
 
-**Vocabulary Fragmentation**: Different publishers may describe similar capabilities using varying terminology. For example, "sentiment analysis," "opinion mining," and "emotional classification" may all refer to similar agent capabilities, leading to search results that miss relevant agents due to terminology mismatches.
+**Vocabulary Fragmentation**: Different publishers may describe similar
+capabilities using varying terminology. For example, "sentiment analysis,"
+"opinion mining," and "emotional classification" may all refer to similar agent
+capabilities, leading to search results that miss relevant agents due to
+terminology mismatches.
 
 **Scale Complexity**: As the number of agents in the ecosystem grows, exhaustive
 search across all records becomes computationally prohibitive. Without
@@ -344,9 +349,16 @@ The discovery system operates through two distinct mapping layers:
 
 ## Skill Taxonomy for Search Optimization
 
-ADS employs a hierarchical skill taxonomy to optimize search performance and enable efficient capability-based discovery. Taxonomies provide several critical advantages for agent discovery systems:
+ADS employs a hierarchical skill taxonomy to optimize search performance and
+enable efficient capability-based discovery. Taxonomies provide several critical
+advantages for agent discovery systems:
 
-**Search Space Reduction**: Rather than performing exhaustive searches across all agent records, taxonomies allow the system to quickly narrow the search space to relevant categories. When a user queries for "natural language processing" capabilities, the system can immediately identify the subset of agents tagged with NLP skills without examining agents focused on computer vision or mathematical reasoning.
+**Search Space Reduction**: Rather than performing exhaustive searches across
+all agent records, taxonomies allow the system to quickly narrow the search
+space to relevant categories. When a user queries for "natural language
+processing" capabilities, the system can immediately identify the subset of
+agents tagged with NLP skills without examining agents focused on computer
+vision or mathematical reasoning.
 
 **Hierarchical Organization**: Skills are organized in a tree-like structure that reflects natural relationships between capabilities. For example:
 
