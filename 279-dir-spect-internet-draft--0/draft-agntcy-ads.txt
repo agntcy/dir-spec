@@ -92,13 +92,10 @@ Table of Contents
      4.6.  Performance Optimizations
        4.6.1.  Bandwidth Optimization
        4.6.2.  Scalability Architecture
-   5.  Content Routing
-     5.1.  Capability Announcement
-     5.2.  Discovery Process
-   6.  IANA Considerations
-   7.  References
-     7.1.  Normative References
-     7.2.  Informative References
+   5.  IANA Considerations
+   6.  References
+     6.1.  Normative References
+     6.2.  Informative References
    Authors' Addresses
 
 1.  Conventions and Definitions
@@ -368,6 +365,35 @@ Content Location Index:
 
    The Distributed Hash Table stores and maintains both mapping layers
    across the network:
+
+   ADS uses [Kad-DHT] [DHT] for server and content discovery by using
+   the libp2p implementation that constitutes the IPFS core DHT
+   [libp2p-kad-dht].
+
+                                +----------------+
+                                |    DHT Node    |
+                                | Content Index  |
+                                +----------------+
+                                       ^
+                                       |
+                      +----------------+-----------------+
+                      |                |                |
+              +-------v------+  +------v-------+  +-----v--------+
+              | Server Node A |  | Server Node B|  | Server Node C|
+              |   Content X  |  |   Content Y  |  |   Content Z  |
+              +-------+------+  +------+-------+  +------+-------+
+                      |               |                  |
+                      |        Content Exchange          |
+                      +---------------+------------------+
+                                     |
+                             Content Replication
+
+   Flow:
+   1. Servers register content with DHT
+   2. DHT maintains content-to-server mappings
+   3. Servers query DHT to locate content
+   4. DHT returns list of servers hosting content
+   5. Servers download content from peers
 
 4.2.1.  Skill Registration
 
@@ -815,69 +841,13 @@ Result: Agent sha256:abc123... available from peers 12D3KooW... and 12D3KooX...
    agents while maintaining the security and reliability requirements of
    production systems.
 
-5.  Content Routing
-
-   ADS implements capability-based record discovery through a
-   hierarchical skill taxonomy.  This architecture enables:
-
-5.1.  Capability Announcement
-
-   Multi-agent systems publish their capabilities by encoding them as
-   skill taxonomies.  Each record contains metadata describing the
-   agent's functional abilities.  Skills are structured in a
-   hierarchical format for efficient matching.
-
-5.2.  Discovery Process
-
-   The system performs a two-phase discovery operation:
-
-   1.  Matches queried capabilities against the skill taxonomy to
-       determine records by their identifier
-
-   2.  Identifies the server nodes storing relevant records.
-
-   ## Distributed Resolution
-
-   Local nodes execute targeted retrievals based on:
-
-   1.  Skill matching results: Evaluates capability requirements.
-
-   2.  Server location information: Determines optimal data sources.
-
-   ADS uses libp2p [Kad-DHT] [DHT] for server and content discovery.
-
-                                +----------------+
-                                |    DHT Node    |
-                                | Content Index  |
-                                +----------------+
-                                       ^
-                                       |
-                      +----------------+-----------------+
-                      |                |                |
-              +-------v------+  +------v-------+  +-----v--------+
-              | Server Node A |  | Server Node B|  | Server Node C|
-              |   Content X  |  |   Content Y  |  |   Content Z  |
-              +-------+------+  +------+-------+  +------+-------+
-                      |               |                  |
-                      |        Content Exchange          |
-                      +---------------+------------------+
-                                     |
-                             Content Replication
-
-   Flow:
-   1. Servers register content with DHT
-   2. DHT maintains content-to-server mappings
-   3. Servers query DHT to locate content
-   4. DHT returns list of servers hosting content
-   5. Servers download content from peers
-
-6.  IANA Considerations
+5.  IANA Considerations
 
    This document has no IANA actions.
 
-7.  References
+6.  References
 
-7.1.  Normative References
+6.1.  Normative References
 
    [OCI.Distribution]
               Initiative, O. C., "OCI Distribution Specification", n.d.,
@@ -905,11 +875,16 @@ Result: Agent sha256:abc123... available from peers 12D3KooW... and 12D3KooX...
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
-7.2.  Informative References
+6.2.  Informative References
 
    [DHT]      Maymounkov, P. and D. Mazieres, "Kademlia: A peer-to-peer
               information system based on the xor metric", IPTPS '01 ,
               2001.
+
+   [libp2p-kad-dht]
+              Community, libp2p., "go-libp2p-kad-dht: A Kademlia DHT
+              implementation on go-libp2p", n.d.,
+              <https://github.com/libp2p/go-libp2p-kad-dht>.
 
    [Sigstore] Foundation, C. N. C., "Sigstore: A New Standard for
               Signing, Verifying and Protecting Software", n.d.,
