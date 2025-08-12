@@ -70,6 +70,11 @@ informative:
       author:
          - name: Cloud Native Computing Foundation
       target: https://www.sigstore.dev
+   libp2p-kad-dht:
+      title: "go-libp2p-kad-dht: A Kademlia DHT implementation on go-libp2p"
+      author:
+         - name: libp2p Community
+      target: https://github.com/libp2p/go-libp2p-kad-dht
 --- abstract
 
 The Agent Directory Service (ADS) is a distributed directory service designed to
@@ -325,6 +330,37 @@ This separation allows the system to:
 
 The Distributed Hash Table stores and maintains both mapping layers across the
 network:
+
+ADS uses [Kad-DHT] {{DHT}} for server and content discovery by using the
+libp2p implementation that constitutes the IPFS core DHT {{libp2p-kad-dht}}.
+
+
+~~~
+                             +----------------+
+                             |    DHT Node    |
+                             | Content Index  |
+                             +----------------+
+                                    ^
+                                    |
+                   +----------------+-----------------+
+                   |                |                |
+           +-------v------+  +------v-------+  +-----v--------+
+           | Server Node A |  | Server Node B|  | Server Node C|
+           |   Content X  |  |   Content Y  |  |   Content Z  |
+           +-------+------+  +------+-------+  +------+-------+
+                   |               |                  |
+                   |        Content Exchange          |
+                   +---------------+------------------+
+                                  |
+                          Content Replication
+
+Flow:
+1. Servers register content with DHT
+2. DHT maintains content-to-server mappings
+3. Servers query DHT to locate content
+4. DHT returns list of servers hosting content
+5. Servers download content from peers
+~~~
 
 ### Skill Registration
 
@@ -746,65 +782,6 @@ actually needed
 This architecture provides a robust foundation for a decentralized agent
 directory that can scale to support the growing ecosystem of AI agents while
 maintaining the security and reliability requirements of production systems.
-
-# Content Routing
-
-ADS implements capability-based record discovery through a hierarchical
-skill taxonomy. This architecture enables:
-
-## Capability Announcement
-
-Multi-agent systems publish their capabilities by encoding them as skill
-taxonomies. Each record contains metadata describing the agent's functional
-abilities. Skills are structured in a hierarchical format for efficient
-matching.
-
-## Discovery Process
-
-The system performs a two-phase discovery operation:
-
-1. Matches queried capabilities against the skill taxonomy to determine records
-by their identifier
-2. Identifies the server nodes storing relevant records.
-
- ## Distributed Resolution
-
- Local nodes execute targeted retrievals based on:
-
-1. Skill matching results: Evaluates capability requirements.
-2. Server location information: Determines optimal data sources.
-
-ADS uses libp2p [Kad-DHT] {{DHT}} for server and content discovery.
-
-
-
-~~~
-                             +----------------+
-                             |    DHT Node    |
-                             | Content Index  |
-                             +----------------+
-                                    ^
-                                    |
-                   +----------------+-----------------+
-                   |                |                |
-           +-------v------+  +------v-------+  +-----v--------+
-           | Server Node A |  | Server Node B|  | Server Node C|
-           |   Content X  |  |   Content Y  |  |   Content Z  |
-           +-------+------+  +------+-------+  +------+-------+
-                   |               |                  |
-                   |        Content Exchange          |
-                   +---------------+------------------+
-                                  |
-                          Content Replication
-
-Flow:
-1. Servers register content with DHT
-2. DHT maintains content-to-server mappings
-3. Servers query DHT to locate content
-4. DHT returns list of servers hosting content
-5. Servers download content from peers
-~~~
-
 
 
 # IANA Considerations
