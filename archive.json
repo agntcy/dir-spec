@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-08-10T00:23:48.059019+00:00",
+  "timestamp": "2025-08-12T00:20:31.342738+00:00",
   "repo": "agntcy/dir-spec",
   "labels": [
     {
@@ -293,6 +293,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 6,
+      "id": "PR_kwDON_UBTc6jCZQC",
+      "title": "279 dir spect internet draft  0",
+      "url": "https://github.com/agntcy/dir-spec/pull/6",
+      "state": "OPEN",
+      "author": "muscariello",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "- **docs: init docs**\r\n\r\n",
+      "createdAt": "2025-08-11T12:29:43Z",
+      "updatedAt": "2025-08-11T12:41:50Z",
+      "baseRepository": "agntcy/dir-spec",
+      "baseRefName": "main",
+      "baseRefOid": "191a9ce98cdb81f8028f8451fc0cc441d800523b",
+      "headRepository": "agntcy/dir-spec",
+      "headRefName": "279-dir-spect-internet-draft--0",
+      "headRefOid": "7bdcd94ec7cb5a3b4b624719dd7778e92f718352",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
