@@ -40,6 +40,8 @@ author:
 normative:
    RFC6920:
    OpenID.Auth: <https://openid.net/specs/openid-authentication-2_0.txt>
+   OCI.Image: <https://github.com/opencontainers/image-spec>
+   OCI.Distribution: <https://github.com/opencontainers/distribution-spec>
 
 informative:
    DHT: DOI.10.5555/646334.687801
@@ -129,6 +131,7 @@ modular approach facilitates composition and reuse across different MAS
 architectures while maintaining flexibility for innovative use cases.
 
 The underlying storage layer integrates with OCI (Open Container Initiative)
+{{OCI.Image}}
 standards, enabling interoperability with existing container ecosystems and
 leveraging mature tooling for content distribution and verification.
 
@@ -342,8 +345,8 @@ agent records are retrieved using the OCI distribution protocol:
 
 ### Peer-to-Peer Synchronization
 
-The discovered list of CIDs enables efficient content synchronization between
-peers:
+The discovered list of CIDs enables efficient content synchronization
+{{OCI.Distribution}} between peers:
 
 1. **Content Negotiation**: Requesting peer queries hosting peers for available
 agent records
@@ -605,8 +608,8 @@ enabling forensic analysis of agent deployment history.
 complexity and security risks associated with long-lived cryptographic keys:
 
 - **Identity-Based Authentication**: Uses OpenID Connect (OIDC) {{OpenID.Auth}
-tokens from trusted identity providers (GitHub, Google, Microsoft) to authenticate
-publishers at signing time
+tokens from trusted identity providers (GitHub, Google, Microsoft) to
+authenticate publishers at signing time
 
 - **Short-Lived Certificates**: Issues ephemeral signing certificates valid only
 for minutes, reducing the window of potential key compromise
