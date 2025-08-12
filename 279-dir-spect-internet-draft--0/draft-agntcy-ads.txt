@@ -881,16 +881,15 @@ Result: Agent sha256:abc123... available from peers 12D3KooW... and 12D3KooX...
 
    [OCI.Distribution]
               Initiative, O. C., "OCI Distribution Specification", n.d.,
-              <<https://github.com/opencontainers/distribution-spec>>.
+              <https://github.com/opencontainers/distribution-spec>.
 
    [OCI.Image]
               Initiative, O. C., "OCI Image Format Specification", n.d.,
-              <<https://github.com/opencontainers/image-spec>>.
+              <https://github.com/opencontainers/image-spec>.
 
    [OpenID.Auth]
               Foundation, O., "OpenID Authentication 2.0 - Final", n.d.,
-              <<https://openid.net/specs/openid-authentication-
-              2_0.txt>>.
+              <https://openid.net/specs/openid-authentication-2_0.txt>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,
@@ -914,7 +913,7 @@ Result: Agent sha256:abc123... available from peers 12D3KooW... and 12D3KooX...
 
    [Sigstore] Foundation, C. N. C., "Sigstore: A New Standard for
               Signing, Verifying and Protecting Software", n.d.,
-              <<https://www.sigstore.dev>>.
+              <https://www.sigstore.dev>.
 
 Authors' Addresses
 
