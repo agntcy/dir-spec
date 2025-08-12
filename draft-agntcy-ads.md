@@ -287,9 +287,92 @@ Multi-Agent System components through a distributed hash table {{DHT}}
 architecture. This approach separates capability-based discovery from content
 location, providing both scalability and flexibility in agent retrieval.
 
+## Skill Taxonomy
+
+Effective agent discovery in multi-agent systems requires sophisticated
+organization of capabilities and skills. ADS employs a hierarchical skill
+taxonomy that serves as the foundation for efficient search and discovery
+operations across the distributed network.
+
+### The Challenge of Capability Search
+
+Traditional keyword-based search approaches face significant limitations when applied to agent discovery:
+
+**Vocabulary Fragmentation**: Different publishers may describe similar capabilities using varying terminology. For example, "sentiment analysis," "opinion mining," and "emotional classification" may all refer to similar agent capabilities, leading to search results that miss relevant agents due to terminology mismatches.
+
+**Scale Complexity**: As the number of agents in the ecosystem grows, exhaustive
+search across all records becomes computationally prohibitive. Without
+structured organization, every query potentially requires examining every agent
+record, leading to poor performance characteristics.
+
+**Semantic Relationships**: Many agent capabilities have natural hierarchical
+relationships that flat keyword systems cannot capture. An agent capable of
+"named entity recognition" is inherently relevant to searches for broader "text
+analysis" capabilities, but keyword matching alone cannot establish these
+connections.
+
+### Taxonomy-Driven Search Optimization
+
+ADS addresses these challenges through a structured hierarchical taxonomy that provides several critical optimization benefits:
+
+**Search Space Partitioning**: The taxonomy enables efficient partitioning of
+the search space. When processing a query for "computer vision" capabilities,
+the system can immediately focus on the relevant taxonomy branch, eliminating
+the need to examine agents in unrelated categories like natural language
+processing or mathematical reasoning.
+
+**Index Structure Optimization**: The hierarchical organization allows the
+distributed hash table to create specialized indices for different taxonomy
+branches. Rather than maintaining a single massive index, the DHT can
+distribute indexing responsibility across nodes, with each node specializing in
+specific capability domains.
+
+**Query Semantic Expansion**: The taxonomy enables intelligent query expansion
+where searches automatically include semantically related subcategories. A
+search for "text analysis" can transparently include results from "sentiment
+analysis," "entity extraction," and "text classification" without requiring
+users to explicitly enumerate all relevant subcategories.
+
+**Standardized Vocabulary**: By providing a canonical taxonomy, ADS reduces
+terminology fragmentation. Publishers are encouraged to tag their agents using
+standardized skill categories, improving search precision and recall across the
+ecosystem.
+
 ## Two-Level Mapping Architecture
 
 The discovery system operates through two distinct mapping layers:
+
+## Skill Taxonomy for Search Optimization
+
+ADS employs a hierarchical skill taxonomy to optimize search performance and enable efficient capability-based discovery. Taxonomies provide several critical advantages for agent discovery systems:
+
+**Search Space Reduction**: Rather than performing exhaustive searches across all agent records, taxonomies allow the system to quickly narrow the search space to relevant categories. When a user queries for "natural language processing" capabilities, the system can immediately identify the subset of agents tagged with NLP skills without examining agents focused on computer vision or mathematical reasoning.
+
+**Hierarchical Organization**: Skills are organized in a tree-like structure that reflects natural relationships between capabilities. For example:
+
+~~~
+Natural Language Processing
+├── Text Analysis
+│   ├── Sentiment Analysis
+│   ├── Named Entity Recognition
+│   └── Text Classification
+├── Language Generation
+│   ├── Text Summarization
+│   ├── Content Creation
+│   └── Translation
+└── Conversational AI
+    ├── Dialogue Management
+    ├── Intent Recognition
+    └── Response Generation
+~~~
+
+This hierarchy enables both specific queries ("sentiment analysis agents") and broader capability searches ("all natural language processing agents") while maintaining efficient indexing structures.
+
+**Query Expansion and Refinement**: Taxonomies support automatic query expansion where searches for parent categories can include relevant child categories. A query for "text analysis" can automatically include agents tagged with "sentiment analysis," "named entity recognition," and "text classification" without requiring users to know all specific subcategories.
+
+**Semantic Consistency**: Standardized taxonomies reduce ambiguity and improve search precision by providing consistent terminology across the ecosystem. This prevents fragmentation where similar capabilities are described using different terms by different publishers.
+
+**Scalable Indexing**: The hierarchical structure enables efficient distributed indexing where different DHT nodes can specialize in specific taxonomy branches, distributing both storage load and query processing across the network.
 
 ### Skills-to-CID Mapping
 
@@ -368,9 +451,12 @@ When agents are published to the network:
 
 1. **Capability Extraction**: The system parses OASF records to extract skills,
 domains, and capabilities
+
 2. **DHT Updates**: Skills-to-CID mappings are distributed across DHT nodes
 using consistent hashing
-3. **Location Registration**: Peer nodes register themselves as providers for specific CIDs
+
+3. **Location Registration**: Peer nodes register themselves as providers for
+specific CIDs
 
 ### Discovery Query Resolution
 
