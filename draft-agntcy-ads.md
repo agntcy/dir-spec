@@ -39,6 +39,7 @@ author:
 
 normative:
    RFC6920:
+   OpenID.Auth: <https://openid.net/specs/openid-authentication-2_0.txt>
 
 informative:
    DHT: DOI.10.5555/646334.687801
@@ -235,13 +236,17 @@ queries and capability matching across all variants within a given category.
 
 The architecture supports federation across multiple registry instances, enabling:
 
-- **Organizational boundaries**: Different organizations can maintain their own registries while participating in the global directory
+- **Organizational boundaries**: Different organizations can maintain their own
+registries while participating in the global directory
 
-- **Geographic distribution**: Content can be replicated to registries closer to consumers, reducing latency
+- **Geographic distribution**: Content can be replicated to registries closer to
+consumers, reducing latency
 
-- **Specialization**: Registries can focus on specific domains (e.g., medical AI agents, financial analysis tools)
+- **Specialization**: Registries can focus on specific domains (e.g., medical AI
+agents, financial analysis tools)
 
-- **Redundancy**: Critical agent records can be replicated across multiple registries for availability
+- **Redundancy**: Critical agent records can be replicated across multiple
+registries for availability
 
 # MAS Data Discovery
 
@@ -563,56 +568,104 @@ efficient capability-based discovery across the distributed network.
 
 ## Security Model
 
-The OCI-based architecture provides multiple layers of security that address the unique challenges of distributed agent directories:
+The OCI-based architecture provides multiple layers of security that address the
+unique challenges of distributed agent directories:
 
 ### Cryptographic Integrity
 
-ADS leverages the OCI layer's built-in cryptographic mechanisms to ensure data integrity:
+ADS leverages the OCI layer's built-in cryptographic mechanisms to ensure data
+integrity:
 
-**Automatic Hash Computation**: The OCI registry layer automatically computes SHA-256 hash digests for all stored artifacts. These content identifiers are generated transparently during the push operation, ensuring that every agent record has a cryptographically verifiable fingerprint without additional overhead.
+**Automatic Hash Computation**: The OCI registry layer automatically computes
+SHA-256 hash digests for all stored artifacts. These content identifiers are
+generated transparently during the push operation, ensuring that every agent
+record has a cryptographically verifiable fingerprint without additional
+overhead.
 
-**Tamper Detection**: Content addressing ensures immediate tamper detection through cryptographic hash verification. Any modification to an agent record—whether malicious or accidental—results in a different hash digest, making unauthorized changes immediately detectable during retrieval operations.
+**Tamper Detection**: Content addressing ensures immediate tamper detection
+through cryptographic hash verification. Any modification to an agent
+record—whether malicious or accidental—results in a different hash digest,
+making unauthorized changes immediately detectable during retrieval operations.
 
-**End-to-End Verification**: Clients can independently verify that received content matches its advertised identifier, providing built-in protection against data corruption during transmission or storage without trusting intermediate network components.
+**End-to-End Verification**: Clients can independently verify that received
+content matches its advertised identifier, providing built-in protection
+against data corruption during transmission or storage without trusting
+intermediate network components.
 
 ### Content Provenance and Digital Signatures
 
 ADS integrates with Sigstore, a security framework for OCI storage, to provide comprehensive content provenance and authenticity guarantees:
 
-**Sigstore Integration**: The system leverages Sigstore's security framework to provide verifiable proof of when and by whom agent records were signed. This creates an immutable audit trail that cannot be retroactively modified, enabling forensic analysis of agent deployment history.
+**Sigstore Integration**: The system leverages Sigstore's security framework to
+provide verifiable proof of when and by whom agent records were signed. This
+creates an immutable audit trail that cannot be retroactively modified,
+enabling forensic analysis of agent deployment history.
 
-**Keyless Signing**: Sigstore's keyless signing approach eliminates the complexity and security risks associated with long-lived cryptographic keys:
+**Keyless Signing**: Sigstore's keyless signing approach eliminates the
+complexity and security risks associated with long-lived cryptographic keys:
 
-- **Identity-Based Authentication**: Uses OpenID Connect (OIDC) tokens from trusted identity providers (GitHub, Google, Microsoft) to authenticate publishers at signing time
-- **Short-Lived Certificates**: Issues ephemeral signing certificates valid only for minutes, reducing the window of potential key compromise
-- **Automatic Key Rotation**: Eliminates the need for manual key management, distribution, and rotation procedures
-- **Scalable Trust**: Publishers don't need to maintain or distribute public keys, making the system accessible to individual developers and large organizations alike
+- **Identity-Based Authentication**: Uses OpenID Connect (OIDC) tokens from
+trusted identity providers (GitHub, Google, Microsoft) to authenticate
+publishers at signing time
 
-**Transparency and Verification**: All signatures are stored directly in OCI storage alongside the agent artifacts and public keys, providing:
+- **Short-Lived Certificates**: Issues ephemeral signing certificates valid only
+for minutes, reducing the window of potential key compromise
 
-- **Public Auditability**: Anyone can verify the signing history of agent records stored in accessible registries
-- **Non-Repudiation**: Publishers cannot deny having signed records that are cryptographically linked to their identity
-- **Supply Chain Security**: Enables detection of compromised or unauthorized agent publications
+- **Automatic Key Rotation**: Eliminates the need for manual key management,
+distribution, and rotation procedures
+
+- **Scalable Trust**: Publishers don't need to maintain or distribute public
+keys, making the system accessible to individual developers and large
+organizations alike
+
+**Transparency and Verification**: All signatures are stored directly in OCI
+storage alongside the agent artifacts and public keys, providing:
+
+- **Public Auditability**: Anyone can verify the signing history of agent
+records stored in accessible registries
+
+- **Non-Repudiation**: Publishers cannot deny having signed records that are
+cryptographically linked to their identity
+
+- **Supply Chain Security**: Enables detection of compromised or unauthorized
+agent publications
+
 
 ### Trust Boundaries and Isolation
 
-**Organizational Isolation**: Separate registries maintain security boundaries between different organizations, allowing each entity to control their own agent ecosystem while still participating in the broader federated network.
+**Organizational Isolation**: Separate registries maintain security boundaries
+between different organizations, allowing each entity to control their own
+agent ecosystem while still participating in the broader federated network.
 
-**Content Verification**: Nodes can validate artifact integrity and signature authenticity without trusting transport layers or intermediate storage systems. This zero-trust approach ensures security even when using untrusted storage infrastructure.
+**Content Verification**: Nodes can validate artifact integrity and signature
+authenticity without trusting transport layers or intermediate storage systems.
+This zero-trust approach ensures security even when using untrusted storage
+infrastructure.
 
-**Reputation Systems**: The cryptographic foundation enables the development of reputation systems based on verifiable evidence rather than subjective claims. Publishers with consistent signing practices and high-quality agents can build measurable trust over time.
+**Reputation Systems**: The cryptographic foundation enables the development of
+reputation systems based on verifiable evidence rather than subjective claims.
+Publishers with consistent signing practices and high-quality agents can build
+measurable trust over time.
 
 ### Threat Mitigation
 
 The security model addresses several key threats to distributed agent directories:
 
-**Supply Chain Attacks**: Sigstore integration and transparency logs make it difficult for attackers to inject malicious agents without detection, as all publications are cryptographically signed and publicly auditable.
+**Supply Chain Attacks**: Sigstore integration and transparency logs make it
+difficult for attackers to inject malicious agents without detection, as all
+publications are cryptographically signed and publicly auditable.
 
-**Data Integrity Attacks**: Automatic hash verification prevents tampering with agent records during storage or transmission, ensuring users receive authentic content.
+**Data Integrity Attacks**: Automatic hash verification prevents tampering with
+agent records during storage or transmission, ensuring users receive authentic
+content.
 
-**Identity Spoofing**: OIDC-based keyless signing prevents attackers from impersonating legitimate publishers without compromising their identity provider credentials.
+**Identity Spoofing**: OIDC-based keyless signing prevents attackers from
+impersonating legitimate publishers without compromising their identity
+provider credentials.
 
-**Availability Attacks**: The distributed nature of the system, combined with content replication across multiple registries, provides resilience against denial-of-service attacks targeting individual nodes.
+**Availability Attacks**: The distributed nature of the system, combined with
+content replication across multiple registries, provides resilience against
+denial-of-service attacks targeting individual nodes.
 
 ### Access Control
 
@@ -625,9 +678,14 @@ access patterns
 
 ### Trust Boundaries
 
-- **Organizational isolation** through separate registries maintains security boundaries
-- **Content verification** allows nodes to validate artifact integrity without trusting transport layers
-- **Reputation systems** can build on cryptographic proofs of past agent performance
+- **Organizational isolation** through separate registries maintains security
+boundaries
+
+- **Content verification** allows nodes to validate artifact integrity without
+trusting transport layers
+
+- **Reputation systems** can build on cryptographic proofs of past agent
+performance
 
 ## Performance Optimizations
 
@@ -636,18 +694,27 @@ requirements of agent discovery:
 
 ### Bandwidth Optimization
 
-- **Incremental updates** use OCI layer semantics to transmit only changed portions of agent records
-- **Content compression** reduces storage and transmission costs for large agent definitions
-- **Selective replication** based on query patterns minimizes unnecessary data transfer
+- **Incremental updates** use OCI layer semantics to transmit only changed
+portions of agent records
+
+- **Content compression** reduces storage and transmission costs for large agent
+definitions
+
+- **Selective replication** based on query patterns minimizes unnecessary data
+transfer
 
 ### Scalability Architecture
 
 The system scales horizontally through several mechanisms:
 
-- **Registry sharding** distributes storage load across multiple OCI registry instances
+- **Registry sharding** distributes storage load across multiple OCI registry
+instances
+
 - **Index partitioning** in the DHT allows query load to scale with the number
 of participating nodes
-- **Lazy loading** defers retrieval of detailed agent specifications until actually needed
+
+- **Lazy loading** defers retrieval of detailed agent specifications until
+actually needed
 
 This architecture provides a robust foundation for a decentralized agent
 directory that can scale to support the growing ecosystem of AI agents while
