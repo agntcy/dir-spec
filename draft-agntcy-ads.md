@@ -111,7 +111,7 @@ agent workflows.
 
 **Distributed Architecture**:
 Built on proven distributed systems principles, ADS uses content-addressing for
-global uniqueness and implements distributed hash tables {{!DHT}} for scalable
+global uniqueness and implements distributed hash tables {{DHT}} for scalable
 content discovery across decentralized networks.
 
 ## Architectural Foundation
@@ -251,7 +251,7 @@ registries for availability
 # MAS Data Discovery
 
 ADS implements a two-level mapping system that enables efficient discovery of
-Multi-Agent System components through a distributed hash table {{!DHT}}
+Multi-Agent System components through a distributed hash table {{DHT}}
 architecture. This approach separates capability-based discovery from content
 location, providing both scalability and flexibility in agent retrieval.
 
@@ -747,7 +747,7 @@ by their identifier
 1. Skill matching results: Evaluates capability requirements.
 2. Server location information: Determines optimal data sources.
 
-ADS uses libp2p [Kad-DHT] {{!DHT}} for server and content discovery.
+ADS uses libp2p [Kad-DHT] {{DHT}} for server and content discovery.
 
 
 
