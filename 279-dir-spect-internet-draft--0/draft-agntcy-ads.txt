@@ -5,7 +5,7 @@
 Independent Submission                                    L. Muscariello
 Internet-Draft                                                  R. Polic
 Intended status: Informational                                     Cisco
-Expires: 12 February 2026                                 11 August 2025
+Expires: 13 February 2026                                 12 August 2025
 
 
                         Agent Directory Service
@@ -46,7 +46,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 February 2026.
+   This Internet-Draft will expire on 13 February 2026.
 
 Copyright Notice
 
@@ -168,7 +168,7 @@ Table of Contents
 
    *Distributed Architecture*: Built on proven distributed systems
    principles, ADS uses content-addressing for global uniqueness and
-   implements distributed hash tables (DHT) for scalable content
+   implements distributed hash tables [DHT] for scalable content
    discovery across decentralized networks.
 
 2.2.  Architectural Foundation
@@ -323,7 +323,7 @@ Table of Contents
 
    ADS implements a two-level mapping system that enables efficient
    discovery of Multi-Agent System components through a distributed hash
-   table (DHT) architecture.  This approach separates capability-based
+   table [DHT] architecture.  This approach separates capability-based
    discovery from content location, providing both scalability and
    flexibility in agent retrieval.
 

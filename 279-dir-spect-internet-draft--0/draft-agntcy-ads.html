@@ -1057,7 +1057,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 </tr></thead>
 <tfoot><tr>
 <td class="left">Muscariello &amp; Polic</td>
-<td class="center">Expires 12 February 2026</td>
+<td class="center">Expires 13 February 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1070,12 +1070,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-agntcy-ads-latest</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-08-11" class="published">11 August 2025</time>
+<time datetime="2025-08-12" class="published">12 August 2025</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-02-12">12 February 2026</time></dd>
+<dd class="expires"><time datetime="2026-02-13">13 February 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1128,7 +1128,7 @@ that interconnect through a content-routing protocol.<a href="#section-abstract-
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 12 February 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 13 February 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1371,7 +1371,7 @@ complementary skills solve complex problems, and dependency chains for composite
 agent workflows.<a href="#section-2.1-4" class="pilcrow">¶</a></p>
 <p id="section-2.1-5"><strong>Distributed Architecture</strong>:
 Built on proven distributed systems principles, ADS uses content-addressing for
-global uniqueness and implements distributed hash tables (DHT) for scalable
+global uniqueness and implements distributed hash tables <span>[<a href="#DHT" class="cite xref">DHT</a>]</span> for scalable
 content discovery across decentralized networks.<a href="#section-2.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
@@ -1523,16 +1523,20 @@ queries and capability matching across all variants within a given category.<a h
 <p id="section-3.2.3-1">The architecture supports federation across multiple registry instances, enabling:<a href="#section-3.2.3-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-3.2.3-2.1">
-              <p id="section-3.2.3-2.1.1"><strong>Organizational boundaries</strong>: Different organizations can maintain their own registries while participating in the global directory<a href="#section-3.2.3-2.1.1" class="pilcrow">¶</a></p>
+              <p id="section-3.2.3-2.1.1"><strong>Organizational boundaries</strong>: Different organizations can maintain their own
+registries while participating in the global directory<a href="#section-3.2.3-2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.2.3-2.2">
-              <p id="section-3.2.3-2.2.1"><strong>Geographic distribution</strong>: Content can be replicated to registries closer to consumers, reducing latency<a href="#section-3.2.3-2.2.1" class="pilcrow">¶</a></p>
+              <p id="section-3.2.3-2.2.1"><strong>Geographic distribution</strong>: Content can be replicated to registries closer to
+consumers, reducing latency<a href="#section-3.2.3-2.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.2.3-2.3">
-              <p id="section-3.2.3-2.3.1"><strong>Specialization</strong>: Registries can focus on specific domains (e.g., medical AI agents, financial analysis tools)<a href="#section-3.2.3-2.3.1" class="pilcrow">¶</a></p>
+              <p id="section-3.2.3-2.3.1"><strong>Specialization</strong>: Registries can focus on specific domains (e.g., medical AI
+agents, financial analysis tools)<a href="#section-3.2.3-2.3.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-3.2.3-2.4">
-              <p id="section-3.2.3-2.4.1"><strong>Redundancy</strong>: Critical agent records can be replicated across multiple registries for availability<a href="#section-3.2.3-2.4.1" class="pilcrow">¶</a></p>
+              <p id="section-3.2.3-2.4.1"><strong>Redundancy</strong>: Critical agent records can be replicated across multiple
+registries for availability<a href="#section-3.2.3-2.4.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -1547,7 +1551,7 @@ queries and capability matching across all variants within a given category.<a h
 <a href="#section-4" class="section-number selfRef">4. </a><a href="#name-mas-data-discovery" class="section-name selfRef">MAS Data Discovery</a>
       </h2>
 <p id="section-4-1">ADS implements a two-level mapping system that enables efficient discovery of
-Multi-Agent System components through a distributed hash table (DHT)
+Multi-Agent System components through a distributed hash table <span>[<a href="#DHT" class="cite xref">DHT</a>]</span>
 architecture. This approach separates capability-based discovery from content
 location, providing both scalability and flexibility in agent retrieval.<a href="#section-4-1" class="pilcrow">¶</a></p>
 <div id="two-level-mapping-architecture">
@@ -1958,16 +1962,28 @@ efficient capability-based discovery across the distributed network.<a href="#se
         <h3 id="name-security-model">
 <a href="#section-4.5" class="section-number selfRef">4.5. </a><a href="#name-security-model" class="section-name selfRef">Security Model</a>
         </h3>
-<p id="section-4.5-1">The OCI-based architecture provides multiple layers of security that address the unique challenges of distributed agent directories:<a href="#section-4.5-1" class="pilcrow">¶</a></p>
+<p id="section-4.5-1">The OCI-based architecture provides multiple layers of security that address the
+unique challenges of distributed agent directories:<a href="#section-4.5-1" class="pilcrow">¶</a></p>
 <div id="cryptographic-integrity">
 <section id="section-4.5.1">
           <h4 id="name-cryptographic-integrity">
 <a href="#section-4.5.1" class="section-number selfRef">4.5.1. </a><a href="#name-cryptographic-integrity" class="section-name selfRef">Cryptographic Integrity</a>
           </h4>
-<p id="section-4.5.1-1">ADS leverages the OCI layer's built-in cryptographic mechanisms to ensure data integrity:<a href="#section-4.5.1-1" class="pilcrow">¶</a></p>
-<p id="section-4.5.1-2"><strong>Automatic Hash Computation</strong>: The OCI registry layer automatically computes SHA-256 hash digests for all stored artifacts. These content identifiers are generated transparently during the push operation, ensuring that every agent record has a cryptographically verifiable fingerprint without additional overhead.<a href="#section-4.5.1-2" class="pilcrow">¶</a></p>
-<p id="section-4.5.1-3"><strong>Tamper Detection</strong>: Content addressing ensures immediate tamper detection through cryptographic hash verification. Any modification to an agent record—whether malicious or accidental—results in a different hash digest, making unauthorized changes immediately detectable during retrieval operations.<a href="#section-4.5.1-3" class="pilcrow">¶</a></p>
-<p id="section-4.5.1-4"><strong>End-to-End Verification</strong>: Clients can independently verify that received content matches its advertised identifier, providing built-in protection against data corruption during transmission or storage without trusting intermediate network components.<a href="#section-4.5.1-4" class="pilcrow">¶</a></p>
+<p id="section-4.5.1-1">ADS leverages the OCI layer's built-in cryptographic mechanisms to ensure data
+integrity:<a href="#section-4.5.1-1" class="pilcrow">¶</a></p>
+<p id="section-4.5.1-2"><strong>Automatic Hash Computation</strong>: The OCI registry layer automatically computes
+SHA-256 hash digests for all stored artifacts. These content identifiers are
+generated transparently during the push operation, ensuring that every agent
+record has a cryptographically verifiable fingerprint without additional
+overhead.<a href="#section-4.5.1-2" class="pilcrow">¶</a></p>
+<p id="section-4.5.1-3"><strong>Tamper Detection</strong>: Content addressing ensures immediate tamper detection
+through cryptographic hash verification. Any modification to an agent
+record—whether malicious or accidental—results in a different hash digest,
+making unauthorized changes immediately detectable during retrieval operations.<a href="#section-4.5.1-3" class="pilcrow">¶</a></p>
+<p id="section-4.5.1-4"><strong>End-to-End Verification</strong>: Clients can independently verify that received
+content matches its advertised identifier, providing built-in protection
+against data corruption during transmission or storage without trusting
+intermediate network components.<a href="#section-4.5.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="content-provenance-and-digital-signatures">
@@ -1976,32 +1992,46 @@ efficient capability-based discovery across the distributed network.<a href="#se
 <a href="#section-4.5.2" class="section-number selfRef">4.5.2. </a><a href="#name-content-provenance-and-digi" class="section-name selfRef">Content Provenance and Digital Signatures</a>
           </h4>
 <p id="section-4.5.2-1">ADS integrates with Sigstore, a security framework for OCI storage, to provide comprehensive content provenance and authenticity guarantees:<a href="#section-4.5.2-1" class="pilcrow">¶</a></p>
-<p id="section-4.5.2-2"><strong>Sigstore Integration</strong>: The system leverages Sigstore's security framework to provide verifiable proof of when and by whom agent records were signed. This creates an immutable audit trail that cannot be retroactively modified, enabling forensic analysis of agent deployment history.<a href="#section-4.5.2-2" class="pilcrow">¶</a></p>
-<p id="section-4.5.2-3"><strong>Keyless Signing</strong>: Sigstore's keyless signing approach eliminates the complexity and security risks associated with long-lived cryptographic keys:<a href="#section-4.5.2-3" class="pilcrow">¶</a></p>
+<p id="section-4.5.2-2"><strong>Sigstore Integration</strong>: The system leverages Sigstore's security framework to
+provide verifiable proof of when and by whom agent records were signed. This
+creates an immutable audit trail that cannot be retroactively modified,
+enabling forensic analysis of agent deployment history.<a href="#section-4.5.2-2" class="pilcrow">¶</a></p>
+<p id="section-4.5.2-3"><strong>Keyless Signing</strong>: Sigstore's keyless signing approach eliminates the
+complexity and security risks associated with long-lived cryptographic keys:<a href="#section-4.5.2-3" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4.5.2-4.1">
-              <p id="section-4.5.2-4.1.1"><strong>Identity-Based Authentication</strong>: Uses OpenID Connect (OIDC) tokens from trusted identity providers (GitHub, Google, Microsoft) to authenticate publishers at signing time<a href="#section-4.5.2-4.1.1" class="pilcrow">¶</a></p>
+              <p id="section-4.5.2-4.1.1"><strong>Identity-Based Authentication</strong>: Uses OpenID Connect (OIDC) tokens from
+trusted identity providers (GitHub, Google, Microsoft) to authenticate
+publishers at signing time<a href="#section-4.5.2-4.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-4.5.2-4.2">
-              <p id="section-4.5.2-4.2.1"><strong>Short-Lived Certificates</strong>: Issues ephemeral signing certificates valid only for minutes, reducing the window of potential key compromise<a href="#section-4.5.2-4.2.1" class="pilcrow">¶</a></p>
+              <p id="section-4.5.2-4.2.1"><strong>Short-Lived Certificates</strong>: Issues ephemeral signing certificates valid only
+for minutes, reducing the window of potential key compromise<a href="#section-4.5.2-4.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-4.5.2-4.3">
-              <p id="section-4.5.2-4.3.1"><strong>Automatic Key Rotation</strong>: Eliminates the need for manual key management, distribution, and rotation procedures<a href="#section-4.5.2-4.3.1" class="pilcrow">¶</a></p>
+              <p id="section-4.5.2-4.3.1"><strong>Automatic Key Rotation</strong>: Eliminates the need for manual key management,
+distribution, and rotation procedures<a href="#section-4.5.2-4.3.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-4.5.2-4.4">
-              <p id="section-4.5.2-4.4.1"><strong>Scalable Trust</strong>: Publishers don't need to maintain or distribute public keys, making the system accessible to individual developers and large organizations alike<a href="#section-4.5.2-4.4.1" class="pilcrow">¶</a></p>
+              <p id="section-4.5.2-4.4.1"><strong>Scalable Trust</strong>: Publishers don't need to maintain or distribute public
+keys, making the system accessible to individual developers and large
+organizations alike<a href="#section-4.5.2-4.4.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
-<p id="section-4.5.2-5"><strong>Transparency and Verification</strong>: All signatures are stored directly in OCI storage alongside the agent artifacts and public keys, providing:<a href="#section-4.5.2-5" class="pilcrow">¶</a></p>
+<p id="section-4.5.2-5"><strong>Transparency and Verification</strong>: All signatures are stored directly in OCI
+storage alongside the agent artifacts and public keys, providing:<a href="#section-4.5.2-5" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4.5.2-6.1">
-              <p id="section-4.5.2-6.1.1"><strong>Public Auditability</strong>: Anyone can verify the signing history of agent records stored in accessible registries<a href="#section-4.5.2-6.1.1" class="pilcrow">¶</a></p>
+              <p id="section-4.5.2-6.1.1"><strong>Public Auditability</strong>: Anyone can verify the signing history of agent
+records stored in accessible registries<a href="#section-4.5.2-6.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-4.5.2-6.2">
-              <p id="section-4.5.2-6.2.1"><strong>Non-Repudiation</strong>: Publishers cannot deny having signed records that are cryptographically linked to their identity<a href="#section-4.5.2-6.2.1" class="pilcrow">¶</a></p>
+              <p id="section-4.5.2-6.2.1"><strong>Non-Repudiation</strong>: Publishers cannot deny having signed records that are
+cryptographically linked to their identity<a href="#section-4.5.2-6.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-4.5.2-6.3">
-              <p id="section-4.5.2-6.3.1"><strong>Supply Chain Security</strong>: Enables detection of compromised or unauthorized agent publications<a href="#section-4.5.2-6.3.1" class="pilcrow">¶</a></p>
+              <p id="section-4.5.2-6.3.1"><strong>Supply Chain Security</strong>: Enables detection of compromised or unauthorized
+agent publications<a href="#section-4.5.2-6.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -2011,9 +2041,17 @@ efficient capability-based discovery across the distributed network.<a href="#se
           <h4 id="name-trust-boundaries-and-isolat">
 <a href="#section-4.5.3" class="section-number selfRef">4.5.3. </a><a href="#name-trust-boundaries-and-isolat" class="section-name selfRef">Trust Boundaries and Isolation</a>
           </h4>
-<p id="section-4.5.3-1"><strong>Organizational Isolation</strong>: Separate registries maintain security boundaries between different organizations, allowing each entity to control their own agent ecosystem while still participating in the broader federated network.<a href="#section-4.5.3-1" class="pilcrow">¶</a></p>
-<p id="section-4.5.3-2"><strong>Content Verification</strong>: Nodes can validate artifact integrity and signature authenticity without trusting transport layers or intermediate storage systems. This zero-trust approach ensures security even when using untrusted storage infrastructure.<a href="#section-4.5.3-2" class="pilcrow">¶</a></p>
-<p id="section-4.5.3-3"><strong>Reputation Systems</strong>: The cryptographic foundation enables the development of reputation systems based on verifiable evidence rather than subjective claims. Publishers with consistent signing practices and high-quality agents can build measurable trust over time.<a href="#section-4.5.3-3" class="pilcrow">¶</a></p>
+<p id="section-4.5.3-1"><strong>Organizational Isolation</strong>: Separate registries maintain security boundaries
+between different organizations, allowing each entity to control their own
+agent ecosystem while still participating in the broader federated network.<a href="#section-4.5.3-1" class="pilcrow">¶</a></p>
+<p id="section-4.5.3-2"><strong>Content Verification</strong>: Nodes can validate artifact integrity and signature
+authenticity without trusting transport layers or intermediate storage systems.
+This zero-trust approach ensures security even when using untrusted storage
+infrastructure.<a href="#section-4.5.3-2" class="pilcrow">¶</a></p>
+<p id="section-4.5.3-3"><strong>Reputation Systems</strong>: The cryptographic foundation enables the development of
+reputation systems based on verifiable evidence rather than subjective claims.
+Publishers with consistent signing practices and high-quality agents can build
+measurable trust over time.<a href="#section-4.5.3-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="threat-mitigation">
@@ -2022,10 +2060,18 @@ efficient capability-based discovery across the distributed network.<a href="#se
 <a href="#section-4.5.4" class="section-number selfRef">4.5.4. </a><a href="#name-threat-mitigation" class="section-name selfRef">Threat Mitigation</a>
           </h4>
 <p id="section-4.5.4-1">The security model addresses several key threats to distributed agent directories:<a href="#section-4.5.4-1" class="pilcrow">¶</a></p>
-<p id="section-4.5.4-2"><strong>Supply Chain Attacks</strong>: Sigstore integration and transparency logs make it difficult for attackers to inject malicious agents without detection, as all publications are cryptographically signed and publicly auditable.<a href="#section-4.5.4-2" class="pilcrow">¶</a></p>
-<p id="section-4.5.4-3"><strong>Data Integrity Attacks</strong>: Automatic hash verification prevents tampering with agent records during storage or transmission, ensuring users receive authentic content.<a href="#section-4.5.4-3" class="pilcrow">¶</a></p>
-<p id="section-4.5.4-4"><strong>Identity Spoofing</strong>: OIDC-based keyless signing prevents attackers from impersonating legitimate publishers without compromising their identity provider credentials.<a href="#section-4.5.4-4" class="pilcrow">¶</a></p>
-<p id="section-4.5.4-5"><strong>Availability Attacks</strong>: The distributed nature of the system, combined with content replication across multiple registries, provides resilience against denial-of-service attacks targeting individual nodes.<a href="#section-4.5.4-5" class="pilcrow">¶</a></p>
+<p id="section-4.5.4-2"><strong>Supply Chain Attacks</strong>: Sigstore integration and transparency logs make it
+difficult for attackers to inject malicious agents without detection, as all
+publications are cryptographically signed and publicly auditable.<a href="#section-4.5.4-2" class="pilcrow">¶</a></p>
+<p id="section-4.5.4-3"><strong>Data Integrity Attacks</strong>: Automatic hash verification prevents tampering with
+agent records during storage or transmission, ensuring users receive authentic
+content.<a href="#section-4.5.4-3" class="pilcrow">¶</a></p>
+<p id="section-4.5.4-4"><strong>Identity Spoofing</strong>: OIDC-based keyless signing prevents attackers from
+impersonating legitimate publishers without compromising their identity
+provider credentials.<a href="#section-4.5.4-4" class="pilcrow">¶</a></p>
+<p id="section-4.5.4-5"><strong>Availability Attacks</strong>: The distributed nature of the system, combined with
+content replication across multiple registries, provides resilience against
+denial-of-service attacks targeting individual nodes.<a href="#section-4.5.4-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="access-control">
@@ -2056,13 +2102,16 @@ access patterns<a href="#section-4.5.5-1.3.1" class="pilcrow">¶</a></p>
           </h4>
 <ul class="normal">
 <li class="normal" id="section-4.5.6-1.1">
-              <p id="section-4.5.6-1.1.1"><strong>Organizational isolation</strong> through separate registries maintains security boundaries<a href="#section-4.5.6-1.1.1" class="pilcrow">¶</a></p>
+              <p id="section-4.5.6-1.1.1"><strong>Organizational isolation</strong> through separate registries maintains security
+boundaries<a href="#section-4.5.6-1.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-4.5.6-1.2">
-              <p id="section-4.5.6-1.2.1"><strong>Content verification</strong> allows nodes to validate artifact integrity without trusting transport layers<a href="#section-4.5.6-1.2.1" class="pilcrow">¶</a></p>
+              <p id="section-4.5.6-1.2.1"><strong>Content verification</strong> allows nodes to validate artifact integrity without
+trusting transport layers<a href="#section-4.5.6-1.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-4.5.6-1.3">
-              <p id="section-4.5.6-1.3.1"><strong>Reputation systems</strong> can build on cryptographic proofs of past agent performance<a href="#section-4.5.6-1.3.1" class="pilcrow">¶</a></p>
+              <p id="section-4.5.6-1.3.1"><strong>Reputation systems</strong> can build on cryptographic proofs of past agent
+performance<a href="#section-4.5.6-1.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -2083,13 +2132,16 @@ requirements of agent discovery:<a href="#section-4.6-1" class="pilcrow">¶</a><
           </h4>
 <ul class="normal">
 <li class="normal" id="section-4.6.1-1.1">
-              <p id="section-4.6.1-1.1.1"><strong>Incremental updates</strong> use OCI layer semantics to transmit only changed portions of agent records<a href="#section-4.6.1-1.1.1" class="pilcrow">¶</a></p>
+              <p id="section-4.6.1-1.1.1"><strong>Incremental updates</strong> use OCI layer semantics to transmit only changed
+portions of agent records<a href="#section-4.6.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-4.6.1-1.2">
-              <p id="section-4.6.1-1.2.1"><strong>Content compression</strong> reduces storage and transmission costs for large agent definitions<a href="#section-4.6.1-1.2.1" class="pilcrow">¶</a></p>
+              <p id="section-4.6.1-1.2.1"><strong>Content compression</strong> reduces storage and transmission costs for large agent
+definitions<a href="#section-4.6.1-1.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-4.6.1-1.3">
-              <p id="section-4.6.1-1.3.1"><strong>Selective replication</strong> based on query patterns minimizes unnecessary data transfer<a href="#section-4.6.1-1.3.1" class="pilcrow">¶</a></p>
+              <p id="section-4.6.1-1.3.1"><strong>Selective replication</strong> based on query patterns minimizes unnecessary data
+transfer<a href="#section-4.6.1-1.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -2102,14 +2154,16 @@ requirements of agent discovery:<a href="#section-4.6-1" class="pilcrow">¶</a><
 <p id="section-4.6.2-1">The system scales horizontally through several mechanisms:<a href="#section-4.6.2-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-4.6.2-2.1">
-              <p id="section-4.6.2-2.1.1"><strong>Registry sharding</strong> distributes storage load across multiple OCI registry instances<a href="#section-4.6.2-2.1.1" class="pilcrow">¶</a></p>
+              <p id="section-4.6.2-2.1.1"><strong>Registry sharding</strong> distributes storage load across multiple OCI registry
+instances<a href="#section-4.6.2-2.1.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-4.6.2-2.2">
               <p id="section-4.6.2-2.2.1"><strong>Index partitioning</strong> in the DHT allows query load to scale with the number
 of participating nodes<a href="#section-4.6.2-2.2.1" class="pilcrow">¶</a></p>
 </li>
             <li class="normal" id="section-4.6.2-2.3">
-              <p id="section-4.6.2-2.3.1"><strong>Lazy loading</strong> defers retrieval of detailed agent specifications until actually needed<a href="#section-4.6.2-2.3.1" class="pilcrow">¶</a></p>
+              <p id="section-4.6.2-2.3.1"><strong>Lazy loading</strong> defers retrieval of detailed agent specifications until
+actually needed<a href="#section-4.6.2-2.3.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 <p id="section-4.6.2-3">This architecture provides a robust foundation for a decentralized agent
