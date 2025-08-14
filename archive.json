@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-08-12T00:20:31.342738+00:00",
+  "timestamp": "2025-08-14T00:20:44.266633+00:00",
   "repo": "agntcy/dir-spec",
   "labels": [
     {
@@ -299,26 +299,242 @@
       "id": "PR_kwDON_UBTc6jCZQC",
       "title": "279 dir spect internet draft  0",
       "url": "https://github.com/agntcy/dir-spec/pull/6",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "muscariello",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "- **docs: init docs**\r\n\r\n",
       "createdAt": "2025-08-11T12:29:43Z",
-      "updatedAt": "2025-08-11T12:41:50Z",
+      "updatedAt": "2025-08-12T12:56:21Z",
       "baseRepository": "agntcy/dir-spec",
       "baseRefName": "main",
       "baseRefOid": "191a9ce98cdb81f8028f8451fc0cc441d800523b",
       "headRepository": "agntcy/dir-spec",
       "headRefName": "279-dir-spect-internet-draft--0",
-      "headRefOid": "7bdcd94ec7cb5a3b4b624719dd7778e92f718352",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "d8db3022baaad095ca143c76bfe3271e100a0893",
+      "closedAt": "2025-08-12T12:56:21Z",
+      "mergedAt": "2025-08-12T12:56:21Z",
+      "mergedBy": "muscariello",
+      "mergeCommit": {
+        "oid": "415a40feb08e719a1388de3345cfd82bb208fe67"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDON_UBTc65VRk4",
+          "commit": {
+            "abbreviatedOid": "372345d"
+          },
+          "author": "ramizpolic",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-12T08:56:40Z",
+          "updatedAt": "2025-08-12T08:56:40Z",
+          "comments": [
+            {
+              "originalPosition": 128,
+              "body": "I see that below we are still using digests while we are actually using general-purpose CIDs utilising https://github.com/multiformats/cid.\r\n\r\nThis also relates to the OCI layer. While it is true that we deal with blobs that are digest identified, there are also CID-based tags (envelopes of the digest) to create linkage between items.",
+              "createdAt": "2025-08-12T08:56:40Z",
+              "updatedAt": "2025-08-12T08:57:18Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON_UBTc65VUe9",
+          "commit": {
+            "abbreviatedOid": "ed21bd7"
+          },
+          "author": "ramizpolic",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-12T08:59:35Z",
+          "updatedAt": "2025-08-12T08:59:36Z",
+          "comments": [
+            {
+              "originalPosition": 178,
+              "body": "```suggestion\r\n2. **DHT Updates**: Capability-to-CID mappings are distributed across DHT nodes\r\n```",
+              "createdAt": "2025-08-12T08:59:36Z",
+              "updatedAt": "2025-08-12T08:59:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON_UBTc65VWpt",
+          "commit": {
+            "abbreviatedOid": "ed21bd7"
+          },
+          "author": "ramizpolic",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-12T09:01:46Z",
+          "updatedAt": "2025-08-12T09:01:46Z",
+          "comments": [
+            {
+              "originalPosition": 235,
+              "body": "```suggestion\r\n**On-Demand Retrieval**: Records are pulled from remote peers only when\r\n```",
+              "createdAt": "2025-08-12T09:01:46Z",
+              "updatedAt": "2025-08-12T09:01:46Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON_UBTc65VYIF",
+          "commit": {
+            "abbreviatedOid": "ed21bd7"
+          },
+          "author": "ramizpolic",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-12T09:02:48Z",
+          "updatedAt": "2025-08-12T09:02:48Z",
+          "comments": [
+            {
+              "originalPosition": 272,
+              "body": "```suggestion\r\ncached copies of popular records\r\n```",
+              "createdAt": "2025-08-12T09:02:48Z",
+              "updatedAt": "2025-08-12T09:02:48Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON_UBTc65VYiD",
+          "commit": {
+            "abbreviatedOid": "ed21bd7"
+          },
+          "author": "ramizpolic",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-12T09:03:05Z",
+          "updatedAt": "2025-08-12T09:03:06Z",
+          "comments": [
+            {
+              "originalPosition": 277,
+              "body": "```suggestion\r\nmonitored by directory node administrators to balance storage costs with\r\n```",
+              "createdAt": "2025-08-12T09:03:05Z",
+              "updatedAt": "2025-08-12T09:03:06Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON_UBTc65ZCHG",
+          "commit": {
+            "abbreviatedOid": "372345d"
+          },
+          "author": "muscariello",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-12T12:22:12Z",
+          "updatedAt": "2025-08-12T12:22:12Z",
+          "comments": [
+            {
+              "originalPosition": 128,
+              "body": "Content identifiers match RFC6920 naming things w/ hashes. The encoding sha256:hash is general while the specific OCI digest is particular. Consider that RFC6920 and OCI name spec are fundamentally using the same content identifier with no conceptual difference. ",
+              "createdAt": "2025-08-12T12:22:12Z",
+              "updatedAt": "2025-08-12T12:22:12Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON_UBTc65ZFcK",
+          "commit": {
+            "abbreviatedOid": "ed21bd7"
+          },
+          "author": "muscariello",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-12T12:26:00Z",
+          "updatedAt": "2025-08-12T12:26:00Z",
+          "comments": [
+            {
+              "originalPosition": 178,
+              "body": "I would keep skills for the moment for clarity. It is important we keep the skill taxonomy search clear. Any addition should come later.",
+              "createdAt": "2025-08-12T12:26:00Z",
+              "updatedAt": "2025-08-12T12:26:00Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON_UBTc65ZF6N",
+          "commit": {
+            "abbreviatedOid": "ed21bd7"
+          },
+          "author": "muscariello",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-12T12:26:35Z",
+          "updatedAt": "2025-08-12T12:26:36Z",
+          "comments": [
+            {
+              "originalPosition": 235,
+              "body": "right.",
+              "createdAt": "2025-08-12T12:26:36Z",
+              "updatedAt": "2025-08-12T12:26:36Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON_UBTc65ZGZF",
+          "commit": {
+            "abbreviatedOid": "ed21bd7"
+          },
+          "author": "muscariello",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-12T12:27:08Z",
+          "updatedAt": "2025-08-12T12:27:09Z",
+          "comments": [
+            {
+              "originalPosition": 277,
+              "body": "it does not seem inaccurate to say agent directory",
+              "createdAt": "2025-08-12T12:27:08Z",
+              "updatedAt": "2025-08-12T12:27:09Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON_UBTc65ZHPj",
+          "commit": {
+            "abbreviatedOid": "ed21bd7"
+          },
+          "author": "muscariello",
+          "authorAssociation": "MEMBER",
+          "state": "COMMENTED",
+          "body": "",
+          "createdAt": "2025-08-12T12:28:03Z",
+          "updatedAt": "2025-08-12T12:28:04Z",
+          "comments": [
+            {
+              "originalPosition": 272,
+              "body": "fixed",
+              "createdAt": "2025-08-12T12:28:03Z",
+              "updatedAt": "2025-08-12T12:28:04Z"
+            }
+          ]
+        },
+        {
+          "id": "PRR_kwDON_UBTc65ZjNh",
+          "commit": {
+            "abbreviatedOid": "d8db302"
+          },
+          "author": "ramizpolic",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2025-08-12T12:55:36Z",
+          "updatedAt": "2025-08-12T12:55:36Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
