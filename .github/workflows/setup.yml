@@ -104,7 +104,3 @@ jobs:
       uses: martinthomson/i-d-template@v1
       with:
         make: gh-pages
-
-    - name: "Push Changes"
-      run: |
-        git push
