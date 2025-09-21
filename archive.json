@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-18T00:18:36.969479+00:00",
+  "timestamp": "2025-09-21T00:21:08.121481+00:00",
   "repo": "agntcy/dir-spec",
   "labels": [
     {
@@ -535,6 +535,32 @@
           "comments": []
         }
       ]
+    },
+    {
+      "number": 7,
+      "id": "PR_kwDON_UBTc6peJwP",
+      "title": "fix: remove unused git push in pipeline",
+      "url": "https://github.com/agntcy/dir-spec/pull/7",
+      "state": "OPEN",
+      "author": "ramizpolic",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2025-09-19T09:53:27Z",
+      "updatedAt": "2025-09-19T09:53:28Z",
+      "baseRepository": "agntcy/dir-spec",
+      "baseRefName": "main",
+      "baseRefOid": "415a40feb08e719a1388de3345cfd82bb208fe67",
+      "headRepository": "agntcy/dir-spec",
+      "headRefName": "ramizpolic-patch-1",
+      "headRefOid": "afe5875a213ea72841e9f7c854ac3f5df1b31228",
+      "closedAt": null,
+      "mergedAt": null,
+      "mergedBy": null,
+      "mergeCommit": null,
+      "comments": [],
+      "reviews": []
     }
   ]
 }
