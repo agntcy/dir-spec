@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-09-28T00:21:20.330570+00:00",
+  "timestamp": "2025-09-30T00:19:16.490015+00:00",
   "repo": "agntcy/dir-spec",
   "labels": [
     {
@@ -541,26 +541,42 @@
       "id": "PR_kwDON_UBTc6peJwP",
       "title": "fix: remove unused git push in pipeline",
       "url": "https://github.com/agntcy/dir-spec/pull/7",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "ramizpolic",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
       "body": "",
       "createdAt": "2025-09-19T09:53:27Z",
-      "updatedAt": "2025-09-19T09:53:28Z",
+      "updatedAt": "2025-09-29T08:57:20Z",
       "baseRepository": "agntcy/dir-spec",
       "baseRefName": "main",
       "baseRefOid": "415a40feb08e719a1388de3345cfd82bb208fe67",
       "headRepository": "agntcy/dir-spec",
       "headRefName": "ramizpolic-patch-1",
       "headRefOid": "afe5875a213ea72841e9f7c854ac3f5df1b31228",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "closedAt": "2025-09-29T08:57:15Z",
+      "mergedAt": "2025-09-29T08:57:15Z",
+      "mergedBy": "ramizpolic",
+      "mergeCommit": {
+        "oid": "7fa8a4d540af1404a00f77ba0007eaa3c0e2aa8f"
+      },
       "comments": [],
-      "reviews": []
+      "reviews": [
+        {
+          "id": "PRR_kwDON_UBTc7Da_lV",
+          "commit": {
+            "abbreviatedOid": "afe5875"
+          },
+          "author": "muscariello",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "LGTM",
+          "createdAt": "2025-09-29T08:57:07Z",
+          "updatedAt": "2025-09-29T08:57:07Z",
+          "comments": []
+        }
+      ]
     }
   ]
 }
