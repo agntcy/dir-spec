@@ -7,7 +7,7 @@ title: "Agent Directory Service"
 abbrev: "agent-dir"
 category: info
 
-docname: draft-agntcy-ads-latest
+docname: draft-mp-agntcy-ads-00
 submissiontype: independent
 number:
 date:
