@@ -75,6 +75,44 @@ informative:
       author:
          - name: libp2p Community
       target: https://github.com/libp2p/go-libp2p-kad-dht
+   AGNTCY-ADS:
+      title: "The AGNTCY Agent Directory Service: Architecture and Implementation"
+      author:
+         - ins: L. Muscariello
+           name: Luca Muscariello
+         - ins: V. Pandey
+           name: Vijoy Pandey
+         - ins: R. Polic
+           name: Ramiz Polic
+      target: https://arxiv.org/abs/2509.18787
+      date: 2025
+   AI-Registry-Evolution:
+      title: "Evolution of AI Agent Registry Solutions: Centralized, Enterprise, and Distributed Approaches"
+      author:
+         - ins: A. Singh
+           name: Aditi Singh
+         - ins: A. Ehtesham
+           name: Abul Ehtesham
+         - ins: M. Lambe
+           name: Mahesh Lambe
+         - ins: J. J. Grogan
+           name: Jared James Grogan
+         - ins: A. Singh
+           name: Abhishek Singh
+         - ins: S. Kumar
+           name: Saket Kumar
+         - ins: L. Muscariello
+           name: Luca Muscariello
+         - ins: V. Pandey
+           name: Vijoy Pandey
+         - ins: G. Sauvage De Saint Marc
+           name: Guillaume Sauvage De Saint Marc
+         - ins: P. Chari
+           name: Pradyumna Chari
+         - ins: R. Raskar
+           name: Ramesh Raskar
+      target: https://arxiv.org/abs/2508.03095
+      date: 2025
 --- abstract
 
 The Agent Directory Service (ADS) is a distributed directory service designed to
@@ -111,12 +149,13 @@ complementary capabilities
 - **Verify claims** about agent performance and reliability
 - **Track versioning and dependencies** between agent components
 
-The Agent Directory Service (ADS) addresses these challenges by providing a
-distributed directory infrastructure specifically designed for the agentic AI
-ecosystem. Rather than attempting to formally define MAS architectures, which
-would constrain the creative composition patterns emerging in this rapidly
-evolving field—ADS focuses on providing flexible metadata storage and discovery
-mechanisms.
+The Agent Directory Service (ADS) {{AGNTCY-ADS}}  addresses these challenges by
+providing a distributed directory infrastructure specifically designed for the
+agentic AI ecosystem. Rather than attempting to formally define MAS
+architectures, which would constrain the creative composition patterns emerging
+in this rapidly evolving field—ADS focuses on providing flexible metadata
+storage and discovery mechanisms. A comparison among registries which can be
+centralized or distributed is reported here {{AI-Registry-Evolution}}.
 
 ## Core Capabilities
 
@@ -318,7 +357,8 @@ connections.
 
 ### Taxonomy-Driven Search Optimization
 
-ADS addresses these challenges through a structured hierarchical taxonomy that provides several critical optimization benefits:
+ADS addresses these challenges through a structured hierarchical taxonomy that
+provides several critical optimization benefits:
 
 **Search Space Partitioning**: The taxonomy enables efficient partitioning of
 the search space. When processing a query for "computer vision" capabilities,
@@ -360,7 +400,8 @@ processing" capabilities, the system can immediately identify the subset of
 agents tagged with NLP skills without examining agents focused on computer
 vision or mathematical reasoning.
 
-**Hierarchical Organization**: Skills are organized in a tree-like structure that reflects natural relationships between capabilities. For example:
+**Hierarchical Organization**: Skills are organized in a tree-like structure
+*that reflects natural relationships between capabilities. For example:
 
 ~~~
 Natural Language Processing
@@ -378,13 +419,25 @@ Natural Language Processing
     └── Response Generation
 ~~~
 
-This hierarchy enables both specific queries ("sentiment analysis agents") and broader capability searches ("all natural language processing agents") while maintaining efficient indexing structures.
+This hierarchy enables both specific queries ("sentiment analysis agents") and
+broader capability searches ("all natural language processing agents") while
+maintaining efficient indexing structures.
 
-**Query Expansion and Refinement**: Taxonomies support automatic query expansion where searches for parent categories can include relevant child categories. A query for "text analysis" can automatically include agents tagged with "sentiment analysis," "named entity recognition," and "text classification" without requiring users to know all specific subcategories.
+**Query Expansion and Refinement**: Taxonomies support automatic query expansion
+*where searches for parent categories can include relevant child categories. A
+*query for "text analysis" can automatically include agents tagged with
+*"sentiment analysis," "named entity recognition," and "text classification"
+*without requiring users to know all specific subcategories.
 
-**Semantic Consistency**: Standardized taxonomies reduce ambiguity and improve search precision by providing consistent terminology across the ecosystem. This prevents fragmentation where similar capabilities are described using different terms by different publishers.
+**Semantic Consistency**: Standardized taxonomies reduce ambiguity and improve
+*search precision by providing consistent terminology across the ecosystem. This
+*prevents fragmentation where similar capabilities are described using different
+*terms by different publishers.
 
-**Scalable Indexing**: The hierarchical structure enables efficient distributed indexing where different DHT nodes can specialize in specific taxonomy branches, distributing both storage load and query processing across the network.
+**Scalable Indexing**: The hierarchical structure enables efficient distributed
+*indexing where different DHT nodes can specialize in specific taxonomy
+*branches, distributing both storage load and query processing across the
+*network.
 
 ## Additional Taxonomies
 
@@ -459,9 +512,12 @@ that combine criteria across different classification axes.
 foundation**, with domain and feature taxonomies providing additional filtering
 dimensions:
 
-- **Skill + Domain**: "Find natural language processing agents specialized for healthcare applications"
-- **Skill + Feature**: "Discover computer vision agents that support MCP integration"
-- **Skill + Feature + Domain**: "Locate natural language processing agents with observability features for manufacturing applications"
+- **Skill + Domain**: "Find natural language processing agents specialized for
+healthcare applications"
+- **Skill + Feature**: "Discover computer vision agents that support MCP
+integration"
+- **Skill + Feature + Domain**: "Locate natural language processing agents with
+observability features for manufacturing applications"
 
 **Skills as Search Foundation**: The skills taxonomy serves as the primary index
 structure in the DHT, making skill-based criteria mandatory for efficient query
@@ -667,7 +723,8 @@ frequencies, download patterns, and usage statistics across the network
 - **Storage Requirements**: Needs sufficient local storage capacity to maintain
 cached copies of popular records
 
-- **Cache Management**: Must implement cache eviction policies, freshness validation, and synchronization mechanisms
+- **Cache Management**: Must implement cache eviction policies, freshness
+validation, and synchronization mechanisms
 
 - **Administrator Oversight**: Proactive caching policies must be configured and
 monitored by agent directory node administrators to balance storage costs with
@@ -860,7 +917,8 @@ intermediate network components.
 
 ### Content Provenance and Digital Signatures
 
-ADS integrates with Sigstore, a security framework for OCI storage, to provide comprehensive content provenance and authenticity guarantees:
+ADS integrates with Sigstore, a security framework for OCI storage, to provide
+comprehensive content provenance and authenticity guarantees:
 
 **Sigstore Integration**: The system leverages Sigstore's security framework to
 provide verifiable proof of when and by whom agent records were signed. This
