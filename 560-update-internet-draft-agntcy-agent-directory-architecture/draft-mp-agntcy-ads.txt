@@ -9,7 +9,7 @@ Expires: 20 April 2026                                   17 October 2025
 
 
                         Agent Directory Service
-                        draft-agntcy-ads-latest
+                          draft-agntcy-ads-00
 
 Abstract
 
