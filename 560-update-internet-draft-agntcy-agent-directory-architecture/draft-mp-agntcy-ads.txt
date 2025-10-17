@@ -5,7 +5,7 @@
 Independent Submission                                    L. Muscariello
 Internet-Draft                                                  R. Polic
 Intended status: Informational                                     Cisco
-Expires: 19 April 2026                                   16 October 2025
+Expires: 20 April 2026                                   17 October 2025
 
 
                         Agent Directory Service
@@ -46,7 +46,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 19 April 2026.
+   This Internet-Draft will expire on 20 April 2026.
 
 Copyright Notice
 
@@ -142,13 +142,14 @@ Table of Contents
 
    *  *Track versioning and dependencies* between agent components
 
-   The Agent Directory Service (ADS) addresses these challenges by
-   providing a distributed directory infrastructure specifically
-   designed for the agentic AI ecosystem.  Rather than attempting to
-   formally define MAS architectures, which would constrain the creative
-   composition patterns emerging in this rapidly evolving field—ADS
-   focuses on providing flexible metadata storage and discovery
-   mechanisms.
+   The Agent Directory Service (ADS) [AGNTCY-ADS] addresses these
+   challenges by providing a distributed directory infrastructure
+   specifically designed for the agentic AI ecosystem.  Rather than
+   attempting to formally define MAS architectures, which would
+   constrain the creative composition patterns emerging in this rapidly
+   evolving field—ADS focuses on providing flexible metadata storage and
+   discovery mechanisms.  A comparison among registries which can be
+   centralized or distributed is reported here [AI-Registry-Evolution].
 
 2.1.  Core Capabilities
 
@@ -414,7 +415,7 @@ Table of Contents
    reasoning.
 
    *Hierarchical Organization*: Skills are organized in a tree-like
-   structure that reflects natural relationships between capabilities.
+   structure *that reflects natural relationships between capabilities.
    For example:
 
    Natural Language Processing
@@ -436,22 +437,22 @@ Table of Contents
    processing agents") while maintaining efficient indexing structures.
 
    *Query Expansion and Refinement*: Taxonomies support automatic query
-   expansion where searches for parent categories can include relevant
-   child categories.  A query for "text analysis" can automatically
-   include agents tagged with "sentiment analysis," "named entity
-   recognition," and "text classification" without requiring users to
+   expansion *where searches for parent categories can include relevant
+   child categories.  A *query for "text analysis" can automatically
+   include agents tagged with *"sentiment analysis," "named entity
+   recognition," and "text classification" *without requiring users to
    know all specific subcategories.
 
    *Semantic Consistency*: Standardized taxonomies reduce ambiguity and
-   improve search precision by providing consistent terminology across
-   the ecosystem.  This prevents fragmentation where similar
-   capabilities are described using different terms by different
+   improve *search precision by providing consistent terminology across
+   the ecosystem.  This *prevents fragmentation where similar
+   capabilities are described using different *terms by different
    publishers.
 
    *Scalable Indexing*: The hierarchical structure enables efficient
-   distributed indexing where different DHT nodes can specialize in
-   specific taxonomy branches, distributing both storage load and query
-   processing across the network.
+   distributed *indexing where different DHT nodes can specialize in
+   specific taxonomy *branches, distributing both storage load and query
+   processing across the *network.
 
 4.4.  Additional Taxonomies
 
@@ -1110,6 +1111,19 @@ Result: Agent sha256:abc123... available from peers 12D3KooW... and 12D3KooX...
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
 6.2.  Informative References
+
+   [AGNTCY-ADS]
+              Muscariello, L., Pandey, V., and R. Polic, "The AGNTCY
+              Agent Directory Service: Architecture and Implementation",
+              2025, <https://arxiv.org/abs/2509.18787>.
+
+   [AI-Registry-Evolution]
+              Singh, A., Ehtesham, A., Lambe, M., Grogan, J. J., Singh,
+              A., Kumar, S., Muscariello, L., Pandey, V., Sauvage De
+              Saint Marc, G., Chari, P., and R. Raskar, "Evolution of AI
+              Agent Registry Solutions: Centralized, Enterprise, and
+              Distributed Approaches", 2025,
+              <https://arxiv.org/abs/2508.03095>.
 
    [DHT]      Maymounkov, P. and D. Mazieres, "Kademlia: A peer-to-peer
               information system based on the xor metric", IPTPS '01 ,
