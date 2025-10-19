@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2025-10-16T00:19:53.084266+00:00",
+  "timestamp": "2025-10-19T00:22:05.343818+00:00",
   "repo": "agntcy/dir-spec",
   "labels": [
     {
@@ -574,6 +574,90 @@
           "body": "LGTM",
           "createdAt": "2025-09-29T08:57:07Z",
           "updatedAt": "2025-09-29T08:57:07Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 8,
+      "id": "PR_kwDON_UBTc6uKzgz",
+      "title": "fix: naming for I-D submission",
+      "url": "https://github.com/agntcy/dir-spec/pull/8",
+      "state": "MERGED",
+      "author": "muscariello",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "Signed-off-by: Luca Muscariello <muscariello@ieee.org>\n",
+      "createdAt": "2025-10-16T20:34:36Z",
+      "updatedAt": "2025-10-17T11:45:08Z",
+      "baseRepository": "agntcy/dir-spec",
+      "baseRefName": "main",
+      "baseRefOid": "7fa8a4d540af1404a00f77ba0007eaa3c0e2aa8f",
+      "headRepository": "agntcy/dir-spec",
+      "headRefName": "560-update-internet-draft-agntcy-agent-directory-architecture",
+      "headRefOid": "db3bac03f136177d7628d0b1d6a9a45b8d316f87",
+      "closedAt": "2025-10-17T11:45:08Z",
+      "mergedAt": "2025-10-17T11:45:08Z",
+      "mergedBy": "muscariello",
+      "mergeCommit": {
+        "oid": "fe971cd9197d1ff531ec98b3969c992dc252c154"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDON_UBTc7HnZ9J",
+          "commit": {
+            "abbreviatedOid": "39a2aa1"
+          },
+          "author": "adamtagscherer",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "LGTM! :shipit: ",
+          "createdAt": "2025-10-17T09:00:03Z",
+          "updatedAt": "2025-10-17T09:00:03Z",
+          "comments": []
+        }
+      ]
+    },
+    {
+      "number": 9,
+      "id": "PR_kwDON_UBTc6uSwI9",
+      "title": "560 update internet draft agntcy agent directory architecture",
+      "url": "https://github.com/agntcy/dir-spec/pull/9",
+      "state": "MERGED",
+      "author": "muscariello",
+      "authorAssociation": "MEMBER",
+      "assignees": [],
+      "labels": [],
+      "body": "- **fix: naming for I-D submission**\n- **fix: add references**\n- **fix: add references**\n",
+      "createdAt": "2025-10-17T11:48:25Z",
+      "updatedAt": "2025-10-17T11:52:53Z",
+      "baseRepository": "agntcy/dir-spec",
+      "baseRefName": "main",
+      "baseRefOid": "fe971cd9197d1ff531ec98b3969c992dc252c154",
+      "headRepository": "agntcy/dir-spec",
+      "headRefName": "560-update-internet-draft-agntcy-agent-directory-architecture",
+      "headRefOid": "c3b2fe0f34b150f6e9c2ed44897be4d5c5338695",
+      "closedAt": "2025-10-17T11:52:53Z",
+      "mergedAt": "2025-10-17T11:52:53Z",
+      "mergedBy": "muscariello",
+      "mergeCommit": {
+        "oid": "8b7e1c432048e9bcedbf0a233bdf20cec716fa25"
+      },
+      "comments": [],
+      "reviews": [
+        {
+          "id": "PRR_kwDON_UBTc7HqmMd",
+          "commit": {
+            "abbreviatedOid": "c3b2fe0"
+          },
+          "author": "paralta",
+          "authorAssociation": "MEMBER",
+          "state": "APPROVED",
+          "body": "",
+          "createdAt": "2025-10-17T11:52:23Z",
+          "updatedAt": "2025-10-17T11:52:23Z",
           "comments": []
         }
       ]
