@@ -5,7 +5,7 @@
 Independent Submission                                    L. Muscariello
 Internet-Draft                                                  R. Polic
 Intended status: Informational                                     Cisco
-Expires: 20 April 2026                                   17 October 2025
+Expires: 10 July 2026                                     6 January 2026
 
 
                         Agent Directory Service
@@ -47,11 +47,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 April 2026.
+   This Internet-Draft will expire on 10 July 2026.
 
 Copyright Notice
 
-   Copyright (c) 2025 IETF Trust and the persons identified as the
+   Copyright (c) 2026 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
