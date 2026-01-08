@@ -5,7 +5,7 @@
 Independent Submission                                    L. Muscariello
 Internet-Draft                                                  R. Polic
 Intended status: Informational                                     Cisco
-Expires: 10 July 2026                                     6 January 2026
+Expires: 12 July 2026                                     8 January 2026
 
 
                         Agent Directory Service
@@ -47,7 +47,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 July 2026.
+   This Internet-Draft will expire on 12 July 2026.
 
 Copyright Notice
 
