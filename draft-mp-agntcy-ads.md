@@ -49,6 +49,16 @@ normative:
       author:
          - name: "Open Container Initiative"
       target: https://github.com/opencontainers/image-spec
+   OCI.Manifest:
+      title: "OCI Image Manifest Specification"
+      author:
+         - name: "Open Container Initiative"
+      target: https://github.com/opencontainers/image-spec/blob/main/manifest.md
+   OCI.Artifact:
+      title: "OCI Artifacts Guidance Specification"
+      author:
+         - name: "Open Container Initiative"
+      target: https://github.com/opencontainers/image-spec/blob/main/artifacts-guidance.md
    OCI.Distribution:
       title: "OCI Distribution Specification"
       author:
@@ -86,6 +96,11 @@ informative:
            name: Ramiz Polic
       target: https://arxiv.org/abs/2509.18787
       date: 2025
+   AGNTCY-OASF:
+      title: "Open Agent Schema Framework (OASF)"
+      author:
+         - name: AGNTCY Community
+      target: https://github.com/agntcy/oasf
    AI-Registry-Evolution:
       title: "Evolution of AI Agent Registry Solutions: Centralized, Enterprise, and Distributed Approaches"
       author:
@@ -259,8 +274,9 @@ assessments
 ## Record Artifact Specification
 
 ADS stores agent records as Record Artifacts following the OCI Image Manifest
-Specification and adhering to the OCI artifacts guidance. A Record
-Artifact is an AGNTCY OASF Record packaged as an OCI artifact.
+Specification {{OCI.Manifest}} and adhering to the OCI artifacts guidance
+{{OCI.Artifact}}. 
+A Record Artifact is an AGNTCY OASF Record packaged as an OCI artifact.
 
 ### Manifest Structure
 
@@ -490,19 +506,9 @@ SHA-256 digest obtained by converting the CID back to the digest format.
 
 ### Open Agent Schema Framework (OASF)
 
-The [Open Agent Schema Framework](https://github.com/agntcy/oasf) (OASF)
+The Open Agent Schema Framework (OASF) {{AGNTCY-OASF}}
 complements Record Artifact Specification by defining the actual data
 models for agent-related information referenced in the OCI artifacts.
-
-### Agent Directory Service (ADS)
-
-The [Agent Directory Service](https://github.com/agntcy/dir) (ADS) utilizes
-Record Artifact Specification to provide secure publication, exchange, and
-discovery of information about records over a distributed peer-to-peer network.
-Services within ADS leverage OCI standards to create links between Record
-Artifacts and their own OCI artifacts to implement specific functionalities.
-For example, ADS Security Service uses sigstore to sign and verify records by
-creating a signature OCI artifact linked to the Record Artifact.
 
 ### Third-Party Applications
 
