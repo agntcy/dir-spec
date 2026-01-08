@@ -70,11 +70,19 @@ Table of Contents
      3.1.  Content-Addressed Storage
      3.2.  OCI Integration
        3.2.1.  Standards Compliance
-       3.2.2.  Record Artifact Specification
-       3.2.3.  Record Reconstruction
-       3.2.4.  Content Identifier (CID)
-       3.2.5.  Artifact Organization
-       3.2.6.  Multi-Registry Federation
+     3.3.  Record Artifact Specification
+       3.3.1.  Manifest Structure
+       3.3.2.  Layer Structure
+       3.3.3.  Example Record Artifacts
+       3.3.4.  Record Reconstruction
+       3.3.5.  Content Identifier (CID)
+     3.4.  Application Integration
+       3.4.1.  Open Agent Schema Framework (OASF)
+       3.4.2.  Agent Directory Service (ADS)
+       3.4.3.  Third-Party Applications
+       3.4.4.  Runtime Environments
+     3.5.  Artifact Organization
+       3.5.1.  Multi-Registry Federation
    4.  MAS Data Discovery
      4.1.  Skill Taxonomy
        4.1.1.  The Challenge of Capability Search
@@ -265,13 +273,13 @@ Table of Contents
    *  *Content delivery networks* optimized for OCI artifact
       distribution
 
-3.2.2.  Record Artifact Specification
+3.3.  Record Artifact Specification
 
    ADS stores agent records as Record Artifacts following the OCI Image
    Manifest Specification and adhering to the OCI artifacts guidance.  A
    Record Artifact is an AGNTCY OASF Record packaged as an OCI artifact.
 
-3.2.2.1.  Manifest Structure
+3.3.1.  Manifest Structure
 
    The manifest structure MUST include the following properties:
 
@@ -302,7 +310,7 @@ Table of Contents
       This OPTIONAL property MAY reference another Record Artifact to
       create linkage between records for version histories.
 
-3.2.2.2.  Layer Structure
+3.3.2.  Layer Structure
 
    Each layer descriptor MUST include the following properties:
 
@@ -379,52 +387,87 @@ Table of Contents
    specific OASF types version (e.g., v1alpha2), {type} is the OASF type
    name (e.g. Record), and {encoding} MUST be json.
 
-3.2.2.3.  Example Record Artifacts
+3.3.3.  Example Record Artifacts
 
    *Layered Record*: A record with separate component layers for
    metadata, skills, domains, locators, and modules:
 
-   json { "schemaVersion": 2, "mediaType": "application/
-   vnd.oci.image.manifest.v1+json", "artifactType": "application/
-   vnd.agntcy.oasf.record.v1+json", "config": { "mediaType":
-   "application/vnd.oci.empty.v1+json", "digest": "sha256:44136fa355b367
-   8a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a", "size": 2 },
-   "layers": [ { "mediaType": "application/
-   vnd.agntcy.oasf.types.v1alpha2.Record+json", "data":
-   "<BASE64_ENCODED_RECORD_DATA>", "digest": "sha256:d5815835051dd97d800
-   a03f641ed8162877920e734d3d705b698912602b8c763", "size": 216,
-   "annotations": { "agntcy.oasf.record/schema_version": "0.7.0",
-   "agntcy.oasf.record/created_at": "2026-01-06T00:00:00Z" } }, {
-   "mediaType": "application/vnd.agntcy.oasf.types.v1alpha2.Skill+json",
-   "digest": "sha256:3f907c1a03bf20f20355fe449e18ff3f9de2e49570ffb536f1a
-   32f20c7179808", "size": 93, "annotations": { "agntcy.oasf.record/
-   skill.id": "10201", "agntcy.oasf.record/skill.name": "nlp" } }, {
-   "mediaType": "application/
-   vnd.agntcy.oasf.types.v1alpha2.Locator+json", "digest": "sha256:a5378
-   e569c625f7643952fcab30c74f2a84ece52335c292e630f740ac4694146", "size":
-   106, "urls": [ "https://ghcr.io/agntcy/agent:latest" ],
-   "annotations": { "agntcy.oasf.record/locator.type": "docker-image" }
-   } ], "subject": { "mediaType": "application/
-   vnd.oci.image.manifest.v1+json", "artifactType": "application/
-   vnd.agntcy.oasf.record.v1+json", "digest": "sha256:7e346bc58473bc1d8a
-   98776fa2a89a3e2a446b27f0e8a33ad49c3d4f28b6471d", "size": 702 } }
+   {
+     "schemaVersion": 2,
+     "mediaType": "application/vnd.oci.image.manifest.v1+json",
+     "artifactType": "application/vnd.agntcy.oasf.record.v1+json",
+     "config": {
+       "mediaType": "application/vnd.oci.empty.v1+json",
+       "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+       "size": 2
+     },
+     "layers": [
+       {
+         "mediaType": "application/vnd.agntcy.oasf.types.v1alpha2.Record+json",
+         "data": "<BASE64_ENCODED_RECORD_DATA>",
+         "digest": "sha256:d5815835051dd97d800a03f641ed8162877920e734d3d705b698912602b8c763",
+         "size": 216,
+         "annotations": {
+           "agntcy.oasf.record/schema_version": "0.7.0",
+           "agntcy.oasf.record/created_at": "2026-01-06T00:00:00Z"
+         }
+       },
+       {
+         "mediaType": "application/vnd.agntcy.oasf.types.v1alpha2.Skill+json",
+         "digest": "sha256:3f907c1a03bf20f20355fe449e18ff3f9de2e49570ffb536f1a32f20c7179808",
+         "size": 93,
+         "annotations": {
+           "agntcy.oasf.record/skill.id": "10201",
+           "agntcy.oasf.record/skill.name": "nlp"
+         }
+       },
+       {
+         "mediaType": "application/vnd.agntcy.oasf.types.v1alpha2.Locator+json",
+         "digest": "sha256:a5378e569c625f7643952fcab30c74f2a84ece52335c292e630f740ac4694146",
+         "size": 106,
+         "urls": [
+           "https://ghcr.io/agntcy/agent:latest"
+         ],
+         "annotations": {
+           "agntcy.oasf.record/locator.type": "docker-image"
+         }
+       }
+     ],
+     "subject": {
+       "mediaType": "application/vnd.oci.image.manifest.v1+json",
+       "artifactType": "application/vnd.agntcy.oasf.record.v1+json",
+       "digest": "sha256:7e346bc58473bc1d8a98776fa2a89a3e2a446b27f0e8a33ad49c3d4f28b6471d",
+       "size": 702
+     }
+   }
 
    *Embedded Record*: A complete record with all data embedded in the
    base layer:
 
-   json { "schemaVersion": 2, "mediaType": "application/
-   vnd.oci.image.manifest.v1+json", "artifactType": "application/
-   vnd.agntcy.oasf.record.v1+json", "config": { "mediaType":
-   "application/vnd.oci.empty.v1+json", "digest": "sha256:44136fa355b367
-   8a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a", "size": 2 },
-   "layers": [ { "mediaType": "application/
-   vnd.agntcy.oasf.types.v1alpha2.Record+json", "data":
-   "<BASE64_ENCODED_COMPLETE_RECORD_DATA>", "digest": "sha256:d581583505
-   1dd97d800a03f641ed8162877920e734d3d705b698912602b8c763", "size":
-   1256, "annotations": { "agntcy.oasf.record/schema_version": "0.7.0",
-   "agntcy.oasf.record/created_at": "2026-01-06T00:00:00Z" } } ] }
+   {
+     "schemaVersion": 2,
+     "mediaType": "application/vnd.oci.image.manifest.v1+json",
+     "artifactType": "application/vnd.agntcy.oasf.record.v1+json",
+     "config": {
+       "mediaType": "application/vnd.oci.empty.v1+json",
+       "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+       "size": 2
+     },
+     "layers": [
+       {
+         "mediaType": "application/vnd.agntcy.oasf.types.v1alpha2.Record+json",
+         "data": "<BASE64_ENCODED_COMPLETE_RECORD_DATA>",
+         "digest": "sha256:d5815835051dd97d800a03f641ed8162877920e734d3d705b698912602b8c763",
+         "size": 1256,
+         "annotations": {
+           "agntcy.oasf.record/schema_version": "0.7.0",
+           "agntcy.oasf.record/created_at": "2026-01-06T00:00:00Z"
+         }
+       }
+     ]
+   }
 
-3.2.3.  Record Reconstruction
+3.3.4.  Record Reconstruction
 
    Applications consuming Record Artifacts MUST implement the following
    reconstruction algorithm:
@@ -460,7 +503,7 @@ Table of Contents
    For embedded records (containing only the base Record layer), step 3
    is skipped as all data is present in the base layer.
 
-3.2.4.  Content Identifier (CID)
+3.3.5.  Content Identifier (CID)
 
    The Content Identifier (CID) for a Record Artifact provides an
    immutable, globally unique, content-addressed reference derived from
@@ -490,7 +533,46 @@ Table of Contents
    clients can retrieve Record Artifacts directly using their SHA-256
    digest obtained by converting the CID back to the digest format.
 
-3.2.5.  Artifact Organization
+3.4.  Application Integration
+
+3.4.1.  Open Agent Schema Framework (OASF)
+
+   The Open Agent Schema Framework (https://github.com/agntcy/oasf)
+   (OASF) complements Record Artifact Specification by defining the
+   actual data models for agent-related information referenced in the
+   OCI artifacts.
+
+3.4.2.  Agent Directory Service (ADS)
+
+   The Agent Directory Service (https://github.com/agntcy/dir) (ADS)
+   utilizes Record Artifact Specification to provide secure publication,
+   exchange, and discovery of information about records over a
+   distributed peer-to-peer network.  Services within ADS leverage OCI
+   standards to create links between Record Artifacts and their own OCI
+   artifacts to implement specific functionalities.  For example, ADS
+   Security Service uses sigstore to sign and verify records by creating
+   a signature OCI artifact linked to the Record Artifact.
+
+3.4.3.  Third-Party Applications
+
+   Third-party applications can build on top of the Record Artifact
+   Specification to create tools and services for managing,
+   distributing, and utilizing agent records.  This can be accomplished
+   by leveraging existing OCI ecosystem components such as registries,
+   clients, and tooling, or by developing custom solutions that link to
+   Record Artifacts.
+
+3.4.4.  Runtime Environments
+
+   Runtime environments that deploy and manage agents can leverage
+   Record Artifacts to obtain the necessary information for launching
+   and managing agent instances based on the definitions contained
+   within the artifacts.  Implementations can provide management of
+   process lifecycles, monitoring, and other features based on the
+   metadata defined in the records, or by linking records with runtime-
+   specific artifacts.
+
+3.5.  Artifact Organization
 
    Agent records are stored as OCI artifacts with a structured
    organization.  Multiple records can be stored under the same OCI name
@@ -539,7 +621,7 @@ Table of Contents
    enabling rich queries and capability matching across all variants
    within a given category.
 
-3.2.6.  Multi-Registry Federation
+3.5.1.  Multi-Registry Federation
 
    The architecture supports federation across multiple registry
    instances, enabling:
