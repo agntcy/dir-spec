@@ -210,10 +210,10 @@ distribution protocols between storage nodes.
 # Storage Architecture
 
 ADS implements a decentralized storage architecture built on OCI (Open Container
-Initiative) registries using ORAS (OCI Registry as Storage) as the foundational
-object storage layer. This design choice enables the system to leverage mature,
-standardized container registry infrastructure while achieving the speed,
-scalability, and security requirements of a distributed agent directory.
+Initiative) registries as the foundational object storage layer. This design
+choice enables the system to leverage mature, standardized container registry
+infrastructure while achieving the speed, scalability, and security requirements
+of a distributed agent directory.
 
 ## Content-Addressed Storage
 
@@ -238,10 +238,10 @@ tampering during transmission.
 it, as the identifier serves as a universal pointer that abstracts away physical
 storage locations.
 
-## ORAS Integration
+## OCI Integration
 
-ORAS provides a standardized interface for treating OCI registries as
-general-purpose object storage, offering several advantages for ADS:
+ADS leverages OCI (Open Container Initiative) specifications for storing and
+distributing agent records as OCI artifacts, offering several advantages:
 
 ### Standards Compliance
 
@@ -255,6 +255,236 @@ environments
 - **Vulnerability scanning** capabilities that can be extended to agent security
 assessments
 - **Content delivery networks** optimized for OCI artifact distribution
+
+### Record Artifact Specification
+
+ADS stores agent records as Record Artifacts following the OCI Image Manifest
+Specification and adhering to the OCI artifacts guidance. A Record
+Artifact is an AGNTCY OASF Record packaged as an OCI artifact.
+
+#### Manifest Structure
+
+The manifest structure MUST include the following properties:
+
+- `mediaType` string
+
+  This REQUIRED property MUST be `application/vnd.oci.image.manifest.v1+json`.
+
+- `artifactType` string
+
+  This REQUIRED property MUST be `application/vnd.agntcy.oasf.record.v1+json`.
+  Future versions of the Record Artifact Specification MAY define additional
+  artifact types.
+
+- `config` descriptor
+
+  This REQUIRED property MUST reference an empty configuration with media type
+  `application/vnd.oci.empty.v1+json`, indicating that no additional
+  configuration data is needed for Record Artifacts.
+
+- `layers` array of objects
+
+  This REQUIRED property MUST contain one or more layer descriptors representing
+  OASF Record components.
+
+- `subject` descriptor
+
+  This OPTIONAL property MAY reference another Record Artifact to create linkage
+  between records for version histories.
+
+#### Layer Structure
+
+Each layer descriptor MUST include the following properties:
+
+- `mediaType` string
+
+  This REQUIRED property specifies the layer content type. Implementations MUST
+  support the following media types:
+
+  - `application/vnd.agntcy.oasf.types.{version}.Record+json`: The first layer
+    (index 0) MUST use this media type and contains base record data. This layer
+    MUST use the `data` field for inline storage (base64-encoded) since the
+    content is small, frequently accessed, and unique to each record.
+
+  - `application/vnd.agntcy.oasf.types.{version}.Skill+json`: Contains skill
+    definition data. The `id` and `name` are stored as part of layer annotations.
+
+  - `application/vnd.agntcy.oasf.types.{version}.Domain+json`: Contains domain
+    definition data. The `id` and `name` are stored as part of layer annotations.
+
+  - `application/vnd.agntcy.oasf.types.{version}.Locator+json`: Contains locator
+    definition data referencing the location where the agent can be accessed or
+    deployed. The `type` and `url` are stored as part of layer annotations and
+    URL fields.
+
+  - `application/vnd.agntcy.oasf.types.{version}.Module+json`: Contains module
+    definition data. The `id` and `name` are stored as part of layer annotations.
+
+- `data` string
+
+  This OPTIONAL property contains base64-encoded layer content and MUST be
+  present for the `Record` layer. For other layer types, this field MUST NOT be
+  used; the layer content is stored as a separate blob referenced by `digest`.
+
+- `urls` array of strings
+
+  This OPTIONAL property MAY contain URLs pointing to external resources,
+  particularly useful for `Locator` layers to specify deployment targets.
+
+- `annotations` string-string map
+
+  This OPTIONAL property contains arbitrary attributes. Implementations SHOULD
+  use the predefined annotation keys:
+
+  - `agntcy.oasf.record/schema_version`: Schema version (for `Record` layers)
+  - `agntcy.oasf.record/created_at`: Creation timestamp (for `Record` layers)
+  - `agntcy.oasf.record/skill.id`: Skill ID (for `Skill` layers)
+  - `agntcy.oasf.record/skill.name`: Skill name (for `Skill` layers)
+  - `agntcy.oasf.record/domain.id`: Domain ID (for `Domain` layers)
+  - `agntcy.oasf.record/domain.name`: Domain name (for `Domain` layers)
+  - `agntcy.oasf.record/module.id`: Module ID (for `Module` layers)
+  - `agntcy.oasf.record/module.name`: Module name (for `Module` layers)
+  - `agntcy.oasf.record/locator.type`: Locator type (for `Locator` layers)
+
+Media types MUST map to `application/vnd.{schema_uri}.{version}.{type}+{encoding}`
+format, where `{schema_uri}` is `agntcy.oasf.types`, `{version}` corresponds to
+a specific OASF types version (e.g., `v1alpha2`), `{type}` is the OASF type
+name (e.g. `Record`), and `{encoding}` MUST be `json`.
+
+#### Example Record Artifacts
+
+**Layered Record**: A record with separate component layers for metadata, skills, 
+domains, locators, and modules:
+
+```json
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "artifactType": "application/vnd.agntcy.oasf.record.v1+json",
+  "config": {
+    "mediaType": "application/vnd.oci.empty.v1+json",
+    "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "size": 2
+  },
+  "layers": [
+    {
+      "mediaType": "application/vnd.agntcy.oasf.types.v1alpha2.Record+json",
+      "data": "<BASE64_ENCODED_RECORD_DATA>",
+      "digest": "sha256:d5815835051dd97d800a03f641ed8162877920e734d3d705b698912602b8c763",
+      "size": 216,
+      "annotations": {
+        "agntcy.oasf.record/schema_version": "0.7.0",
+        "agntcy.oasf.record/created_at": "2026-01-06T00:00:00Z"
+      }
+    },
+    {
+      "mediaType": "application/vnd.agntcy.oasf.types.v1alpha2.Skill+json",
+      "digest": "sha256:3f907c1a03bf20f20355fe449e18ff3f9de2e49570ffb536f1a32f20c7179808",
+      "size": 93,
+      "annotations": {
+        "agntcy.oasf.record/skill.id": "10201",
+        "agntcy.oasf.record/skill.name": "nlp"
+      }
+    },
+    {
+      "mediaType": "application/vnd.agntcy.oasf.types.v1alpha2.Locator+json",
+      "digest": "sha256:a5378e569c625f7643952fcab30c74f2a84ece52335c292e630f740ac4694146",
+      "size": 106,
+      "urls": [
+        "https://ghcr.io/agntcy/agent:latest"
+      ],
+      "annotations": {
+        "agntcy.oasf.record/locator.type": "docker-image"
+      }
+    }
+  ],
+  "subject": {
+    "mediaType": "application/vnd.oci.image.manifest.v1+json",
+    "artifactType": "application/vnd.agntcy.oasf.record.v1+json",
+    "digest": "sha256:7e346bc58473bc1d8a98776fa2a89a3e2a446b27f0e8a33ad49c3d4f28b6471d",
+    "size": 702
+  }
+}
+```
+
+**Embedded Record**: A complete record with all data embedded in the base layer:
+
+```json
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "artifactType": "application/vnd.agntcy.oasf.record.v1+json",
+  "config": {
+    "mediaType": "application/vnd.oci.empty.v1+json",
+    "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "size": 2
+  },
+  "layers": [
+    {
+      "mediaType": "application/vnd.agntcy.oasf.types.v1alpha2.Record+json",
+      "data": "<BASE64_ENCODED_COMPLETE_RECORD_DATA>",
+      "digest": "sha256:d5815835051dd97d800a03f641ed8162877920e734d3d705b698912602b8c763",
+      "size": 1256,
+      "annotations": {
+        "agntcy.oasf.record/schema_version": "0.7.0",
+        "agntcy.oasf.record/created_at": "2026-01-06T00:00:00Z"
+      }
+    }
+  ]
+}
+```
+
+### Record Reconstruction
+
+Applications consuming Record Artifacts MUST implement the following
+reconstruction algorithm:
+
+1. **Pull Manifest**: Retrieve the OCI image manifest from the registry using
+   standard OCI Distribution API operations
+
+2. **Extract Base Record**: Parse the first layer (index 0) with media type
+   `application/vnd.agntcy.oasf.types.{version}.Record+json` and base64-decode
+   the `data` field to obtain the base record JSON data
+
+3. **Retrieve Component Layers**: For each subsequent layer (Skill, Domain,
+   Locator, Module):
+   - Fetch the blob content from the registry using the layer's `digest`
+   - Verify the blob's SHA-256 digest matches the descriptor's `digest` field
+   - Parse the JSON content according to the layer's `mediaType`
+   - Merge the component data into the appropriate field of the base record
+   - Merge descriptor annotations into the corresponding component metadata
+
+4. **Validate Schema**: Validate the reconstructed record against the OASF
+   schema version specified in the `agntcy.oasf.record/schema_version` annotation
+
+For embedded records (containing only the base Record layer), step 3 is skipped
+as all data is present in the base layer.
+
+### Content Identifier (CID)
+
+The Content Identifier (CID) for a Record Artifact provides an immutable,
+globally unique, content-addressed reference derived from the cryptographic
+digest of the OCI image manifest.
+
+The Record CID MUST be computed using the CIDv1 specification with the following
+algorithm:
+
+1. **Compute Manifest Digest**: Calculate the SHA-256 digest of the canonical
+   OCI image manifest JSON bytes
+
+2. **Construct CID**: Encode the digest using CIDv1 format with:
+   - Version: `0x01`
+   - Multicodec: `0x01`
+   - Multihash: SHA-256 digest encoded as a multihash with hash function
+     identifier `0x12`, digest length `0x20`, and the 32-byte hash output
+
+3. **Encode CID**: The resulting binary CID MUST be encoded using base32 for
+   human-readable representation
+
+Registries that support tagging MAY use CID tags to reference and retrieve
+specific Record Artifacts efficiently.
+Alternatively, clients can retrieve Record Artifacts directly using their 
+SHA-256 digest obtained by converting the CID back to the digest format.
 
 ### Artifact Organization
 
