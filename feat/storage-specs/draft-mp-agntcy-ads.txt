@@ -78,9 +78,8 @@ Table of Contents
        3.3.5.  Content Identifier (CID)
      3.4.  Application Integration
        3.4.1.  Open Agent Schema Framework (OASF)
-       3.4.2.  Agent Directory Service (ADS)
-       3.4.3.  Third-Party Applications
-       3.4.4.  Runtime Environments
+       3.4.2.  Third-Party Applications
+       3.4.3.  Runtime Environments
      3.5.  Artifact Organization
        3.5.1.  Multi-Registry Federation
    4.  MAS Data Discovery
@@ -276,8 +275,9 @@ Table of Contents
 3.3.  Record Artifact Specification
 
    ADS stores agent records as Record Artifacts following the OCI Image
-   Manifest Specification and adhering to the OCI artifacts guidance.  A
-   Record Artifact is an AGNTCY OASF Record packaged as an OCI artifact.
+   Manifest Specification [OCI.Manifest] and adhering to the OCI
+   artifacts guidance [OCI.Artifact].  A Record Artifact is an AGNTCY
+   OASF Record packaged as an OCI artifact.
 
 3.3.1.  Manifest Structure
 
@@ -537,23 +537,11 @@ Table of Contents
 
 3.4.1.  Open Agent Schema Framework (OASF)
 
-   The Open Agent Schema Framework (https://github.com/agntcy/oasf)
-   (OASF) complements Record Artifact Specification by defining the
-   actual data models for agent-related information referenced in the
-   OCI artifacts.
+   The Open Agent Schema Framework (OASF) [AGNTCY-OASF] complements
+   Record Artifact Specification by defining the actual data models for
+   agent-related information referenced in the OCI artifacts.
 
-3.4.2.  Agent Directory Service (ADS)
-
-   The Agent Directory Service (https://github.com/agntcy/dir) (ADS)
-   utilizes Record Artifact Specification to provide secure publication,
-   exchange, and discovery of information about records over a
-   distributed peer-to-peer network.  Services within ADS leverage OCI
-   standards to create links between Record Artifacts and their own OCI
-   artifacts to implement specific functionalities.  For example, ADS
-   Security Service uses sigstore to sign and verify records by creating
-   a signature OCI artifact linked to the Record Artifact.
-
-3.4.3.  Third-Party Applications
+3.4.2.  Third-Party Applications
 
    Third-party applications can build on top of the Record Artifact
    Specification to create tools and services for managing,
@@ -562,7 +550,7 @@ Table of Contents
    clients, and tooling, or by developing custom solutions that link to
    Record Artifacts.
 
-3.4.4.  Runtime Environments
+3.4.3.  Runtime Environments
 
    Runtime environments that deploy and manage agents can leverage
    Record Artifacts to obtain the necessary information for launching
@@ -1396,6 +1384,11 @@ Result: Agent sha256:abc123... available from peers 12D3KooW... and 12D3KooX...
 
 6.1.  Normative References
 
+   [OCI.Artifact]
+              Initiative, O. C., "OCI Artifacts Guidance Specification",
+              n.d., <https://github.com/opencontainers/image-
+              spec/blob/main/artifacts-guidance.md>.
+
    [OCI.Distribution]
               Initiative, O. C., "OCI Distribution Specification", n.d.,
               <https://github.com/opencontainers/distribution-spec>.
@@ -1403,6 +1396,11 @@ Result: Agent sha256:abc123... available from peers 12D3KooW... and 12D3KooX...
    [OCI.Image]
               Initiative, O. C., "OCI Image Format Specification", n.d.,
               <https://github.com/opencontainers/image-spec>.
+
+   [OCI.Manifest]
+              Initiative, O. C., "OCI Image Manifest Specification",
+              n.d., <https://github.com/opencontainers/image-
+              spec/blob/main/manifest.md>.
 
    [OpenID.Auth]
               Foundation, O., "OpenID Authentication 2.0 - Final", n.d.,
@@ -1428,6 +1426,10 @@ Result: Agent sha256:abc123... available from peers 12D3KooW... and 12D3KooX...
               Muscariello, L., Pandey, V., and R. Polic, "The AGNTCY
               Agent Directory Service: Architecture and Implementation",
               2025, <https://arxiv.org/abs/2509.18787>.
+
+   [AGNTCY-OASF]
+              Community, A., "Open Agent Schema Framework (OASF)", n.d.,
+              <https://github.com/agntcy/oasf>.
 
    [AI-Registry-Evolution]
               Singh, A., Ehtesham, A., Lambe, M., Grogan, J. J., Singh,

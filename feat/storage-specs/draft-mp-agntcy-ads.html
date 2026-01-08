@@ -1208,13 +1208,10 @@ that interconnect through a content-routing protocol.<a href="#section-abstract-
                     <p id="section-toc.1-1.3.2.4.2.1.1"><a href="#section-3.4.1" class="auto internal xref">3.4.1</a>.  <a href="#name-open-agent-schema-framework" class="internal xref">Open Agent Schema Framework (OASF)</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.2">
-                    <p id="section-toc.1-1.3.2.4.2.2.1"><a href="#section-3.4.2" class="auto internal xref">3.4.2</a>.  <a href="#name-agent-directory-service-ads" class="internal xref">Agent Directory Service (ADS)</a></p>
+                    <p id="section-toc.1-1.3.2.4.2.2.1"><a href="#section-3.4.2" class="auto internal xref">3.4.2</a>.  <a href="#name-third-party-applications" class="internal xref">Third-Party Applications</a></p>
 </li>
                   <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.3">
-                    <p id="section-toc.1-1.3.2.4.2.3.1"><a href="#section-3.4.3" class="auto internal xref">3.4.3</a>.  <a href="#name-third-party-applications" class="internal xref">Third-Party Applications</a></p>
-</li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.4">
-                    <p id="section-toc.1-1.3.2.4.2.4.1"><a href="#section-3.4.4" class="auto internal xref">3.4.4</a>.  <a href="#name-runtime-environments" class="internal xref">Runtime Environments</a></p>
+                    <p id="section-toc.1-1.3.2.4.2.3.1"><a href="#section-3.4.3" class="auto internal xref">3.4.3</a>.  <a href="#name-runtime-environments" class="internal xref">Runtime Environments</a></p>
 </li>
                 </ul>
 </li>
@@ -1532,8 +1529,9 @@ assessments<a href="#section-3.2.1-2.3.1" class="pilcrow">¶</a></p>
 <a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-record-artifact-specificati" class="section-name selfRef">Record Artifact Specification</a>
         </h3>
 <p id="section-3.3-1">ADS stores agent records as Record Artifacts following the OCI Image Manifest
-Specification and adhering to the OCI artifacts guidance. A Record
-Artifact is an AGNTCY OASF Record packaged as an OCI artifact.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+Specification <span>[<a href="#OCI.Manifest" class="cite xref">OCI.Manifest</a>]</span> and adhering to the OCI artifacts guidance
+<span>[<a href="#OCI.Artifact" class="cite xref">OCI.Artifact</a>]</span>. 
+A Record Artifact is an AGNTCY OASF Record packaged as an OCI artifact.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
 <div id="manifest-structure">
 <section id="section-3.3.1">
           <h4 id="name-manifest-structure">
@@ -1857,48 +1855,34 @@ SHA-256 digest obtained by converting the CID back to the digest format.<a href=
           <h4 id="name-open-agent-schema-framework">
 <a href="#section-3.4.1" class="section-number selfRef">3.4.1. </a><a href="#name-open-agent-schema-framework" class="section-name selfRef">Open Agent Schema Framework (OASF)</a>
           </h4>
-<p id="section-3.4.1-1">The <a href="https://github.com/agntcy/oasf">Open Agent Schema Framework</a> (OASF)
+<p id="section-3.4.1-1">The Open Agent Schema Framework (OASF) <span>[<a href="#AGNTCY-OASF" class="cite xref">AGNTCY-OASF</a>]</span>
 complements Record Artifact Specification by defining the actual data
 models for agent-related information referenced in the OCI artifacts.<a href="#section-3.4.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="agent-directory-service-ads">
-<section id="section-3.4.2">
-          <h4 id="name-agent-directory-service-ads">
-<a href="#section-3.4.2" class="section-number selfRef">3.4.2. </a><a href="#name-agent-directory-service-ads" class="section-name selfRef">Agent Directory Service (ADS)</a>
-          </h4>
-<p id="section-3.4.2-1">The <a href="https://github.com/agntcy/dir">Agent Directory Service</a> (ADS) utilizes
-Record Artifact Specification to provide secure publication, exchange, and
-discovery of information about records over a distributed peer-to-peer network.
-Services within ADS leverage OCI standards to create links between Record
-Artifacts and their own OCI artifacts to implement specific functionalities.
-For example, ADS Security Service uses sigstore to sign and verify records by
-creating a signature OCI artifact linked to the Record Artifact.<a href="#section-3.4.2-1" class="pilcrow">¶</a></p>
-</section>
-</div>
 <div id="third-party-applications">
-<section id="section-3.4.3">
+<section id="section-3.4.2">
           <h4 id="name-third-party-applications">
-<a href="#section-3.4.3" class="section-number selfRef">3.4.3. </a><a href="#name-third-party-applications" class="section-name selfRef">Third-Party Applications</a>
+<a href="#section-3.4.2" class="section-number selfRef">3.4.2. </a><a href="#name-third-party-applications" class="section-name selfRef">Third-Party Applications</a>
           </h4>
-<p id="section-3.4.3-1">Third-party applications can build on top of the Record Artifact Specification to
+<p id="section-3.4.2-1">Third-party applications can build on top of the Record Artifact Specification to
 create tools and services for managing, distributing, and utilizing agent records.
 This can be accomplished by leveraging existing OCI ecosystem components such as
 registries, clients, and tooling, or by developing custom solutions that link to
-Record Artifacts.<a href="#section-3.4.3-1" class="pilcrow">¶</a></p>
+Record Artifacts.<a href="#section-3.4.2-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="runtime-environments">
-<section id="section-3.4.4">
+<section id="section-3.4.3">
           <h4 id="name-runtime-environments">
-<a href="#section-3.4.4" class="section-number selfRef">3.4.4. </a><a href="#name-runtime-environments" class="section-name selfRef">Runtime Environments</a>
+<a href="#section-3.4.3" class="section-number selfRef">3.4.3. </a><a href="#name-runtime-environments" class="section-name selfRef">Runtime Environments</a>
           </h4>
-<p id="section-3.4.4-1">Runtime environments that deploy and manage agents can leverage Record Artifacts to
+<p id="section-3.4.3-1">Runtime environments that deploy and manage agents can leverage Record Artifacts to
 obtain the necessary information for launching and managing agent instances based on
 the definitions contained within the artifacts.
 Implementations can provide management of process lifecycles, monitoring, and other
 features based on the metadata defined in the records, or by linking records with
-runtime-specific artifacts.<a href="#section-3.4.4-1" class="pilcrow">¶</a></p>
+runtime-specific artifacts.<a href="#section-3.4.3-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -2918,6 +2902,10 @@ maintaining the security and reliability requirements of production systems.<a h
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
+<dt id="OCI.Artifact">[OCI.Artifact]</dt>
+        <dd>
+<span class="refAuthor">Initiative, O. C.</span>, <span class="refTitle">"OCI Artifacts Guidance Specification"</span>, <span>n.d.</span>, <span>&lt;<a href="https://github.com/opencontainers/image-spec/blob/main/artifacts-guidance.md">https://github.com/opencontainers/image-spec/blob/main/artifacts-guidance.md</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="OCI.Distribution">[OCI.Distribution]</dt>
         <dd>
 <span class="refAuthor">Initiative, O. C.</span>, <span class="refTitle">"OCI Distribution Specification"</span>, <span>n.d.</span>, <span>&lt;<a href="https://github.com/opencontainers/distribution-spec">https://github.com/opencontainers/distribution-spec</a>&gt;</span>. </dd>
@@ -2925,6 +2913,10 @@ maintaining the security and reliability requirements of production systems.<a h
 <dt id="OCI.Image">[OCI.Image]</dt>
         <dd>
 <span class="refAuthor">Initiative, O. C.</span>, <span class="refTitle">"OCI Image Format Specification"</span>, <span>n.d.</span>, <span>&lt;<a href="https://github.com/opencontainers/image-spec">https://github.com/opencontainers/image-spec</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="OCI.Manifest">[OCI.Manifest]</dt>
+        <dd>
+<span class="refAuthor">Initiative, O. C.</span>, <span class="refTitle">"OCI Image Manifest Specification"</span>, <span>n.d.</span>, <span>&lt;<a href="https://github.com/opencontainers/image-spec/blob/main/manifest.md">https://github.com/opencontainers/image-spec/blob/main/manifest.md</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="OpenID.Auth">[OpenID.Auth]</dt>
         <dd>
@@ -2954,6 +2946,10 @@ maintaining the security and reliability requirements of production systems.<a h
 <dt id="AGNTCY-ADS">[AGNTCY-ADS]</dt>
         <dd>
 <span class="refAuthor">Muscariello, L.</span>, <span class="refAuthor">Pandey, V.</span>, and <span class="refAuthor">R. Polic</span>, <span class="refTitle">"The AGNTCY Agent Directory Service: Architecture and Implementation"</span>, <time datetime="2025" class="refDate">2025</time>, <span>&lt;<a href="https://arxiv.org/abs/2509.18787">https://arxiv.org/abs/2509.18787</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="AGNTCY-OASF">[AGNTCY-OASF]</dt>
+        <dd>
+<span class="refAuthor">Community, A.</span>, <span class="refTitle">"Open Agent Schema Framework (OASF)"</span>, <span>n.d.</span>, <span>&lt;<a href="https://github.com/agntcy/oasf">https://github.com/agntcy/oasf</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="AI-Registry-Evolution">[AI-Registry-Evolution]</dt>
         <dd>
