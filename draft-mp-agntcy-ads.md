@@ -12,7 +12,7 @@ submissiontype: independent
 number:
 date:
 consensus: false
-v: 3
+v: 4
 area: Applications
 workgroup: Independent Submission
 keyword:
@@ -256,13 +256,13 @@ environments
 assessments
 - **Content delivery networks** optimized for OCI artifact distribution
 
-### Record Artifact Specification
+## Record Artifact Specification
 
 ADS stores agent records as Record Artifacts following the OCI Image Manifest
 Specification and adhering to the OCI artifacts guidance. A Record
 Artifact is an AGNTCY OASF Record packaged as an OCI artifact.
 
-#### Manifest Structure
+### Manifest Structure
 
 The manifest structure MUST include the following properties:
 
@@ -292,7 +292,7 @@ The manifest structure MUST include the following properties:
   This OPTIONAL property MAY reference another Record Artifact to create linkage
   between records for version histories.
 
-#### Layer Structure
+### Layer Structure
 
 Each layer descriptor MUST include the following properties:
 
@@ -351,12 +351,12 @@ format, where `{schema_uri}` is `agntcy.oasf.types`, `{version}` corresponds to
 a specific OASF types version (e.g., `v1alpha2`), `{type}` is the OASF type
 name (e.g. `Record`), and `{encoding}` MUST be `json`.
 
-#### Example Record Artifacts
+### Example Record Artifacts
 
 **Layered Record**: A record with separate component layers for metadata, skills, 
 domains, locators, and modules:
 
-```json
+~~~json
 {
   "schemaVersion": 2,
   "mediaType": "application/vnd.oci.image.manifest.v1+json",
@@ -405,11 +405,11 @@ domains, locators, and modules:
     "size": 702
   }
 }
-```
+~~~
 
 **Embedded Record**: A complete record with all data embedded in the base layer:
 
-```json
+~~~json
 {
   "schemaVersion": 2,
   "mediaType": "application/vnd.oci.image.manifest.v1+json",
@@ -432,7 +432,7 @@ domains, locators, and modules:
     }
   ]
 }
-```
+~~~
 
 ### Record Reconstruction
 
@@ -486,7 +486,42 @@ specific Record Artifacts efficiently.
 Alternatively, clients can retrieve Record Artifacts directly using their 
 SHA-256 digest obtained by converting the CID back to the digest format.
 
-### Artifact Organization
+## Application Integration
+
+### Open Agent Schema Framework (OASF)
+
+The [Open Agent Schema Framework](https://github.com/agntcy/oasf) (OASF)
+complements Record Artifact Specification by defining the actual data
+models for agent-related information referenced in the OCI artifacts.
+
+### Agent Directory Service (ADS)
+
+The [Agent Directory Service](https://github.com/agntcy/dir) (ADS) utilizes
+Record Artifact Specification to provide secure publication, exchange, and
+discovery of information about records over a distributed peer-to-peer network.
+Services within ADS leverage OCI standards to create links between Record
+Artifacts and their own OCI artifacts to implement specific functionalities.
+For example, ADS Security Service uses sigstore to sign and verify records by
+creating a signature OCI artifact linked to the Record Artifact.
+
+### Third-Party Applications
+
+Third-party applications can build on top of the Record Artifact Specification to
+create tools and services for managing, distributing, and utilizing agent records.
+This can be accomplished by leveraging existing OCI ecosystem components such as
+registries, clients, and tooling, or by developing custom solutions that link to
+Record Artifacts.
+
+### Runtime Environments
+
+Runtime environments that deploy and manage agents can leverage Record Artifacts to
+obtain the necessary information for launching and managing agent instances based on
+the definitions contained within the artifacts.
+Implementations can provide management of process lifecycles, monitoring, and other
+features based on the metadata defined in the records, or by linking records with
+runtime-specific artifacts.
+
+## Artifact Organization
 
 Agent records are stored as OCI artifacts with a structured organization.
 Multiple records can be stored under the same OCI name and tag, with each record
