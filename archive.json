@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-01-08T00:22:50.151011+00:00",
+  "timestamp": "2026-01-11T00:25:02.836212+00:00",
   "repo": "agntcy/dir-spec",
   "labels": [
     {
@@ -689,22 +689,32 @@
       "state": "OPEN",
       "author": "ramizpolic",
       "authorAssociation": "MEMBER",
-      "assignees": [],
+      "assignees": [
+        "ramizpolic"
+      ],
       "labels": [],
-      "body": "This PR adds the specification around packaging of OASF records as OCI Artifacts and its usage across systems.\r\n\r\nTasks:\r\n- [x] Storage Format\r\n- [x] Usage in Directory\r\n- [x] For Applications\r\n- [ ] For Runtimes",
+      "body": "This PR adds the specification around packaging of OASF records as OCI Artifacts and its usage across systems.\r\n\r\n### Tasks\r\n- [x] Storage Format\r\n- [x] Usage in Directory\r\n- [x] For Applications\r\n- [x] For Runtimes\r\n\r\n### Notes\r\n\r\nImplementation and client tooling using ORAS to construct this manifest alongside layer creation was tested here: https://github.com/agntcy/dir/tree/pocs/examples/merkledag\r\nhttps://github.com/agntcy/dir/blob/pocs/examples/merkledag/store/blobs/sha256/24ce8252d11427e38497f2b47195f12e182f760872c3e026037a694b33262fee",
       "createdAt": "2026-01-06T08:55:37Z",
-      "updatedAt": "2026-01-06T15:52:39Z",
+      "updatedAt": "2026-01-08T14:49:41Z",
       "baseRepository": "agntcy/dir-spec",
       "baseRefName": "main",
       "baseRefOid": "8b7e1c432048e9bcedbf0a233bdf20cec716fa25",
       "headRepository": "agntcy/dir-spec",
       "headRefName": "feat/storage-specs",
-      "headRefOid": "cf91e4d2afe13cbfb7bb21727cbb5da844e1d4e4",
+      "headRefOid": "1db391094831b38d5bf7146e288d9d511244288d",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [],
+      "comments": [
+        {
+          "author": "ramizpolic",
+          "authorAssociation": "MEMBER",
+          "body": "@muscariello in the original architecture paper, we use `application/vnd.ads.record+json` to denote record artifacts, should we stick to that or is the current one `application/vnd.agntcy.oasf.record.v1+json` okay?",
+          "createdAt": "2026-01-08T12:49:17Z",
+          "updatedAt": "2026-01-08T12:49:17Z"
+        }
+      ],
       "reviews": []
     }
   ]
