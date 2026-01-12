@@ -288,7 +288,7 @@ The manifest structure MUST include the following properties:
 
 - `artifactType` string
 
-  This REQUIRED property MUST be `application/vnd.agntcy.oasf.record.v1+json`.
+  This REQUIRED property MUST be `application/vnd.agntcy.dir.record.v1+json`.
   Future versions of the Record Artifact Specification MAY define additional
   artifact types.
 
@@ -321,26 +321,32 @@ Each layer descriptor MUST include the following properties:
     (index 0) MUST use this media type and contains base record data. This layer
     MUST use the `data` field for inline storage (base64-encoded) since the
     content is small, frequently accessed, and unique to each record.
+    Object `annotations`, `schema_version` and `created_at` are stored as part
+    of layer annotations.
 
   - `application/vnd.agntcy.oasf.types.{version}.Skill+json`: Contains skill
-    definition data. The `id` and `name` are stored as part of layer annotations.
+    definition data. Object `annotations`, `id` and `name` are stored as part
+    of layer annotations.
 
   - `application/vnd.agntcy.oasf.types.{version}.Domain+json`: Contains domain
-    definition data. The `id` and `name` are stored as part of layer annotations.
+    definition data. Object `annotations`, `id` and `name` are stored as part of
+    layer annotations.
 
   - `application/vnd.agntcy.oasf.types.{version}.Locator+json`: Contains locator
     definition data referencing the location where the agent can be accessed or
-    deployed. The `type` and `url` are stored as part of layer annotations and
-    URL fields.
+    deployed. Object `annotations`, `type` and `url` are stored as part of layer
+    annotations and URL fields.
 
   - `application/vnd.agntcy.oasf.types.{version}.Module+json`: Contains module
-    definition data. The `id` and `name` are stored as part of layer annotations.
+    definition data. Object `annotations`, `id` and `name` are stored as part of
+    layer annotations.
 
-- `data` string
-
-  This OPTIONAL property contains base64-encoded layer content and MUST be
-  present for the `Record` layer. For other layer types, this field MUST NOT be
-  used; the layer content is stored as a separate blob referenced by `digest`.
+  Media types MUST map to `application/vnd.{schema_uri}.{version}.{type}+{encoding}`
+  format, where 
+  - `{schema_uri}` corresponds to the OASF protobuf schema namespace
+  - `{version}` corresponds to a specific OASF type version (e.g., `v1alpha2`)
+  - `{type}` is the OASF type name (e.g. `Record`)
+  - `{encoding}` MUST be `json`
 
 - `urls` array of strings
 
@@ -354,29 +360,18 @@ Each layer descriptor MUST include the following properties:
 
   - `agntcy.oasf.record/schema_version`: Schema version (for `Record` layers)
   - `agntcy.oasf.record/created_at`: Creation timestamp (for `Record` layers)
-  - `agntcy.oasf.record/skill.id`: Skill ID (for `Skill` layers)
-  - `agntcy.oasf.record/skill.name`: Skill name (for `Skill` layers)
-  - `agntcy.oasf.record/domain.id`: Domain ID (for `Domain` layers)
-  - `agntcy.oasf.record/domain.name`: Domain name (for `Domain` layers)
-  - `agntcy.oasf.record/module.id`: Module ID (for `Module` layers)
-  - `agntcy.oasf.record/module.name`: Module name (for `Module` layers)
-  - `agntcy.oasf.record/locator.type`: Locator type (for `Locator` layers)
-
-Media types MUST map to `application/vnd.{schema_uri}.{version}.{type}+{encoding}`
-format, where `{schema_uri}` is `agntcy.oasf.types`, `{version}` corresponds to
-a specific OASF types version (e.g., `v1alpha2`), `{type}` is the OASF type
-name (e.g. `Record`), and `{encoding}` MUST be `json`.
+  - `agntcy.oasf.locator/type`: Locator type (for `Locator` layers)
+  - `agntcy.oasf.skill/{id,name}`: Skill id/name (for `Skill` layers)
+  - `agntcy.oasf.domain/{id,name}`: Domain id/name (for `Domain` layers)
+  - `agntcy.oasf.module/{id,name}`: Module id/name (for `Module` layers)
 
 ### Example Record Artifacts
-
-**Layered Record**: A record with separate component layers for metadata, skills, 
-domains, locators, and modules:
 
 ~~~json
 {
   "schemaVersion": 2,
   "mediaType": "application/vnd.oci.image.manifest.v1+json",
-  "artifactType": "application/vnd.agntcy.oasf.record.v1+json",
+  "artifactType": "application/vnd.agntcy.dir.record.v1+json",
   "config": {
     "mediaType": "application/vnd.oci.empty.v1+json",
     "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
@@ -395,58 +390,32 @@ domains, locators, and modules:
     },
     {
       "mediaType": "application/vnd.agntcy.oasf.types.v1alpha2.Skill+json",
-      "digest": "sha256:3f907c1a03bf20f20355fe449e18ff3f9de2e49570ffb536f1a32f20c7179808",
-      "size": 93,
+      "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "size": 2,
       "annotations": {
-        "agntcy.oasf.record/skill.id": "10201",
-        "agntcy.oasf.record/skill.name": "nlp"
+        "agntcy.oasf.skill/id": "10201",
+        "agntcy.oasf.skill/name": "Natural Language Processing/Sentiment Analysis"
       }
     },
     {
       "mediaType": "application/vnd.agntcy.oasf.types.v1alpha2.Locator+json",
-      "digest": "sha256:a5378e569c625f7643952fcab30c74f2a84ece52335c292e630f740ac4694146",
-      "size": 106,
+      "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "size": 2,
       "urls": [
-        "https://ghcr.io/agntcy/agent:latest"
+        "https://ghcr.io/agntcy/agent:latest",
+        "ipfs://bafybeibwzif37xyzabcdefg"
       ],
       "annotations": {
-        "agntcy.oasf.record/locator.type": "docker-image"
+        "agntcy.oasf.locator/type": "docker-image"
       }
     }
   ],
   "subject": {
     "mediaType": "application/vnd.oci.image.manifest.v1+json",
-    "artifactType": "application/vnd.agntcy.oasf.record.v1+json",
+    "artifactType": "application/vnd.agntcy.dir.record.v1+json",
     "digest": "sha256:7e346bc58473bc1d8a98776fa2a89a3e2a446b27f0e8a33ad49c3d4f28b6471d",
     "size": 702
   }
-}
-~~~
-
-**Embedded Record**: A complete record with all data embedded in the base layer:
-
-~~~json
-{
-  "schemaVersion": 2,
-  "mediaType": "application/vnd.oci.image.manifest.v1+json",
-  "artifactType": "application/vnd.agntcy.oasf.record.v1+json",
-  "config": {
-    "mediaType": "application/vnd.oci.empty.v1+json",
-    "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
-    "size": 2
-  },
-  "layers": [
-    {
-      "mediaType": "application/vnd.agntcy.oasf.types.v1alpha2.Record+json",
-      "data": "<BASE64_ENCODED_COMPLETE_RECORD_DATA>",
-      "digest": "sha256:d5815835051dd97d800a03f641ed8162877920e734d3d705b698912602b8c763",
-      "size": 1256,
-      "annotations": {
-        "agntcy.oasf.record/schema_version": "0.7.0",
-        "agntcy.oasf.record/created_at": "2026-01-06T00:00:00Z"
-      }
-    }
-  ]
 }
 ~~~
 
@@ -472,35 +441,6 @@ reconstruction algorithm:
 
 4. **Validate Schema**: Validate the reconstructed record against the OASF
    schema version specified in the `agntcy.oasf.record/schema_version` annotation
-
-For embedded records (containing only the base Record layer), step 3 is skipped
-as all data is present in the base layer.
-
-### Content Identifier (CID)
-
-The Content Identifier (CID) for a Record Artifact provides an immutable,
-globally unique, content-addressed reference derived from the cryptographic
-digest of the OCI image manifest.
-
-The Record CID MUST be computed using the CIDv1 specification with the following
-algorithm:
-
-1. **Compute Manifest Digest**: Calculate the SHA-256 digest of the canonical
-   OCI image manifest JSON bytes
-
-2. **Construct CID**: Encode the digest using CIDv1 format with:
-   - Version: `0x01`
-   - Multicodec: `0x01`
-   - Multihash: SHA-256 digest encoded as a multihash with hash function
-     identifier `0x12`, digest length `0x20`, and the 32-byte hash output
-
-3. **Encode CID**: The resulting binary CID MUST be encoded using base32 for
-   human-readable representation
-
-Registries that support tagging MAY use CID tags to reference and retrieve
-specific Record Artifacts efficiently.
-Alternatively, clients can retrieve Record Artifacts directly using their 
-SHA-256 digest obtained by converting the CID back to the digest format.
 
 ## Application Integration
 
