@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-01-11T00:25:02.836212+00:00",
+  "timestamp": "2026-01-13T00:19:05.345525+00:00",
   "repo": "agntcy/dir-spec",
   "labels": [
     {
@@ -693,28 +693,20 @@
         "ramizpolic"
       ],
       "labels": [],
-      "body": "This PR adds the specification around packaging of OASF records as OCI Artifacts and its usage across systems.\r\n\r\n### Tasks\r\n- [x] Storage Format\r\n- [x] Usage in Directory\r\n- [x] For Applications\r\n- [x] For Runtimes\r\n\r\n### Notes\r\n\r\nImplementation and client tooling using ORAS to construct this manifest alongside layer creation was tested here: https://github.com/agntcy/dir/tree/pocs/examples/merkledag\r\nhttps://github.com/agntcy/dir/blob/pocs/examples/merkledag/store/blobs/sha256/24ce8252d11427e38497f2b47195f12e182f760872c3e026037a694b33262fee",
+      "body": "## feat: extend project spec to cover distribution and usage\r\n\r\n### Summary\r\n\r\nThis PR introduces the **Record Artifact Specification** for packaging OASF (Open Agent Schema Framework) records as OCI artifacts with a multi-layer architecture. This replaces the previous single-blob storage model with an indexed, content-addressable layer structure.\r\n\r\n### Architecture Overview\r\n\r\n#### Previous Approach: Monolithic Single-Layer Storage\r\n- Entire OASF record (including Skills, Domains, Locators, Modules) stored as a single JSON blob\r\n- One content-addressed hash for the entire record\r\n- All components bundled together without separation or indexing\r\n\r\n#### New Approach: Multi-Layer Indexed Architecture\r\n| OCI Image Manifest |\r\n| --- |\r\n| artifactType: **vnd.agntcy.dir.record.v1+json**\r\n| config: (empty) |\r\n| layers: |\r\n| - [0] Record (inline base64) |\r\n| - [1..n] Skill (content-addressed) |\r\n| - [n+1..m] Domain (content-addressed) |\r\n| - [m+1..p] Locator (content-addressed) |\r\n| - [p+1..q] Module (content-addressed) |\r\n| subject: \u2192 previous version manifest |\r\n\r\n### Key Design Decisions\r\n\r\n#### Annotation-Only Metadata Pattern\r\n\r\nLayer identifying metadata (`id`, `name`, `type`) is stored **exclusively** in OCI descriptor annotations, not duplicated in blob content:\r\n\r\n| Layer Type | Annotation Keys |\r\n|------------|-----------------|\r\n| Record | `agntcy.oasf.record/schema_version`, `agntcy.oasf.record/created_at` |\r\n| Skill | `agntcy.oasf.skill/id`, `agntcy.oasf.skill/name` |\r\n| Domain | `agntcy.oasf.domain/id`, `agntcy.oasf.domain/name` |\r\n| Locator | `agntcy.oasf.locator/type` (+ `urls` field) |\r\n| Module | `agntcy.oasf.module/id`, `agntcy.oasf.module/name` |\r\n\r\n**Benefits of this design:**\r\n- Eliminates data synchronization risks (single source of truth)\r\n- Enables registry-level indexing without blob parsing\r\n- Reduces blob sizes (no redundant metadata)\r\n- Blobs contain only detailed definition data\r\n\r\n#### Inline Base Record Storage\r\n\r\nThe base Record layer (index 0) uses the OCI `data` field for inline base64-encoded storage because:\r\n- Content is small and frequently accessed\r\n- Unique to each record (no deduplication benefit)\r\n- Reduces round-trips for common access patterns\r\n\r\n#### Version History via `subject` Field\r\n\r\nThe optional `subject` descriptor creates a DAG (Directed Acyclic Graph) of record versions:\r\n- Enables audit trails and rollback capabilities  \r\n- Native OCI referrer API support\r\n- No additional infrastructure required\r\n\r\n---\r\n\r\n### Analysis\r\n\r\n#### Content Deduplication\r\n\r\n| Scenario | Previous Approach | New Approach |\r\n|----------|-------------------|--------------|\r\n| Skill \"NLP/Sentiment Analysis\" used by 1000 agents | Stored 1000 times | Stored once, referenced by digest |\r\n| Storage complexity | O(n \u00d7 record_size) | O(unique_components) |\r\n\r\n#### Selective Data Retrieval\r\n\r\nExample: Runtime only needs `docker-image` Locator layer for deployment\r\n|\u2500 Previous: Download ~4MiB full record\r\n|\u2500 New: Download ~200 bytes locator layer descriptor + annotations\r\n\r\n#### Rich Querying via Annotations\r\n\r\n```json\r\n\"annotations\": {\r\n  \"agntcy.oasf.skill/id\": \"10201\",\r\n  \"agntcy.oasf.skill/name\": \"Natural Language Processing/Sentiment Analysis\"\r\n}\r\n```\r\n- Registries can index by skill/domain/locator type without parsing blobs\r\n- Supports faceted search at the storage layer\r\n- OCI-native filtering capabilities\r\n\r\n#### Ecosystem Compatibility\r\n- Leverages OCI Image Manifest Specification directly\r\n- Compatible with existing OCI tooling (crane, skopeo, ORAS)\r\n- Works with standard registry implementations (GHCR, Docker Hub, Harbor, etc.)\r\n\r\n#### Pros and Cons\r\n\r\n| Category | Item | Description |\r\n|----------|------|-------------|\r\n| \u2705 Pro | **Storage Efficiency** | Deduplication of shared components (skills, domains) across records |\r\n| \u2705 Pro | **Bandwidth Optimization** | Partial fetches for specific use cases (e.g., only locators for deployment) |\r\n| \u2705 Pro | **Indexability** | Annotations enable registry-level search without blob parsing |\r\n| \u2705 Pro | **Version Tracking** | Native DAG-based version history via `subject` references |\r\n| \u2705 Pro | **Standards Alignment** | Full OCI Image Manifest and Artifacts guidance compliance |\r\n| \u2705 Pro | **Extensibility** | New layer types can be added without breaking existing clients |\r\n| \u2705 Pro | **Caching** | Shared layers benefit from CDN/registry caching |\r\n| \u2705 Pro | **No Sync Risk** | Identifying metadata stored only in annotations (single source of truth) |\r\n| \u2705 Pro | **Ecosystem Tooling** | Works with existing OCI tools (crane, skopeo, ORAS, etc.) |\r\n| \u274c Con | **Implementation Complexity** | Reconstruction algorithm required; clients must merge annotations into objects |\r\n| \u274c Con | **Multi-Request Overhead** | Full record retrieval needs 1 + N HTTP requests (manifest + N layer blobs in parallel, if further data needed) |\r\n| \u274c Con | **Incomplete Blobs** | Blob content requires descriptor context (annotations) to be meaningful |\r\n| \u274c Con | **Tooling Dependency** | Raw record inspection requires specialized tooling; not human-readable as single JSON |\r\n\r\n### Note: Record CID as Manifest Digest\r\n\r\n#### Change in Content Addressing\r\n\r\n| Aspect | Previous Approach | New Approach |\r\n|--------|-------------------|--------------|\r\n| **CID Source** | Hash of entire record JSON blob | Hash of OCI manifest |\r\n| **Identity** | `sha256(record_data)` | `sha256(manifest)` |\r\n| **What it represents** | Content of the record | Structure + references to components |",
       "createdAt": "2026-01-06T08:55:37Z",
-      "updatedAt": "2026-01-08T14:49:41Z",
+      "updatedAt": "2026-01-12T16:49:31Z",
       "baseRepository": "agntcy/dir-spec",
       "baseRefName": "main",
       "baseRefOid": "8b7e1c432048e9bcedbf0a233bdf20cec716fa25",
       "headRepository": "agntcy/dir-spec",
       "headRefName": "feat/storage-specs",
-      "headRefOid": "1db391094831b38d5bf7146e288d9d511244288d",
+      "headRefOid": "3c78918cc913c877fbbef2df660568ca3f68e7b7",
       "closedAt": null,
       "mergedAt": null,
       "mergedBy": null,
       "mergeCommit": null,
-      "comments": [
-        {
-          "author": "ramizpolic",
-          "authorAssociation": "MEMBER",
-          "body": "@muscariello in the original architecture paper, we use `application/vnd.ads.record+json` to denote record artifacts, should we stick to that or is the current one `application/vnd.agntcy.oasf.record.v1+json` okay?",
-          "createdAt": "2026-01-08T12:49:17Z",
-          "updatedAt": "2026-01-08T12:49:17Z"
-        }
-      ],
+      "comments": [],
       "reviews": []
     }
   ]
