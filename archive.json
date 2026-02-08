@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-01-13T00:19:05.345525+00:00",
+  "timestamp": "2026-02-08T00:34:49.838043+00:00",
   "repo": "agntcy/dir-spec",
   "labels": [
     {
@@ -55,7 +55,7 @@
       "id": "I_kwDON_UBTc7hkAY-",
       "title": "[Epic] Project specification",
       "url": "https://github.com/agntcy/dir-spec/issues/11",
-      "state": "OPEN",
+      "state": "CLOSED",
       "author": "lgecse",
       "authorAssociation": "MEMBER",
       "assignees": [
@@ -64,8 +64,8 @@
       "labels": [],
       "body": "OASF schema + DIR storage specification",
       "createdAt": "2025-11-05T12:31:41Z",
-      "updatedAt": "2026-01-06T08:56:59Z",
-      "closedAt": null,
+      "updatedAt": "2026-02-05T09:15:55Z",
+      "closedAt": "2026-02-05T09:15:55Z",
       "comments": []
     }
   ],
