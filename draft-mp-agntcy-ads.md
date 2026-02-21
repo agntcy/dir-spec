@@ -44,6 +44,11 @@ normative:
       author:
          - name: "OpenID Foundation"
       target: https://openid.net/specs/openid-authentication-2_0.txt
+   AGNTCY-OASF:
+      title: "Open Agent Schema Framework (OASF)"
+      author:
+         - name: AGNTCY Community
+      target: https://github.com/agntcy/oasf
    OCI.Image:
       title: "OCI Image Format Specification"
       author:
@@ -53,12 +58,12 @@ normative:
       title: "OCI Image Manifest Specification"
       author:
          - name: "Open Container Initiative"
-      target: https://github.com/opencontainers/image-spec/blob/main/manifest.md
+      target: https://github.com/opencontainers/image-spec/blob/v1.1.1/manifest.md
    OCI.Artifact:
       title: "OCI Artifacts Guidance Specification"
       author:
          - name: "Open Container Initiative"
-      target: https://github.com/opencontainers/image-spec/blob/main/artifacts-guidance.md
+      target: https://github.com/opencontainers/image-spec/blob/v1.1.1/artifacts-guidance.md
    OCI.Distribution:
       title: "OCI Distribution Specification"
       author:
@@ -96,11 +101,6 @@ informative:
            name: Ramiz Polic
       target: https://arxiv.org/abs/2509.18787
       date: 2025
-   AGNTCY-OASF:
-      title: "Open Agent Schema Framework (OASF)"
-      author:
-         - name: AGNTCY Community
-      target: https://github.com/agntcy/oasf
    AI-Registry-Evolution:
       title: "Evolution of AI Agent Registry Solutions: Centralized, Enterprise, and Distributed Approaches"
       author:
@@ -470,23 +470,25 @@ runtime-specific artifacts.
 ## Artifact Organization
 
 Agent records are stored as OCI artifacts with a structured organization.
-Multiple records can be stored under the same OCI name and tag, with each record
-uniquely identified by its content-addressed SHA256 digest:
+Records MUST be addressed by digest for immutable retrieval. Tags are mutable
+aliases and can be used as human-readable pointers, but implementations MUST NOT
+assume a tag resolves to more than one manifest at a time. The examples below
+show digest-pinned references:
 
 ~~~
 null_repo/records/
 ├── skills/
-│   ├── nlp/
-│   │   ├── sentiment-analysis:v1.0.0@sha256:abc123... # BERT
-│   │   ├── sentiment-analysis:v1.0.0@sha256:def456... # RoBERTa
-│   │   ├── sentiment-analysis:v1.0.0@sha256:ghi789... # DistilBERT
-│   │   ├── text-classification:v2.0.0@sha256:abc123... # Same BERT
-│   │   └── emotion-detection:v1.5.0@sha256:abc123...   # Same BERT
-│   ├── vision/
-│   │   ├── object-detection:v2.1.0@sha256:jkl012...    # YOLO
-│   │   ├── object-detection:v2.1.0@sha256:mno345...    # R-CNN
-│   │   └── scene-understanding:v1.0.0@sha256:jkl012... # Same YOLO
-│   └── reasoning/
+│   ├── natural_language_processing/
+│   │   ├── sentiment-analysis:bert-v1@sha256:abc123...
+│   │   ├── sentiment-analysis:roberta-v1@sha256:def456...
+│   │   ├── sentiment-analysis:distilbert-v1@sha256:ghi789...
+│   │   ├── text-classification:bert-v2@sha256:abc123...
+│   │   └── emotion-detection:bert-v1@sha256:abc123...
+│   ├── images_computer_vision/
+│   │   ├── object-detection:yolo-v2.1@sha256:jkl012...
+│   │   ├── object-detection:rcnn-v2.1@sha256:mno345...
+│   │   └── scene-understanding:yolo-v1@sha256:jkl012...
+│   └── analytical_skills/
 │       └── mathematical:v1.5.0@sha256:pqr678...
 ├── evaluations/
 │   ├── performance-metrics:latest@sha256:stu901...
@@ -499,11 +501,12 @@ null_repo/records/
 This naming scheme demonstrates that the same content identifier can belong to
 multiple skills, reflecting the reality that many AI agents are multi-capable.
 For example, the BERT-based agent (`sha256:abc123...`) appears under multiple
-skill categories: `nlp/sentiment-analysis`, `nlp/text-classification`, and
-`nlp/emotion-detection`, representing different capabilities of the same
-underlying agent implementation. Similarly, the YOLO vision model
-(`sha256:jkl012...`) provides both `object-detection` and `scene-understanding`
-capabilities.
+skill categories: `natural_language_processing/sentiment-analysis`,
+`natural_language_processing/text-classification`, and
+`natural_language_processing/emotion-detection`, representing different
+capabilities of the same underlying agent implementation. Similarly, the YOLO
+vision model (`sha256:jkl012...`) provides both `object-detection` and
+`scene-understanding` capabilities under `images_computer_vision`.
 
 This cross-referencing approach allows agents to be discovered through any of
 their supported capabilities while maintaining unique addressability through
@@ -853,11 +856,11 @@ to produce actionable discovery results
 
 ~~~
 Discovery Flow:
-Query: "natural_language_processing" AND "finance_and_business"
+Query: "natural_language_processing" AND "finance_and_banking"
    ↓
 Phase 1: Skills → CIDs
    DHT["natural_language_processing"] → ["sha256:abc123...", "sha256:def456..."]
-   DHT["finance_and_business"] → ["sha256:abc123...", "sha256:yza567..."]
+   DHT["finance_and_banking"] → ["sha256:abc123...", "sha256:yza567..."]
    Intersection → ["sha256:abc123..."]
    ↓
 Phase 2: CIDs → Peer IDs
@@ -1000,7 +1003,7 @@ stored in the directory:
     "schema_version": "0.2.0",
     "description": "Multi-capability NLP agent providing sentiment analysis, text classification, and emotion detection",
     "skills": ["natural_language_processing"],
-    "domains": ["finance_and_business", "trust_and_safety"],
+    "domains": ["finance_and_banking", "legal_and_compliance"],
     "capabilities": {
       "threads": true,
       "interrupt_support": false,
@@ -1035,7 +1038,7 @@ stored in the directory:
     "schema_version": "0.2.0",
     "description": "Computer vision agent for object detection and scene understanding",
     "skills": ["images_computer_vision"],
-    "domains": ["transportation", "industrial_manufacturing"],
+    "domains": ["transportation_logistics_mobility", "manufacturing_and_industrial_operations"],
     "capabilities": {
       "threads": false,
       "interrupt_support": true,
@@ -1069,8 +1072,8 @@ stored in the directory:
     "version": "1.5.0",
     "schema_version": "0.2.0",
     "description": "Agent specialized in mathematical problem solving and analytical reasoning",
-    "skills": ["analytical_skills", "tabular_text"],
-    "domains": ["education", "finance_and_business"],
+    "skills": ["analytical_skills", "natural_language_processing"],
+    "domains": ["education", "finance_and_banking"],
     "capabilities": {
       "threads": true,
       "interrupt_support": true,
