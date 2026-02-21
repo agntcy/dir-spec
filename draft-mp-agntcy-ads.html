@@ -14,7 +14,7 @@ records, enables the discovery of agent applications with specific skills for
 solving various problems. The implementation features distributed directories
 that interconnect through a content-routing protocol. 
     " name="description">
-<meta content="xml2rfc 3.30.2" name="generator">
+<meta content="xml2rfc 3.31.0" name="generator">
 <meta content="AI" name="keyword">
 <meta content="Agentic AI" name="keyword">
 <meta content="Directory Protocol" name="keyword">
@@ -22,19 +22,18 @@ that interconnect through a content-routing protocol.
 <meta content="DHT" name="keyword">
 <meta content="draft-mp-agntcy-ads-00" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.30.2
-    Python 3.12.11
+  xml2rfc 3.31.0
+    Python 3.12.12
     ConfigArgParse 1.7
     google-i18n-address 3.1.1
-    intervaltree 3.1.0
+    intervaltree 3.2.1
     Jinja2 3.1.6
-    lxml 5.3.1
-    platformdirs 4.4.0
+    lxml 6.0.2
+    platformdirs 4.5.1
     pycountry 24.6.1
-    PyYAML 6.0.2
+    PyYAML 6.0.3
     requests 2.32.5
-    setuptools 80.9.0
-    wcwidth 0.2.14
+    wcwidth 0.3.0
 -->
 <link href="draft-mp-agntcy-ads.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -175,7 +174,7 @@ that interconnect through a content-routing protocol.
   font-weight: 400;
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin-ext.woff2') format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 @font-face {
   font-family: 'Oxygen Mono';
@@ -183,7 +182,8 @@ that interconnect through a content-routing protocol.
   font-weight: 400;
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
 }
 
 @font-face {
@@ -575,6 +575,7 @@ aside, blockquote {
 }
 blockquote {
   margin: 1em 0;
+  border-left: 2px var(--pilcrow-strong) solid;
 }
 cite {
   display: block;
@@ -645,7 +646,7 @@ a.pilcrow {
   }
 }
 @media not print {
-  :hover > a.pilcrow {
+  :hover > a.pilcrow, a.pilcrow:focus {
     opacity: 1;
   }
   a.pilcrow[href]:hover {
@@ -1053,11 +1054,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">agent-dir</td>
-<td class="right">October 2025</td>
+<td class="right">February 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Muscariello &amp; Polic</td>
-<td class="center">Expires 20 April 2026</td>
+<td class="center">Expires 25 August 2026</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1070,12 +1071,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <dd class="internet-draft">draft-mp-agntcy-ads-00</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2025-10-17" class="published">17 October 2025</time>
+<time datetime="2026-02-21" class="published">21 February 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2026-04-20">20 April 2026</time></dd>
+<dd class="expires"><time datetime="2026-08-25">25 August 2026</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1128,7 +1129,7 @@ that interconnect through a content-routing protocol.<a href="#section-abstract-
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 20 April 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 25 August 2026.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1137,7 +1138,7 @@ that interconnect through a content-routing protocol.<a href="#section-abstract-
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2025 IETF Trust and the persons identified as the
+            Copyright (c) 2026 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1175,16 +1176,49 @@ that interconnect through a content-routing protocol.<a href="#section-abstract-
                 <p id="section-toc.1-1.3.2.1.1"><a href="#section-3.1" class="auto internal xref">3.1</a>.  <a href="#name-content-addressed-storage" class="internal xref">Content-Addressed Storage</a></p>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2">
-                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-oras-integration" class="internal xref">ORAS Integration</a></p>
+                <p id="section-toc.1-1.3.2.2.1"><a href="#section-3.2" class="auto internal xref">3.2</a>.  <a href="#name-oci-integration" class="internal xref">OCI Integration</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2.2.1">
                     <p id="section-toc.1-1.3.2.2.2.1.1"><a href="#section-3.2.1" class="auto internal xref">3.2.1</a>.  <a href="#name-standards-compliance" class="internal xref">Standards Compliance</a></p>
 </li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2.2.2">
-                    <p id="section-toc.1-1.3.2.2.2.2.1"><a href="#section-3.2.2" class="auto internal xref">3.2.2</a>.  <a href="#name-artifact-organization" class="internal xref">Artifact Organization</a></p>
+                </ul>
 </li>
-                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.2.2.3">
-                    <p id="section-toc.1-1.3.2.2.2.3.1"><a href="#section-3.2.3" class="auto internal xref">3.2.3</a>.  <a href="#name-multi-registry-federation" class="internal xref">Multi-Registry Federation</a></p>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3">
+                <p id="section-toc.1-1.3.2.3.1"><a href="#section-3.3" class="auto internal xref">3.3</a>.  <a href="#name-record-artifact-specificati" class="internal xref">Record Artifact Specification</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.1">
+                    <p id="section-toc.1-1.3.2.3.2.1.1"><a href="#section-3.3.1" class="auto internal xref">3.3.1</a>.  <a href="#name-manifest-structure" class="internal xref">Manifest Structure</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.2">
+                    <p id="section-toc.1-1.3.2.3.2.2.1"><a href="#section-3.3.2" class="auto internal xref">3.3.2</a>.  <a href="#name-layer-structure" class="internal xref">Layer Structure</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.3">
+                    <p id="section-toc.1-1.3.2.3.2.3.1"><a href="#section-3.3.3" class="auto internal xref">3.3.3</a>.  <a href="#name-example-record-artifacts" class="internal xref">Example Record Artifacts</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.3.2.4">
+                    <p id="section-toc.1-1.3.2.3.2.4.1"><a href="#section-3.3.4" class="auto internal xref">3.3.4</a>.  <a href="#name-record-reconstruction" class="internal xref">Record Reconstruction</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4">
+                <p id="section-toc.1-1.3.2.4.1"><a href="#section-3.4" class="auto internal xref">3.4</a>.  <a href="#name-application-integration" class="internal xref">Application Integration</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.1">
+                    <p id="section-toc.1-1.3.2.4.2.1.1"><a href="#section-3.4.1" class="auto internal xref">3.4.1</a>.  <a href="#name-open-agent-schema-framework" class="internal xref">Open Agent Schema Framework (OASF)</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.2">
+                    <p id="section-toc.1-1.3.2.4.2.2.1"><a href="#section-3.4.2" class="auto internal xref">3.4.2</a>.  <a href="#name-third-party-applications" class="internal xref">Third-Party Applications</a></p>
+</li>
+                  <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.4.2.3">
+                    <p id="section-toc.1-1.3.2.4.2.3.1"><a href="#section-3.4.3" class="auto internal xref">3.4.3</a>.  <a href="#name-runtime-environments" class="internal xref">Runtime Environments</a></p>
+</li>
+                </ul>
+</li>
+              <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5">
+                <p id="section-toc.1-1.3.2.5.1"><a href="#section-3.5" class="auto internal xref">3.5</a>.  <a href="#name-artifact-organization" class="internal xref">Artifact Organization</a></p>
+<ul class="compact toc ulBare ulEmpty">
+<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.3.2.5.2.1">
+                    <p id="section-toc.1-1.3.2.5.2.1.1"><a href="#section-3.5.1" class="auto internal xref">3.5.1</a>.  <a href="#name-multi-registry-federation" class="internal xref">Multi-Registry Federation</a></p>
 </li>
                 </ul>
 </li>
@@ -1426,10 +1460,10 @@ distribution protocols between storage nodes.<a href="#section-2.2-4" class="pil
 <a href="#section-3" class="section-number selfRef">3. </a><a href="#name-storage-architecture" class="section-name selfRef">Storage Architecture</a>
       </h2>
 <p id="section-3-1">ADS implements a decentralized storage architecture built on OCI (Open Container
-Initiative) registries using ORAS (OCI Registry as Storage) as the foundational
-object storage layer. This design choice enables the system to leverage mature,
-standardized container registry infrastructure while achieving the speed,
-scalability, and security requirements of a distributed agent directory.<a href="#section-3-1" class="pilcrow">¶</a></p>
+Initiative) registries as the foundational object storage layer. This design
+choice enables the system to leverage mature, standardized container registry
+infrastructure while achieving the speed, scalability, and security requirements
+of a distributed agent directory.<a href="#section-3-1" class="pilcrow">¶</a></p>
 <div id="content-addressed-storage">
 <section id="section-3.1">
         <h3 id="name-content-addressed-storage">
@@ -1453,13 +1487,13 @@ it, as the identifier serves as a universal pointer that abstracts away physical
 storage locations.<a href="#section-3.1-5" class="pilcrow">¶</a></p>
 </section>
 </div>
-<div id="oras-integration">
+<div id="oci-integration">
 <section id="section-3.2">
-        <h3 id="name-oras-integration">
-<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-oras-integration" class="section-name selfRef">ORAS Integration</a>
+        <h3 id="name-oci-integration">
+<a href="#section-3.2" class="section-number selfRef">3.2. </a><a href="#name-oci-integration" class="section-name selfRef">OCI Integration</a>
         </h3>
-<p id="section-3.2-1">ORAS provides a standardized interface for treating OCI registries as
-general-purpose object storage, offering several advantages for ADS:<a href="#section-3.2-1" class="pilcrow">¶</a></p>
+<p id="section-3.2-1">ADS leverages OCI (Open Container Initiative) specifications for storing and
+distributing agent records as OCI artifacts, offering several advantages:<a href="#section-3.2-1" class="pilcrow">¶</a></p>
 <div id="standards-compliance">
 <section id="section-3.2.1">
           <h4 id="name-standards-compliance">
@@ -1486,15 +1520,302 @@ assessments<a href="#section-3.2.1-2.3.1" class="pilcrow">¶</a></p>
           </ul>
 </section>
 </div>
-<div id="artifact-organization">
-<section id="section-3.2.2">
-          <h4 id="name-artifact-organization">
-<a href="#section-3.2.2" class="section-number selfRef">3.2.2. </a><a href="#name-artifact-organization" class="section-name selfRef">Artifact Organization</a>
+</section>
+</div>
+<div id="record-artifact-specification">
+<section id="section-3.3">
+        <h3 id="name-record-artifact-specificati">
+<a href="#section-3.3" class="section-number selfRef">3.3. </a><a href="#name-record-artifact-specificati" class="section-name selfRef">Record Artifact Specification</a>
+        </h3>
+<p id="section-3.3-1">ADS stores agent records as Record Artifacts following the OCI Image Manifest
+Specification <span>[<a href="#OCI.Manifest" class="cite xref">OCI.Manifest</a>]</span> and adhering to the OCI artifacts guidance
+<span>[<a href="#OCI.Artifact" class="cite xref">OCI.Artifact</a>]</span>. 
+A Record Artifact is an AGNTCY OASF Record packaged as an OCI artifact.<a href="#section-3.3-1" class="pilcrow">¶</a></p>
+<div id="manifest-structure">
+<section id="section-3.3.1">
+          <h4 id="name-manifest-structure">
+<a href="#section-3.3.1" class="section-number selfRef">3.3.1. </a><a href="#name-manifest-structure" class="section-name selfRef">Manifest Structure</a>
           </h4>
-<p id="section-3.2.2-1">Agent records are stored as OCI artifacts with a structured organization.
+<p id="section-3.3.1-1">The manifest structure <span class="bcp14">MUST</span> include the following properties:<a href="#section-3.3.1-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.3.1-2.1">
+              <p id="section-3.3.1-2.1.1"><code>mediaType</code> string<a href="#section-3.3.1-2.1.1" class="pilcrow">¶</a></p>
+<p id="section-3.3.1-2.1.2">
+This <span class="bcp14">REQUIRED</span> property <span class="bcp14">MUST</span> be <code>application/vnd.oci.image.manifest.v1+json</code>.<a href="#section-3.3.1-2.1.2" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-3.3.1-2.2">
+              <p id="section-3.3.1-2.2.1"><code>artifactType</code> string<a href="#section-3.3.1-2.2.1" class="pilcrow">¶</a></p>
+<p id="section-3.3.1-2.2.2">
+This <span class="bcp14">REQUIRED</span> property <span class="bcp14">MUST</span> be <code>application/vnd.agntcy.dir.record.v1+json</code>.
+Future versions of the Record Artifact Specification <span class="bcp14">MAY</span> define additional
+artifact types.<a href="#section-3.3.1-2.2.2" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-3.3.1-2.3">
+              <p id="section-3.3.1-2.3.1"><code>config</code> descriptor<a href="#section-3.3.1-2.3.1" class="pilcrow">¶</a></p>
+<p id="section-3.3.1-2.3.2">
+This <span class="bcp14">REQUIRED</span> property <span class="bcp14">MUST</span> reference an empty configuration with media type
+<code>application/vnd.oci.empty.v1+json</code>, indicating that no additional
+configuration data is needed for Record Artifacts.<a href="#section-3.3.1-2.3.2" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-3.3.1-2.4">
+              <p id="section-3.3.1-2.4.1"><code>layers</code> array of objects<a href="#section-3.3.1-2.4.1" class="pilcrow">¶</a></p>
+<p id="section-3.3.1-2.4.2">
+This <span class="bcp14">REQUIRED</span> property <span class="bcp14">MUST</span> contain one or more layer descriptors representing
+OASF Record components.<a href="#section-3.3.1-2.4.2" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-3.3.1-2.5">
+              <p id="section-3.3.1-2.5.1"><code>subject</code> descriptor<a href="#section-3.3.1-2.5.1" class="pilcrow">¶</a></p>
+<p id="section-3.3.1-2.5.2">
+This <span class="bcp14">OPTIONAL</span> property <span class="bcp14">MAY</span> reference another Record Artifact to create linkage
+between records for version histories.<a href="#section-3.3.1-2.5.2" class="pilcrow">¶</a></p>
+</li>
+          </ul>
+</section>
+</div>
+<div id="layer-structure">
+<section id="section-3.3.2">
+          <h4 id="name-layer-structure">
+<a href="#section-3.3.2" class="section-number selfRef">3.3.2. </a><a href="#name-layer-structure" class="section-name selfRef">Layer Structure</a>
+          </h4>
+<p id="section-3.3.2-1">Each layer descriptor <span class="bcp14">MUST</span> include the following properties:<a href="#section-3.3.2-1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.3.2-2.1">
+              <p id="section-3.3.2-2.1.1"><code>mediaType</code> string<a href="#section-3.3.2-2.1.1" class="pilcrow">¶</a></p>
+<p id="section-3.3.2-2.1.2">
+This <span class="bcp14">REQUIRED</span> property specifies the layer content type. Implementations <span class="bcp14">MUST</span>
+support the following media types:<a href="#section-3.3.2-2.1.2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.3.2-2.1.3.1">
+                  <p id="section-3.3.2-2.1.3.1.1"><code>application/vnd.agntcy.oasf.types.{version}.Record+json</code>: The first layer
+(index 0) <span class="bcp14">MUST</span> use this media type and contains base record data. This layer
+<span class="bcp14">MUST</span> use the <code>data</code> field for inline storage (base64-encoded) since the
+content is small, frequently accessed, and unique to each record.
+Object <code>annotations</code>, <code>schema_version</code> and <code>created_at</code> are stored as part
+of layer annotations.<a href="#section-3.3.2-2.1.3.1.1" class="pilcrow">¶</a></p>
+</li>
+                <li class="normal" id="section-3.3.2-2.1.3.2">
+                  <p id="section-3.3.2-2.1.3.2.1"><code>application/vnd.agntcy.oasf.types.{version}.Skill+json</code>: Contains skill
+definition data. Object <code>annotations</code>, <code>id</code> and <code>name</code> are stored as part
+of layer annotations.<a href="#section-3.3.2-2.1.3.2.1" class="pilcrow">¶</a></p>
+</li>
+                <li class="normal" id="section-3.3.2-2.1.3.3">
+                  <p id="section-3.3.2-2.1.3.3.1"><code>application/vnd.agntcy.oasf.types.{version}.Domain+json</code>: Contains domain
+definition data. Object <code>annotations</code>, <code>id</code> and <code>name</code> are stored as part of
+layer annotations.<a href="#section-3.3.2-2.1.3.3.1" class="pilcrow">¶</a></p>
+</li>
+                <li class="normal" id="section-3.3.2-2.1.3.4">
+                  <p id="section-3.3.2-2.1.3.4.1"><code>application/vnd.agntcy.oasf.types.{version}.Locator+json</code>: Contains locator
+definition data referencing the location where the agent can be accessed or
+deployed. Object <code>annotations</code>, <code>type</code> and <code>url</code> are stored as part of layer
+annotations and URL fields.<a href="#section-3.3.2-2.1.3.4.1" class="pilcrow">¶</a></p>
+</li>
+                <li class="normal" id="section-3.3.2-2.1.3.5">
+                  <p id="section-3.3.2-2.1.3.5.1"><code>application/vnd.agntcy.oasf.types.{version}.Module+json</code>: Contains module
+definition data. Object <code>annotations</code>, <code>id</code> and <code>name</code> are stored as part of
+layer annotations.<a href="#section-3.3.2-2.1.3.5.1" class="pilcrow">¶</a></p>
+</li>
+              </ul>
+<p id="section-3.3.2-2.1.4">
+Media types <span class="bcp14">MUST</span> map to <code>application/vnd.{schema_uri}.{version}.{type}+{encoding}</code>
+format, where 
+- <code>{schema_uri}</code> corresponds to the OASF protobuf schema namespace
+- <code>{version}</code> corresponds to a specific OASF type version (e.g., <code>v1alpha2</code>)
+- <code>{type}</code> is the OASF type name (e.g. <code>Record</code>)
+- <code>{encoding}</code> <span class="bcp14">MUST</span> be <code>json</code><a href="#section-3.3.2-2.1.4" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-3.3.2-2.2">
+              <p id="section-3.3.2-2.2.1"><code>urls</code> array of strings<a href="#section-3.3.2-2.2.1" class="pilcrow">¶</a></p>
+<p id="section-3.3.2-2.2.2">
+This <span class="bcp14">OPTIONAL</span> property <span class="bcp14">MAY</span> contain URLs pointing to external resources,
+particularly useful for <code>Locator</code> layers to specify deployment targets.<a href="#section-3.3.2-2.2.2" class="pilcrow">¶</a></p>
+</li>
+            <li class="normal" id="section-3.3.2-2.3">
+              <p id="section-3.3.2-2.3.1"><code>annotations</code> string-string map<a href="#section-3.3.2-2.3.1" class="pilcrow">¶</a></p>
+<p id="section-3.3.2-2.3.2">
+This <span class="bcp14">OPTIONAL</span> property contains arbitrary attributes. Implementations <span class="bcp14">SHOULD</span>
+use the predefined annotation keys:<a href="#section-3.3.2-2.3.2" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.3.2-2.3.3.1">
+                  <p id="section-3.3.2-2.3.3.1.1"><code>agntcy.oasf.record/schema_version</code>: Schema version (for <code>Record</code> layers)<a href="#section-3.3.2-2.3.3.1.1" class="pilcrow">¶</a></p>
+</li>
+                <li class="normal" id="section-3.3.2-2.3.3.2">
+                  <p id="section-3.3.2-2.3.3.2.1"><code>agntcy.oasf.record/created_at</code>: Creation timestamp (for <code>Record</code> layers)<a href="#section-3.3.2-2.3.3.2.1" class="pilcrow">¶</a></p>
+</li>
+                <li class="normal" id="section-3.3.2-2.3.3.3">
+                  <p id="section-3.3.2-2.3.3.3.1"><code>agntcy.oasf.locator/type</code>: Locator type (for <code>Locator</code> layers)<a href="#section-3.3.2-2.3.3.3.1" class="pilcrow">¶</a></p>
+</li>
+                <li class="normal" id="section-3.3.2-2.3.3.4">
+                  <p id="section-3.3.2-2.3.3.4.1"><code>agntcy.oasf.skill/{id,name}</code>: Skill id/name (for <code>Skill</code> layers)<a href="#section-3.3.2-2.3.3.4.1" class="pilcrow">¶</a></p>
+</li>
+                <li class="normal" id="section-3.3.2-2.3.3.5">
+                  <p id="section-3.3.2-2.3.3.5.1"><code>agntcy.oasf.domain/{id,name}</code>: Domain id/name (for <code>Domain</code> layers)<a href="#section-3.3.2-2.3.3.5.1" class="pilcrow">¶</a></p>
+</li>
+                <li class="normal" id="section-3.3.2-2.3.3.6">
+                  <p id="section-3.3.2-2.3.3.6.1"><code>agntcy.oasf.module/{id,name}</code>: Module id/name (for <code>Module</code> layers)<a href="#section-3.3.2-2.3.3.6.1" class="pilcrow">¶</a></p>
+</li>
+              </ul>
+</li>
+          </ul>
+</section>
+</div>
+<div id="example-record-artifacts">
+<section id="section-3.3.3">
+          <h4 id="name-example-record-artifacts">
+<a href="#section-3.3.3" class="section-number selfRef">3.3.3. </a><a href="#name-example-record-artifacts" class="section-name selfRef">Example Record Artifacts</a>
+          </h4>
+<div class="breakable lang-json sourcecode" id="section-3.3.3-1">
+<pre>
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "artifactType": "application/vnd.agntcy.dir.record.v1+json",
+  "config": {
+    "mediaType": "application/vnd.oci.empty.v1+json",
+    "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "size": 2
+  },
+  "layers": [
+    {
+      "mediaType": "application/vnd.agntcy.oasf.types.v1alpha2.Record+json",
+      "data": "&lt;BASE64_ENCODED_RECORD_DATA&gt;",
+      "digest": "sha256:d5815835051dd97d800a03f641ed8162877920e734d3d705b698912602b8c763",
+      "size": 216,
+      "annotations": {
+        "agntcy.oasf.record/schema_version": "0.7.0",
+        "agntcy.oasf.record/created_at": "2026-01-06T00:00:00Z"
+      }
+    },
+    {
+      "mediaType": "application/vnd.agntcy.oasf.types.v1alpha2.Skill+json",
+      "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "size": 2,
+      "annotations": {
+        "agntcy.oasf.skill/id": "10201",
+        "agntcy.oasf.skill/name": "Natural Language Processing/Sentiment Analysis"
+      }
+    },
+    {
+      "mediaType": "application/vnd.agntcy.oasf.types.v1alpha2.Locator+json",
+      "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "size": 2,
+      "urls": [
+        "https://ghcr.io/agntcy/agent:latest",
+        "ipfs://bafybeibwzif37xyzabcdefg"
+      ],
+      "annotations": {
+        "agntcy.oasf.locator/type": "docker-image"
+      }
+    }
+  ],
+  "subject": {
+    "mediaType": "application/vnd.oci.image.manifest.v1+json",
+    "artifactType": "application/vnd.agntcy.dir.record.v1+json",
+    "digest": "sha256:7e346bc58473bc1d8a98776fa2a89a3e2a446b27f0e8a33ad49c3d4f28b6471d",
+    "size": 702
+  }
+}
+</pre><a href="#section-3.3.3-1" class="pilcrow">¶</a>
+</div>
+</section>
+</div>
+<div id="record-reconstruction">
+<section id="section-3.3.4">
+          <h4 id="name-record-reconstruction">
+<a href="#section-3.3.4" class="section-number selfRef">3.3.4. </a><a href="#name-record-reconstruction" class="section-name selfRef">Record Reconstruction</a>
+          </h4>
+<p id="section-3.3.4-1">Applications consuming Record Artifacts <span class="bcp14">MUST</span> implement the following
+reconstruction algorithm:<a href="#section-3.3.4-1" class="pilcrow">¶</a></p>
+<ol start="1" type="1" class="normal type-1" id="section-3.3.4-2">
+<li id="section-3.3.4-2.1">
+              <p id="section-3.3.4-2.1.1"><strong>Pull Manifest</strong>: Retrieve the OCI image manifest from the registry using
+standard OCI Distribution API operations<a href="#section-3.3.4-2.1.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-3.3.4-2.2">
+              <p id="section-3.3.4-2.2.1"><strong>Extract Base Record</strong>: Parse the first layer (index 0) with media type
+<code>application/vnd.agntcy.oasf.types.{version}.Record+json</code> and base64-decode
+the <code>data</code> field to obtain the base record JSON data<a href="#section-3.3.4-2.2.1" class="pilcrow">¶</a></p>
+</li>
+            <li id="section-3.3.4-2.3">
+              <p id="section-3.3.4-2.3.1"><strong>Retrieve Component Layers</strong>: For each subsequent layer (Skill, Domain,
+Locator, Module):<a href="#section-3.3.4-2.3.1" class="pilcrow">¶</a></p>
+<ul class="normal">
+<li class="normal" id="section-3.3.4-2.3.2.1">
+                  <p id="section-3.3.4-2.3.2.1.1">Fetch the blob content from the registry using the layer's <code>digest</code><a href="#section-3.3.4-2.3.2.1.1" class="pilcrow">¶</a></p>
+</li>
+                <li class="normal" id="section-3.3.4-2.3.2.2">
+                  <p id="section-3.3.4-2.3.2.2.1">Verify the blob's SHA-256 digest matches the descriptor's <code>digest</code> field<a href="#section-3.3.4-2.3.2.2.1" class="pilcrow">¶</a></p>
+</li>
+                <li class="normal" id="section-3.3.4-2.3.2.3">
+                  <p id="section-3.3.4-2.3.2.3.1">Parse the JSON content according to the layer's <code>mediaType</code><a href="#section-3.3.4-2.3.2.3.1" class="pilcrow">¶</a></p>
+</li>
+                <li class="normal" id="section-3.3.4-2.3.2.4">
+                  <p id="section-3.3.4-2.3.2.4.1">Merge the component data into the appropriate field of the base record<a href="#section-3.3.4-2.3.2.4.1" class="pilcrow">¶</a></p>
+</li>
+                <li class="normal" id="section-3.3.4-2.3.2.5">
+                  <p id="section-3.3.4-2.3.2.5.1">Merge descriptor annotations into the corresponding component metadata<a href="#section-3.3.4-2.3.2.5.1" class="pilcrow">¶</a></p>
+</li>
+              </ul>
+</li>
+            <li id="section-3.3.4-2.4">
+              <p id="section-3.3.4-2.4.1"><strong>Validate Schema</strong>: Validate the reconstructed record against the OASF
+schema version specified in the <code>agntcy.oasf.record/schema_version</code> annotation<a href="#section-3.3.4-2.4.1" class="pilcrow">¶</a></p>
+</li>
+          </ol>
+</section>
+</div>
+</section>
+</div>
+<div id="application-integration">
+<section id="section-3.4">
+        <h3 id="name-application-integration">
+<a href="#section-3.4" class="section-number selfRef">3.4. </a><a href="#name-application-integration" class="section-name selfRef">Application Integration</a>
+        </h3>
+<div id="open-agent-schema-framework-oasf">
+<section id="section-3.4.1">
+          <h4 id="name-open-agent-schema-framework">
+<a href="#section-3.4.1" class="section-number selfRef">3.4.1. </a><a href="#name-open-agent-schema-framework" class="section-name selfRef">Open Agent Schema Framework (OASF)</a>
+          </h4>
+<p id="section-3.4.1-1">The Open Agent Schema Framework (OASF) <span>[<a href="#AGNTCY-OASF" class="cite xref">AGNTCY-OASF</a>]</span>
+complements Record Artifact Specification by defining the actual data
+models for agent-related information referenced in the OCI artifacts.<a href="#section-3.4.1-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="third-party-applications">
+<section id="section-3.4.2">
+          <h4 id="name-third-party-applications">
+<a href="#section-3.4.2" class="section-number selfRef">3.4.2. </a><a href="#name-third-party-applications" class="section-name selfRef">Third-Party Applications</a>
+          </h4>
+<p id="section-3.4.2-1">Third-party applications can build on top of the Record Artifact Specification to
+create tools and services for managing, distributing, and utilizing agent records.
+This can be accomplished by leveraging existing OCI ecosystem components such as
+registries, clients, and tooling, or by developing custom solutions that link to
+Record Artifacts.<a href="#section-3.4.2-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+<div id="runtime-environments">
+<section id="section-3.4.3">
+          <h4 id="name-runtime-environments">
+<a href="#section-3.4.3" class="section-number selfRef">3.4.3. </a><a href="#name-runtime-environments" class="section-name selfRef">Runtime Environments</a>
+          </h4>
+<p id="section-3.4.3-1">Runtime environments that deploy and manage agents can leverage Record Artifacts to
+obtain the necessary information for launching and managing agent instances based on
+the definitions contained within the artifacts.
+Implementations can provide management of process lifecycles, monitoring, and other
+features based on the metadata defined in the records, or by linking records with
+runtime-specific artifacts.<a href="#section-3.4.3-1" class="pilcrow">¶</a></p>
+</section>
+</div>
+</section>
+</div>
+<div id="artifact-organization">
+<section id="section-3.5">
+        <h3 id="name-artifact-organization">
+<a href="#section-3.5" class="section-number selfRef">3.5. </a><a href="#name-artifact-organization" class="section-name selfRef">Artifact Organization</a>
+        </h3>
+<p id="section-3.5-1">Agent records are stored as OCI artifacts with a structured organization.
 Multiple records can be stored under the same OCI name and tag, with each record
-uniquely identified by its content-addressed SHA256 digest:<a href="#section-3.2.2-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-3.2.2-2">
+uniquely identified by its content-addressed SHA256 digest:<a href="#section-3.5-1" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-3.5-2">
 <pre>
 null_repo/records/
 ├── skills/
@@ -1516,47 +1837,45 @@ null_repo/records/
 └── compositions/
     ├── security-analyst:v3.0.0@sha256:yza567...
     └── research-assistant:v2.2.0@sha256:bcd890...
-</pre><a href="#section-3.2.2-2" class="pilcrow">¶</a>
+</pre><a href="#section-3.5-2" class="pilcrow">¶</a>
 </div>
-<p id="section-3.2.2-3">This naming scheme demonstrates that the same content identifier can belong to
+<p id="section-3.5-3">This naming scheme demonstrates that the same content identifier can belong to
 multiple skills, reflecting the reality that many AI agents are multi-capable.
 For example, the BERT-based agent (<code>sha256:abc123...</code>) appears under multiple
 skill categories: <code>nlp/sentiment-analysis</code>, <code>nlp/text-classification</code>, and
 <code>nlp/emotion-detection</code>, representing different capabilities of the same
 underlying agent implementation. Similarly, the YOLO vision model
 (<code>sha256:jkl012...</code>) provides both <code>object-detection</code> and <code>scene-understanding</code>
-capabilities.<a href="#section-3.2.2-3" class="pilcrow">¶</a></p>
-<p id="section-3.2.2-4">This cross-referencing approach allows agents to be discovered through any of
+capabilities.<a href="#section-3.5-3" class="pilcrow">¶</a></p>
+<p id="section-3.5-4">This cross-referencing approach allows agents to be discovered through any of
 their supported capabilities while maintaining unique addressability through
 content identifiers. Each skill category can have its own versioning and
 metadata, enabling fine-grained capability management even when multiple skills
-share the same underlying implementation.<a href="#section-3.2.2-4" class="pilcrow">¶</a></p>
-<p id="section-3.2.2-5">Each artifact contains structured metadata following OASF schemas, enabling rich
-queries and capability matching across all variants within a given category.<a href="#section-3.2.2-5" class="pilcrow">¶</a></p>
-</section>
-</div>
+share the same underlying implementation.<a href="#section-3.5-4" class="pilcrow">¶</a></p>
+<p id="section-3.5-5">Each artifact contains structured metadata following OASF schemas, enabling rich
+queries and capability matching across all variants within a given category.<a href="#section-3.5-5" class="pilcrow">¶</a></p>
 <div id="multi-registry-federation">
-<section id="section-3.2.3">
+<section id="section-3.5.1">
           <h4 id="name-multi-registry-federation">
-<a href="#section-3.2.3" class="section-number selfRef">3.2.3. </a><a href="#name-multi-registry-federation" class="section-name selfRef">Multi-Registry Federation</a>
+<a href="#section-3.5.1" class="section-number selfRef">3.5.1. </a><a href="#name-multi-registry-federation" class="section-name selfRef">Multi-Registry Federation</a>
           </h4>
-<p id="section-3.2.3-1">The architecture supports federation across multiple registry instances, enabling:<a href="#section-3.2.3-1" class="pilcrow">¶</a></p>
+<p id="section-3.5.1-1">The architecture supports federation across multiple registry instances, enabling:<a href="#section-3.5.1-1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.2.3-2.1">
-              <p id="section-3.2.3-2.1.1"><strong>Organizational boundaries</strong>: Different organizations can maintain their own
-registries while participating in the global directory<a href="#section-3.2.3-2.1.1" class="pilcrow">¶</a></p>
+<li class="normal" id="section-3.5.1-2.1">
+              <p id="section-3.5.1-2.1.1"><strong>Organizational boundaries</strong>: Different organizations can maintain their own
+registries while participating in the global directory<a href="#section-3.5.1-2.1.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-3.2.3-2.2">
-              <p id="section-3.2.3-2.2.1"><strong>Geographic distribution</strong>: Content can be replicated to registries closer to
-consumers, reducing latency<a href="#section-3.2.3-2.2.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-3.5.1-2.2">
+              <p id="section-3.5.1-2.2.1"><strong>Geographic distribution</strong>: Content can be replicated to registries closer to
+consumers, reducing latency<a href="#section-3.5.1-2.2.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-3.2.3-2.3">
-              <p id="section-3.2.3-2.3.1"><strong>Specialization</strong>: Registries can focus on specific domains (e.g., medical AI
-agents, financial analysis tools)<a href="#section-3.2.3-2.3.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-3.5.1-2.3">
+              <p id="section-3.5.1-2.3.1"><strong>Specialization</strong>: Registries can focus on specific domains (e.g., medical AI
+agents, financial analysis tools)<a href="#section-3.5.1-2.3.1" class="pilcrow">¶</a></p>
 </li>
-            <li class="normal" id="section-3.2.3-2.4">
-              <p id="section-3.2.3-2.4.1"><strong>Redundancy</strong>: Critical agent records can be replicated across multiple
-registries for availability<a href="#section-3.2.3-2.4.1" class="pilcrow">¶</a></p>
+            <li class="normal" id="section-3.5.1-2.4">
+              <p id="section-3.5.1-2.4.1"><strong>Redundancy</strong>: Critical agent records can be replicated across multiple
+registries for availability<a href="#section-3.5.1-2.4.1" class="pilcrow">¶</a></p>
 </li>
           </ul>
 </section>
@@ -2503,6 +2822,10 @@ maintaining the security and reliability requirements of production systems.<a h
 <a href="#section-6.1" class="section-number selfRef">6.1. </a><a href="#name-normative-references" class="section-name selfRef">Normative References</a>
         </h3>
 <dl class="references">
+<dt id="OCI.Artifact">[OCI.Artifact]</dt>
+        <dd>
+<span class="refAuthor">Initiative, O. C.</span>, <span class="refTitle">"OCI Artifacts Guidance Specification"</span>, <span>n.d.</span>, <span>&lt;<a href="https://github.com/opencontainers/image-spec/blob/main/artifacts-guidance.md">https://github.com/opencontainers/image-spec/blob/main/artifacts-guidance.md</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="OCI.Distribution">[OCI.Distribution]</dt>
         <dd>
 <span class="refAuthor">Initiative, O. C.</span>, <span class="refTitle">"OCI Distribution Specification"</span>, <span>n.d.</span>, <span>&lt;<a href="https://github.com/opencontainers/distribution-spec">https://github.com/opencontainers/distribution-spec</a>&gt;</span>. </dd>
@@ -2510,6 +2833,10 @@ maintaining the security and reliability requirements of production systems.<a h
 <dt id="OCI.Image">[OCI.Image]</dt>
         <dd>
 <span class="refAuthor">Initiative, O. C.</span>, <span class="refTitle">"OCI Image Format Specification"</span>, <span>n.d.</span>, <span>&lt;<a href="https://github.com/opencontainers/image-spec">https://github.com/opencontainers/image-spec</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="OCI.Manifest">[OCI.Manifest]</dt>
+        <dd>
+<span class="refAuthor">Initiative, O. C.</span>, <span class="refTitle">"OCI Image Manifest Specification"</span>, <span>n.d.</span>, <span>&lt;<a href="https://github.com/opencontainers/image-spec/blob/main/manifest.md">https://github.com/opencontainers/image-spec/blob/main/manifest.md</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="OpenID.Auth">[OpenID.Auth]</dt>
         <dd>
@@ -2539,6 +2866,10 @@ maintaining the security and reliability requirements of production systems.<a h
 <dt id="AGNTCY-ADS">[AGNTCY-ADS]</dt>
         <dd>
 <span class="refAuthor">Muscariello, L.</span>, <span class="refAuthor">Pandey, V.</span>, and <span class="refAuthor">R. Polic</span>, <span class="refTitle">"The AGNTCY Agent Directory Service: Architecture and Implementation"</span>, <time datetime="2025" class="refDate">2025</time>, <span>&lt;<a href="https://arxiv.org/abs/2509.18787">https://arxiv.org/abs/2509.18787</a>&gt;</span>. </dd>
+<dd class="break"></dd>
+<dt id="AGNTCY-OASF">[AGNTCY-OASF]</dt>
+        <dd>
+<span class="refAuthor">Community, A.</span>, <span class="refTitle">"Open Agent Schema Framework (OASF)"</span>, <span>n.d.</span>, <span>&lt;<a href="https://github.com/agntcy/oasf">https://github.com/agntcy/oasf</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="AI-Registry-Evolution">[AI-Registry-Evolution]</dt>
         <dd>
