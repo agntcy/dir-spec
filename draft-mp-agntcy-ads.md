@@ -12,7 +12,7 @@ submissiontype: independent
 number:
 date:
 consensus: false
-v: 3
+v: 4
 area: Applications
 workgroup: Independent Submission
 keyword:
@@ -49,6 +49,16 @@ normative:
       author:
          - name: "Open Container Initiative"
       target: https://github.com/opencontainers/image-spec
+   OCI.Manifest:
+      title: "OCI Image Manifest Specification"
+      author:
+         - name: "Open Container Initiative"
+      target: https://github.com/opencontainers/image-spec/blob/main/manifest.md
+   OCI.Artifact:
+      title: "OCI Artifacts Guidance Specification"
+      author:
+         - name: "Open Container Initiative"
+      target: https://github.com/opencontainers/image-spec/blob/main/artifacts-guidance.md
    OCI.Distribution:
       title: "OCI Distribution Specification"
       author:
@@ -86,6 +96,11 @@ informative:
            name: Ramiz Polic
       target: https://arxiv.org/abs/2509.18787
       date: 2025
+   AGNTCY-OASF:
+      title: "Open Agent Schema Framework (OASF)"
+      author:
+         - name: AGNTCY Community
+      target: https://github.com/agntcy/oasf
    AI-Registry-Evolution:
       title: "Evolution of AI Agent Registry Solutions: Centralized, Enterprise, and Distributed Approaches"
       author:
@@ -210,10 +225,10 @@ distribution protocols between storage nodes.
 # Storage Architecture
 
 ADS implements a decentralized storage architecture built on OCI (Open Container
-Initiative) registries using ORAS (OCI Registry as Storage) as the foundational
-object storage layer. This design choice enables the system to leverage mature,
-standardized container registry infrastructure while achieving the speed,
-scalability, and security requirements of a distributed agent directory.
+Initiative) registries as the foundational object storage layer. This design
+choice enables the system to leverage mature, standardized container registry
+infrastructure while achieving the speed, scalability, and security requirements
+of a distributed agent directory.
 
 ## Content-Addressed Storage
 
@@ -238,10 +253,10 @@ tampering during transmission.
 it, as the identifier serves as a universal pointer that abstracts away physical
 storage locations.
 
-## ORAS Integration
+## OCI Integration
 
-ORAS provides a standardized interface for treating OCI registries as
-general-purpose object storage, offering several advantages for ADS:
+ADS leverages OCI (Open Container Initiative) specifications for storing and
+distributing agent records as OCI artifacts, offering several advantages:
 
 ### Standards Compliance
 
@@ -256,7 +271,203 @@ environments
 assessments
 - **Content delivery networks** optimized for OCI artifact distribution
 
-### Artifact Organization
+## Record Artifact Specification
+
+ADS stores agent records as Record Artifacts following the OCI Image Manifest
+Specification {{OCI.Manifest}} and adhering to the OCI artifacts guidance
+{{OCI.Artifact}}. 
+A Record Artifact is an AGNTCY OASF Record packaged as an OCI artifact.
+
+### Manifest Structure
+
+The manifest structure MUST include the following properties:
+
+- `mediaType` string
+
+  This REQUIRED property MUST be `application/vnd.oci.image.manifest.v1+json`.
+
+- `artifactType` string
+
+  This REQUIRED property MUST be `application/vnd.agntcy.dir.record.v1+json`.
+  Future versions of the Record Artifact Specification MAY define additional
+  artifact types.
+
+- `config` descriptor
+
+  This REQUIRED property MUST reference an empty configuration with media type
+  `application/vnd.oci.empty.v1+json`, indicating that no additional
+  configuration data is needed for Record Artifacts.
+
+- `layers` array of objects
+
+  This REQUIRED property MUST contain one or more layer descriptors representing
+  OASF Record components.
+
+- `subject` descriptor
+
+  This OPTIONAL property MAY reference another Record Artifact to create linkage
+  between records for version histories.
+
+### Layer Structure
+
+Each layer descriptor MUST include the following properties:
+
+- `mediaType` string
+
+  This REQUIRED property specifies the layer content type. Implementations MUST
+  support the following media types:
+
+  - `application/vnd.agntcy.oasf.types.{version}.Record+json`: The first layer
+    (index 0) MUST use this media type and contains base record data. This layer
+    MUST use the `data` field for inline storage (base64-encoded) since the
+    content is small, frequently accessed, and unique to each record.
+    Object `annotations`, `schema_version` and `created_at` are stored as part
+    of layer annotations.
+
+  - `application/vnd.agntcy.oasf.types.{version}.Skill+json`: Contains skill
+    definition data. Object `annotations`, `id` and `name` are stored as part
+    of layer annotations.
+
+  - `application/vnd.agntcy.oasf.types.{version}.Domain+json`: Contains domain
+    definition data. Object `annotations`, `id` and `name` are stored as part of
+    layer annotations.
+
+  - `application/vnd.agntcy.oasf.types.{version}.Locator+json`: Contains locator
+    definition data referencing the location where the agent can be accessed or
+    deployed. Object `annotations`, `type` and `url` are stored as part of layer
+    annotations and URL fields.
+
+  - `application/vnd.agntcy.oasf.types.{version}.Module+json`: Contains module
+    definition data. Object `annotations`, `id` and `name` are stored as part of
+    layer annotations.
+
+  Media types MUST map to `application/vnd.{schema_uri}.{version}.{type}+{encoding}`
+  format, where 
+  - `{schema_uri}` corresponds to the OASF protobuf schema namespace
+  - `{version}` corresponds to a specific OASF type version (e.g., `v1alpha2`)
+  - `{type}` is the OASF type name (e.g. `Record`)
+  - `{encoding}` MUST be `json`
+
+- `urls` array of strings
+
+  This OPTIONAL property MAY contain URLs pointing to external resources,
+  particularly useful for `Locator` layers to specify deployment targets.
+
+- `annotations` string-string map
+
+  This OPTIONAL property contains arbitrary attributes. Implementations SHOULD
+  use the predefined annotation keys:
+
+  - `agntcy.oasf.record/schema_version`: Schema version (for `Record` layers)
+  - `agntcy.oasf.record/created_at`: Creation timestamp (for `Record` layers)
+  - `agntcy.oasf.locator/type`: Locator type (for `Locator` layers)
+  - `agntcy.oasf.skill/{id,name}`: Skill id/name (for `Skill` layers)
+  - `agntcy.oasf.domain/{id,name}`: Domain id/name (for `Domain` layers)
+  - `agntcy.oasf.module/{id,name}`: Module id/name (for `Module` layers)
+
+### Example Record Artifacts
+
+~~~json
+{
+  "schemaVersion": 2,
+  "mediaType": "application/vnd.oci.image.manifest.v1+json",
+  "artifactType": "application/vnd.agntcy.dir.record.v1+json",
+  "config": {
+    "mediaType": "application/vnd.oci.empty.v1+json",
+    "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+    "size": 2
+  },
+  "layers": [
+    {
+      "mediaType": "application/vnd.agntcy.oasf.types.v1alpha2.Record+json",
+      "data": "<BASE64_ENCODED_RECORD_DATA>",
+      "digest": "sha256:d5815835051dd97d800a03f641ed8162877920e734d3d705b698912602b8c763",
+      "size": 216,
+      "annotations": {
+        "agntcy.oasf.record/schema_version": "0.7.0",
+        "agntcy.oasf.record/created_at": "2026-01-06T00:00:00Z"
+      }
+    },
+    {
+      "mediaType": "application/vnd.agntcy.oasf.types.v1alpha2.Skill+json",
+      "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "size": 2,
+      "annotations": {
+        "agntcy.oasf.skill/id": "10201",
+        "agntcy.oasf.skill/name": "Natural Language Processing/Sentiment Analysis"
+      }
+    },
+    {
+      "mediaType": "application/vnd.agntcy.oasf.types.v1alpha2.Locator+json",
+      "digest": "sha256:44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "size": 2,
+      "urls": [
+        "https://ghcr.io/agntcy/agent:latest",
+        "ipfs://bafybeibwzif37xyzabcdefg"
+      ],
+      "annotations": {
+        "agntcy.oasf.locator/type": "docker-image"
+      }
+    }
+  ],
+  "subject": {
+    "mediaType": "application/vnd.oci.image.manifest.v1+json",
+    "artifactType": "application/vnd.agntcy.dir.record.v1+json",
+    "digest": "sha256:7e346bc58473bc1d8a98776fa2a89a3e2a446b27f0e8a33ad49c3d4f28b6471d",
+    "size": 702
+  }
+}
+~~~
+
+### Record Reconstruction
+
+Applications consuming Record Artifacts MUST implement the following
+reconstruction algorithm:
+
+1. **Pull Manifest**: Retrieve the OCI image manifest from the registry using
+   standard OCI Distribution API operations
+
+2. **Extract Base Record**: Parse the first layer (index 0) with media type
+   `application/vnd.agntcy.oasf.types.{version}.Record+json` and base64-decode
+   the `data` field to obtain the base record JSON data
+
+3. **Retrieve Component Layers**: For each subsequent layer (Skill, Domain,
+   Locator, Module):
+   - Fetch the blob content from the registry using the layer's `digest`
+   - Verify the blob's SHA-256 digest matches the descriptor's `digest` field
+   - Parse the JSON content according to the layer's `mediaType`
+   - Merge the component data into the appropriate field of the base record
+   - Merge descriptor annotations into the corresponding component metadata
+
+4. **Validate Schema**: Validate the reconstructed record against the OASF
+   schema version specified in the `agntcy.oasf.record/schema_version` annotation
+
+## Application Integration
+
+### Open Agent Schema Framework (OASF)
+
+The Open Agent Schema Framework (OASF) {{AGNTCY-OASF}}
+complements Record Artifact Specification by defining the actual data
+models for agent-related information referenced in the OCI artifacts.
+
+### Third-Party Applications
+
+Third-party applications can build on top of the Record Artifact Specification to
+create tools and services for managing, distributing, and utilizing agent records.
+This can be accomplished by leveraging existing OCI ecosystem components such as
+registries, clients, and tooling, or by developing custom solutions that link to
+Record Artifacts.
+
+### Runtime Environments
+
+Runtime environments that deploy and manage agents can leverage Record Artifacts to
+obtain the necessary information for launching and managing agent instances based on
+the definitions contained within the artifacts.
+Implementations can provide management of process lifecycles, monitoring, and other
+features based on the metadata defined in the records, or by linking records with
+runtime-specific artifacts.
+
+## Artifact Organization
 
 Agent records are stored as OCI artifacts with a structured organization.
 Multiple records can be stored under the same OCI name and tag, with each record
