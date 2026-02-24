@@ -735,6 +735,9 @@ Table of Contents
    module categories (Core and Integration), and each module captures a
    structured integration surface or capability extension:
 
+   The Agent Spec module aligns with the Open Agent Spec specification
+   [Oracle-AgentSpec].
+
    Modules
    ├── Core
    │   ├── Language Model (`language_model`)
@@ -1382,6 +1385,10 @@ Result: Agent sha256:abc123... available from peers 12D3KooW... and 12D3KooX...
               Community, libp2p., "go-libp2p-kad-dht: A Kademlia DHT
               implementation on go-libp2p", n.d.,
               <https://github.com/libp2p/go-libp2p-kad-dht>.
+
+   [Oracle-AgentSpec]
+              Oracle, "Open Agent Spec Documentation", n.d.,
+              <https://oracle.github.io/agent-spec/index.html>.
 
    [Sigstore] Foundation, C. N. C., "Sigstore: A New Standard for
               Signing, Verifying and Protecting Software", n.d.,
