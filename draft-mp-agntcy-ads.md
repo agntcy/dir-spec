@@ -7,7 +7,7 @@ title: "Agent Directory Service"
 abbrev: "agent-dir"
 category: info
 
-docname: draft-mp-agntcy-ads-00
+docname: draft-mp-agntcy-ads-01
 submissiontype: independent
 number:
 date:
@@ -44,6 +44,11 @@ normative:
       author:
          - name: "OpenID Foundation"
       target: https://openid.net/specs/openid-authentication-2_0.txt
+   AGNTCY-OASF:
+      title: "Open Agent Schema Framework (OASF)"
+      author:
+         - name: AGNTCY Community
+      target: https://github.com/agntcy/oasf
    OCI.Image:
       title: "OCI Image Format Specification"
       author:
@@ -53,12 +58,12 @@ normative:
       title: "OCI Image Manifest Specification"
       author:
          - name: "Open Container Initiative"
-      target: https://github.com/opencontainers/image-spec/blob/main/manifest.md
+      target: https://github.com/opencontainers/image-spec/blob/v1.1.1/manifest.md
    OCI.Artifact:
       title: "OCI Artifacts Guidance Specification"
       author:
          - name: "Open Container Initiative"
-      target: https://github.com/opencontainers/image-spec/blob/main/artifacts-guidance.md
+      target: https://github.com/opencontainers/image-spec/blob/v1.1.1/artifacts-guidance.md
    OCI.Distribution:
       title: "OCI Distribution Specification"
       author:
@@ -96,11 +101,6 @@ informative:
            name: Ramiz Polic
       target: https://arxiv.org/abs/2509.18787
       date: 2025
-   AGNTCY-OASF:
-      title: "Open Agent Schema Framework (OASF)"
-      author:
-         - name: AGNTCY Community
-      target: https://github.com/agntcy/oasf
    AI-Registry-Evolution:
       title: "Evolution of AI Agent Registry Solutions: Centralized, Enterprise, and Distributed Approaches"
       author:
@@ -128,6 +128,11 @@ informative:
            name: Ramesh Raskar
       target: https://arxiv.org/abs/2508.03095
       date: 2025
+   Oracle-AgentSpec:
+      title: "Open Agent Spec Documentation"
+      author:
+         - name: Oracle
+      target: https://oracle.github.io/agent-spec/index.html
 --- abstract
 
 The Agent Directory Service (ADS) is a distributed directory service designed to
@@ -275,7 +280,7 @@ assessments
 
 ADS stores agent records as Record Artifacts following the OCI Image Manifest
 Specification {{OCI.Manifest}} and adhering to the OCI artifacts guidance
-{{OCI.Artifact}}. 
+{{OCI.Artifact}}.
 A Record Artifact is an AGNTCY OASF Record packaged as an OCI artifact.
 
 ### Manifest Structure
@@ -342,7 +347,7 @@ Each layer descriptor MUST include the following properties:
     layer annotations.
 
   Media types MUST map to `application/vnd.{schema_uri}.{version}.{type}+{encoding}`
-  format, where 
+  format, where
   - `{schema_uri}` corresponds to the OASF protobuf schema namespace
   - `{version}` corresponds to a specific OASF type version (e.g., `v1alpha2`)
   - `{type}` is the OASF type name (e.g. `Record`)
@@ -464,29 +469,31 @@ Runtime environments that deploy and manage agents can leverage Record Artifacts
 obtain the necessary information for launching and managing agent instances based on
 the definitions contained within the artifacts.
 Implementations can provide management of process lifecycles, monitoring, and other
-features based on the metadata defined in the records, or by linking records with
+capabilities based on the metadata defined in the records, or by linking records with
 runtime-specific artifacts.
 
 ## Artifact Organization
 
 Agent records are stored as OCI artifacts with a structured organization.
-Multiple records can be stored under the same OCI name and tag, with each record
-uniquely identified by its content-addressed SHA256 digest:
+Records MUST be addressed by digest for immutable retrieval. Tags are mutable
+aliases and can be used as human-readable pointers, but implementations MUST NOT
+assume a tag resolves to more than one manifest at a time. The examples below
+show digest-pinned references:
 
 ~~~
 null_repo/records/
 ├── skills/
-│   ├── nlp/
-│   │   ├── sentiment-analysis:v1.0.0@sha256:abc123... # BERT
-│   │   ├── sentiment-analysis:v1.0.0@sha256:def456... # RoBERTa
-│   │   ├── sentiment-analysis:v1.0.0@sha256:ghi789... # DistilBERT
-│   │   ├── text-classification:v2.0.0@sha256:abc123... # Same BERT
-│   │   └── emotion-detection:v1.5.0@sha256:abc123...   # Same BERT
-│   ├── vision/
-│   │   ├── object-detection:v2.1.0@sha256:jkl012...    # YOLO
-│   │   ├── object-detection:v2.1.0@sha256:mno345...    # R-CNN
-│   │   └── scene-understanding:v1.0.0@sha256:jkl012... # Same YOLO
-│   └── reasoning/
+│   ├── natural_language_processing/
+│   │   ├── sentiment-analysis:bert-v1@sha256:abc123...
+│   │   ├── sentiment-analysis:roberta-v1@sha256:def456...
+│   │   ├── sentiment-analysis:distilbert-v1@sha256:ghi789...
+│   │   ├── text-classification:bert-v2@sha256:abc123...
+│   │   └── emotion-detection:bert-v1@sha256:abc123...
+│   ├── images_computer_vision/
+│   │   ├── object-detection:yolo-v2.1@sha256:jkl012...
+│   │   ├── object-detection:rcnn-v2.1@sha256:mno345...
+│   │   └── scene-understanding:yolo-v1@sha256:jkl012...
+│   └── analytical_skills/
 │       └── mathematical:v1.5.0@sha256:pqr678...
 ├── evaluations/
 │   ├── performance-metrics:latest@sha256:stu901...
@@ -499,11 +506,12 @@ null_repo/records/
 This naming scheme demonstrates that the same content identifier can belong to
 multiple skills, reflecting the reality that many AI agents are multi-capable.
 For example, the BERT-based agent (`sha256:abc123...`) appears under multiple
-skill categories: `nlp/sentiment-analysis`, `nlp/text-classification`, and
-`nlp/emotion-detection`, representing different capabilities of the same
-underlying agent implementation. Similarly, the YOLO vision model
-(`sha256:jkl012...`) provides both `object-detection` and `scene-understanding`
-capabilities.
+skill categories: `natural_language_processing/sentiment-analysis`,
+`natural_language_processing/text-classification`, and
+`natural_language_processing/emotion-detection`, representing different
+capabilities of the same underlying agent implementation. Similarly, the YOLO
+vision model (`sha256:jkl012...`) provides both `object-detection` and
+`scene-understanding` capabilities under `images_computer_vision`.
 
 This cross-referencing approach allows agents to be discovered through any of
 their supported capabilities while maintaining unique addressability through
@@ -689,46 +697,47 @@ Domain classification enables users to discover agents that are specifically
 tuned for their operational context, even if those agents share similar
 underlying skills with agents from other domains.
 
-### Feature Taxonomy
+### Module Taxonomy
 
-The feature taxonomy categorizes agents by the integration frameworks and
-architectural patterns they support, facilitating the discovery of agents
-compatible with specific system architectures:
+The module taxonomy categorizes agents by the OASF modules they implement,
+facilitating the discovery of agents compatible with specific system
+architectures. Modules are organized into the OASF module categories (Core and
+Integration), and each module captures a structured integration surface or
+capability extension:
+
+The Agent Spec module aligns with the Open Agent Spec specification
+{{Oracle-AgentSpec}}.
 
 ~~~
-Integration Features
-├── MCP (Model Context Protocol)
-│   ├── MCP Server Implementation
-│   ├── MCP Client Integration
-│   └── MCP Tool Providers
-├── A2A (Agent-to-Agent Communication)
-│   ├── Direct Messaging
-│   ├── Event-Driven Architecture
-│   └── Workflow Orchestration
-├── Agent Evaluation
-│   ├── Performance Benchmarking
-│   ├── Quality Assessment
-│   └── Comparative Analysis
-└── Observability
-    ├── Metrics Collection
-    ├── Distributed Tracing
-    └── Health Monitoring
+Modules
+├── Core
+│   ├── Language Model (`language_model`)
+│   ├── Evaluation (`evaluation`)
+│   └── Observability (`observability`)
+└── Integration
+  ├── MCP (Model Context Protocol, `mcp`)
+  ├── A2A (Agent-to-Agent Communication, `a2a`)
+  ├── Agent Spec (`agentspec`)
+  └── ACP (`acp`, deprecated)
 ~~~
+
+Module identifiers use the OASF module `name` values. The `acp` module is
+deprecated in OASF; use `a2a` when possible.
 
 ### Multi-Dimensional Search
 
 The parallel taxonomy system enables sophisticated multi-dimensional queries
 that combine criteria across different classification axes.
 **All searches must include at least one skill criterion as the mandatory
-foundation**, with domain and feature taxonomies providing additional filtering
+foundation**, with domain and module taxonomies providing additional filtering
 dimensions:
 
 - **Skill + Domain**: "Find natural language processing agents specialized for
 healthcare applications"
-- **Skill + Feature**: "Discover computer vision agents that support MCP
+- **Skill + Module**: "Discover computer vision agents that support MCP
 integration"
-- **Skill + Feature + Domain**: "Locate natural language processing agents with
-observability features for manufacturing applications"
+- **Skill + Module + Domain**: "Locate natural language processing agents with
+observability modules for manufacturing applications"
 
 **Skills as Search Foundation**: The skills taxonomy serves as the primary index
 structure in the DHT, making skill-based criteria mandatory for efficient query
@@ -737,14 +746,14 @@ resolution. This design ensures that:
 - **Query Performance**: All searches leverage the optimized skills-to-CID
 mapping as the starting point, providing consistent performance characteristics
 
-- **Result Relevance**: Domain and feature filters are applied to skill-based
+- **Result Relevance**: Domain and module filters are applied to skill-based
 result sets, ensuring functional capability remains the core selection criterion
 
 - **Index Efficiency**: The DHT can optimize storage and lookup patterns around
 the skills taxonomy while supporting supplementary filtering through domains and
-features
+modules
 
-Domain-only or feature-only queries are not supported, as they would bypass the
+Domain-only or module-only queries are not supported, as they would bypass the
 primary indexing structure and provide results that may not have the functional
 capabilities required by the requesting system.
 
@@ -832,7 +841,7 @@ Flow:
 When agents are published to the network:
 
 1. **Capability Extraction**: The system parses OASF records to extract skills,
-domains, and capabilities
+domains, and modules
 
 2. **DHT Updates**: Skills-to-CID mappings are distributed across DHT nodes
 using consistent hashing
@@ -853,11 +862,11 @@ to produce actionable discovery results
 
 ~~~
 Discovery Flow:
-Query: "natural_language_processing" AND "finance_and_business"
+Query: "natural_language_processing" AND "finance_and_banking"
    ↓
 Phase 1: Skills → CIDs
    DHT["natural_language_processing"] → ["sha256:abc123...", "sha256:def456..."]
-   DHT["finance_and_business"] → ["sha256:abc123...", "sha256:yza567..."]
+   DHT["finance_and_banking"] → ["sha256:abc123...", "sha256:yza567..."]
    Intersection → ["sha256:abc123..."]
    ↓
 Phase 2: CIDs → Peer IDs
@@ -1000,7 +1009,8 @@ stored in the directory:
     "schema_version": "0.2.0",
     "description": "Multi-capability NLP agent providing sentiment analysis, text classification, and emotion detection",
     "skills": ["natural_language_processing"],
-    "domains": ["finance_and_business", "trust_and_safety"],
+    "domains": ["finance_and_banking", "legal_and_compliance"],
+    "modules": ["mcp", "observability"],
     "capabilities": {
       "threads": true,
       "interrupt_support": false,
@@ -1035,7 +1045,8 @@ stored in the directory:
     "schema_version": "0.2.0",
     "description": "Computer vision agent for object detection and scene understanding",
     "skills": ["images_computer_vision"],
-    "domains": ["transportation", "industrial_manufacturing"],
+    "domains": ["transportation_logistics_mobility", "manufacturing_and_industrial_operations"],
+    "modules": ["agentspec", "observability"],
     "capabilities": {
       "threads": false,
       "interrupt_support": true,
@@ -1069,8 +1080,9 @@ stored in the directory:
     "version": "1.5.0",
     "schema_version": "0.2.0",
     "description": "Agent specialized in mathematical problem solving and analytical reasoning",
-    "skills": ["analytical_skills", "tabular_text"],
-    "domains": ["education", "finance_and_business"],
+    "skills": ["analytical_skills", "natural_language_processing"],
+    "domains": ["education", "finance_and_banking"],
+    "modules": ["a2a", "evaluation"],
     "capabilities": {
       "threads": true,
       "interrupt_support": true,
