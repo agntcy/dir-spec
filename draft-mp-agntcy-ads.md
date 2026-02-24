@@ -128,6 +128,11 @@ informative:
            name: Ramesh Raskar
       target: https://arxiv.org/abs/2508.03095
       date: 2025
+    Oracle.AgentSpec:
+      title: "Open Agent Spec Documentation"
+      author:
+        - name: Oracle
+      target: https://oracle.github.io/agent-spec/index.html
 --- abstract
 
 The Agent Directory Service (ADS) is a distributed directory service designed to
@@ -699,6 +704,9 @@ facilitating the discovery of agents compatible with specific system
 architectures. Modules are organized into the OASF module categories (Core and
 Integration), and each module captures a structured integration surface or
 capability extension:
+
+The Agent Spec module aligns with the Open Agent Spec specification
+{{Oracle.AgentSpec}}.
 
 ~~~
 Modules
