@@ -7,7 +7,7 @@ title: "Agent Directory Service"
 abbrev: "agent-dir"
 category: info
 
-docname: draft-mp-agntcy-ads-00
+docname: draft-mp-agntcy-ads-01
 submissiontype: independent
 number:
 date:
@@ -275,7 +275,7 @@ assessments
 
 ADS stores agent records as Record Artifacts following the OCI Image Manifest
 Specification {{OCI.Manifest}} and adhering to the OCI artifacts guidance
-{{OCI.Artifact}}. 
+{{OCI.Artifact}}.
 A Record Artifact is an AGNTCY OASF Record packaged as an OCI artifact.
 
 ### Manifest Structure
@@ -342,7 +342,7 @@ Each layer descriptor MUST include the following properties:
     layer annotations.
 
   Media types MUST map to `application/vnd.{schema_uri}.{version}.{type}+{encoding}`
-  format, where 
+  format, where
   - `{schema_uri}` corresponds to the OASF protobuf schema namespace
   - `{version}` corresponds to a specific OASF type version (e.g., `v1alpha2`)
   - `{type}` is the OASF type name (e.g. `Record`)
