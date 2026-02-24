@@ -128,7 +128,7 @@ informative:
            name: Ramesh Raskar
       target: https://arxiv.org/abs/2508.03095
       date: 2025
-    Oracle.AgentSpec:
+    Oracle-AgentSpec:
       title: "Open Agent Spec Documentation"
       author:
         - name: Oracle
@@ -706,7 +706,7 @@ Integration), and each module captures a structured integration surface or
 capability extension:
 
 The Agent Spec module aligns with the Open Agent Spec specification
-{{Oracle.AgentSpec}}.
+{{Oracle-AgentSpec}}.
 
 ~~~
 Modules
