@@ -9,7 +9,7 @@ Expires: 28 August 2026                                 24 February 2026
 
 
                         Agent Directory Service
-                         draft-mp-agntcy-ads-00
+                         draft-mp-agntcy-ads-01
 
 Abstract
 
