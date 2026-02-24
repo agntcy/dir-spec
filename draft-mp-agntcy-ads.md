@@ -128,10 +128,10 @@ informative:
            name: Ramesh Raskar
       target: https://arxiv.org/abs/2508.03095
       date: 2025
-    Oracle-AgentSpec:
+   Oracle-AgentSpec:
       title: "Open Agent Spec Documentation"
       author:
-        - name: Oracle
+         - name: Oracle
       target: https://oracle.github.io/agent-spec/index.html
 --- abstract
 
