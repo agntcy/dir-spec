@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2026-02-24T00:27:02.573733+00:00",
+  "timestamp": "2026-02-26T00:25:23.587082+00:00",
   "repo": "agntcy/dir-spec",
   "labels": [
     {
@@ -730,24 +730,26 @@
       "id": "PR_kwDON_UBTc7FpwB1",
       "title": "chore: update draft taxonomy and OCI reference consistency",
       "url": "https://github.com/agntcy/dir-spec/pull/12",
-      "state": "OPEN",
+      "state": "MERGED",
       "author": "muscariello",
       "authorAssociation": "MEMBER",
       "assignees": [],
       "labels": [],
-      "body": "## Summary\\n- align artifact organization examples with current OASF v1 taxonomy\\n- clarify OCI digest-vs-tag semantics for immutable retrieval\\n- move OASF reference to normative and pin OCI normative links to stable versioned targets\\n\\n## Files\\n- draft-mp-agntcy-ads.md\\n\\n## Notes\\n- no code changes; Internet-Draft content update only",
+      "body": "## Summary\r\n- align artifact organization examples with current OASF v1 taxonomy\r\n- clarify OCI digest-vs-tag semantics for immutable retrieval\r\n- move OASF reference to normative and pin OCI normative links to stable versioned targets\r\n \r\n## Files\r\n- draft-mp-agntcy-ads.md\\n\\n## Notes\r\n- no code changes; Internet-Draft content update only",
       "createdAt": "2026-02-23T13:43:09Z",
-      "updatedAt": "2026-02-23T13:43:09Z",
+      "updatedAt": "2026-02-24T21:57:06Z",
       "baseRepository": "agntcy/dir-spec",
       "baseRefName": "main",
       "baseRefOid": "db33d7964aa77e48858a3dbe59e92628340f1854",
       "headRepository": "agntcy/dir-spec",
       "headRefName": "feat/update-dirv1",
-      "headRefOid": "94551bda5d1316f2450f0fc4116c95683f3dc1eb",
-      "closedAt": null,
-      "mergedAt": null,
-      "mergedBy": null,
-      "mergeCommit": null,
+      "headRefOid": "056ef5bdbf4f57fb59b49accd8b36f4d39a207d2",
+      "closedAt": "2026-02-24T21:57:06Z",
+      "mergedAt": "2026-02-24T21:57:06Z",
+      "mergedBy": "muscariello",
+      "mergeCommit": {
+        "oid": "1c3da5f30c5e10b6a6c34c11cc693e6bdec05030"
+      },
       "comments": [],
       "reviews": []
     }
