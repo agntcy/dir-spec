@@ -7,7 +7,7 @@ title: "Agent Directory Service"
 abbrev: "agent-dir"
 category: info
 
-docname: draft-mp-agntcy-ads-01
+docname: draft-mp-agntcy-ads-02
 submissiontype: independent
 number:
 date:
@@ -39,11 +39,20 @@ author:
 
 normative:
    RFC6920:
+   RFC7515:
+   RFC8141:
+   RFC8615:
+   RFC8785:
    OpenID.Auth:
       title: "OpenID Authentication 2.0 - Final"
       author:
          - name: "OpenID Foundation"
       target: https://openid.net/specs/openid-authentication-2_0.txt
+   AI-Catalog:
+      title: "AI Catalog Specification"
+      author:
+         - name: "Agent Card Community"
+      target: https://agent-card.github.io/ai-catalog/
    AGNTCY-OASF:
       title: "Open Agent Schema Framework (OASF)"
       author:
@@ -227,7 +236,7 @@ This document details the technical architecture of ADS, covering the record
 storage layer, security model, distributed data discovery mechanisms, and data
 distribution protocols between storage nodes.
 
-# Storage Architecture
+# Storage Architecture {#storage-architecture}
 
 ADS implements a decentralized storage architecture built on OCI (Open Container
 Initiative) registries as the foundational object storage layer. This design
@@ -235,7 +244,7 @@ choice enables the system to leverage mature, standardized container registry
 infrastructure while achieving the speed, scalability, and security requirements
 of a distributed agent directory.
 
-## Content-Addressed Storage
+## Content-Addressed Storage {#content-addressed-storage}
 
 The storage architecture centers on globally unique Content Identifiers (CID)
 that provide several critical properties for a distributed agent directory:
@@ -538,7 +547,7 @@ agents, financial analysis tools)
 - **Redundancy**: Critical agent records can be replicated across multiple
 registries for availability
 
-# MAS Data Discovery
+# MAS Data Discovery {#mas-data-discovery}
 
 ADS implements a two-level mapping system that enables efficient discovery of
 Multi-Agent System components through a distributed hash table {{DHT}}
@@ -757,6 +766,14 @@ Domain-only or module-only queries are not supported, as they would bypass the
 primary indexing structure and provide results that may not have the functional
 capabilities required by the requesting system.
 
+This skill-mandatory rule applies to the DHT capability index, which uses skills
+as its primary key for global, cross-host routing. It does not constrain the
+host-local AI Finder catalog browse surface (see {{ai-finder-service}}), which
+filters and orders entries over arbitrary fields and tags without requiring a
+skill criterion. The two surfaces are complementary: the DHT optimizes global
+capability routing, while AI Finder provides deterministic browsing of a host's
+catalog.
+
 This multi-taxonomic approach provides the flexibility to support diverse use
 cases while maintaining efficient indexing and search performance across all
 dimensions.
@@ -800,7 +817,7 @@ locations
 - **Support multiple storage strategies** for the same content across different
 peers
 
-## DHT-Based Discovery Process
+## DHT-Based Discovery Process {#dht-based-discovery-process}
 
 The Distributed Hash Table stores and maintains both mapping layers across the
 network:
@@ -1112,7 +1129,7 @@ These examples demonstrate how the DHT indexing system extracts skills and
 domains from agent records to populate the Skills-to-CID mappings, enabling
 efficient capability-based discovery across the distributed network.
 
-## Security Model
+## Security Model {#security-model}
 
 The OCI-based architecture provides multiple layers of security that address the
 unique challenges of distributed agent directories:
@@ -1138,7 +1155,7 @@ content matches its advertised identifier, providing built-in protection
 against data corruption during transmission or storage without trusting
 intermediate network components.
 
-### Content Provenance and Digital Signatures
+### Content Provenance and Digital Signatures {#content-provenance-and-digital-signatures}
 
 ADS integrates with Sigstore, a security framework for OCI storage, to provide
 comprehensive content provenance and authenticity guarantees:
@@ -1267,6 +1284,188 @@ This architecture provides a robust foundation for a decentralized agent
 directory that can scale to support the growing ecosystem of AI agents while
 maintaining the security and reliability requirements of production systems.
 
+
+# AI Catalog Interoperability
+
+ADS natively interoperates with the AI Catalog model {{AI-Catalog}}, a typed,
+nestable JSON container for discovering heterogeneous AI artifacts (such as MCP
+servers, A2A agents, agent skills, and nested catalogs). ADS does not store a
+separate catalog: it projects its content-addressed OASF records into AI Catalog
+documents on demand and serves them through a discovery API. This section
+specifies that projection and the surfaces through which AI Catalog consumers
+access ADS content.
+
+## Overview
+
+The two models operate at complementary layers:
+
+- **OASF Records** provide a deep, strongly typed agent model stored on a
+  content-addressed substrate (OCI artifacts, see {{storage-architecture}}) and
+  routed through the distributed hash table (see {{mas-data-discovery}}).
+
+- **AI Catalog** provides a thin, artifact-agnostic interoperability and
+  discovery surface. A catalog identifies each artifact by media type and either
+  references it (`url`) or embeds it (`data`), without requiring consumers to
+  parse the artifact's internal schema.
+
+ADS treats AI Catalog as a *consumption surface* projected from records: the OCI
+and DHT layers remain the storage and routing substrate, while AI Catalog
+documents are derived views suitable for generic, schema-agnostic clients. The
+canonical AI Catalog media type is `application/ai-catalog+json`, and ADS emits
+documents conforming to AI Catalog specification version `1.0`.
+
+## Catalog Data Model
+
+ADS adopts the AI Catalog object model {{AI-Catalog}}. The top-level `AICatalog`
+object carries a `spec_version`, an optional `host` descriptor, a list of
+`entries`, and free-form `metadata`.
+
+Each `CatalogEntry` carries:
+
+- `identifier`: a stable, globally unique identifier (a URN {{RFC8141}}; see
+  {{record-to-catalog-projection}})
+- `display_name`: a human-readable name
+- `media_type`: the artifact's media type (for example
+  `application/mcp-server-card+json`, `application/a2a-agent-card+json`, or
+  `application/ai-catalog+json` for a nested catalog)
+- exactly one of `url` (a reference to the artifact) or `data` (the artifact
+  embedded inline)
+- optional `version`, `description`, `tags`, `publisher`, `trust_manifest`, and
+  `updated_at`
+
+Trust metadata is carried by the `TrustManifest` object (`identity`,
+`trust_schema`, `attestations`, `provenance`, and a detached signature; see
+{{trust-projection}}). The `HostInfo` and `Publisher` objects identify the
+catalog operator and the publishing entity, respectively. ADS profiles these
+objects per {{AI-Catalog}}; field-level semantics follow that specification.
+
+### Dynamic Collections
+
+ADS extends the model with a `WellKnownCatalog` object served at the well-known
+URI (see {{ai-finder-service}}). In addition to statically published `entries`,
+it advertises `collections`: each `CatalogCollection` names a dynamic, queryable
+view whose `url` resolves to a list of records (for example a nested
+`AICatalog`) matching a server-side query. Collections let a host expose
+large or frequently changing record sets without materializing a single static
+document.
+
+## Record-to-Catalog Projection {#record-to-catalog-projection}
+
+ADS derives catalog entries from OASF records through a deterministic
+projection. The projection is keyed on the OASF *integration modules* a record
+carries; modules that have no AI Catalog representation are ignored.
+
+A record is projectable only if it carries at least one *known* module. The
+following modules are recognized and map to the indicated entry media types:
+
+| OASF module | Catalog entry media type |
+|---|---|
+| `integration/mcp` | `application/mcp-server-card+json` |
+| `integration/a2a` | `application/a2a-agent-card+json` |
+| `core/language_model/agentskills` | `application/agentskill+md` |
+
+The projection produces one of three outcomes:
+
+- **No known module**: the record is not projectable. A catalog entry MUST
+  reference an artifact, and a record carrying no known module exposes nothing to
+  project.
+
+- **Exactly one known module**: the record projects to a *leaf* entry whose
+  `media_type` is the module's media type and whose `data` carries the module's
+  structured data inline.
+
+- **Two or more known modules**: the record projects to a *container* entry with
+  media type `application/ai-catalog+json` whose `data` embeds a nested
+  `AICatalog` containing one entry per known module.
+
+Entry fields are derived from the record: `display_name` from the record name,
+and `version`, `description`, `updated_at`, and `tags` from the corresponding
+record fields. Entries within a container MUST be emitted in a deterministic
+order so that identical records yield byte-identical catalogs.
+
+### Catalog Identifiers
+
+Each projected entry is identified by a content-addressed URN of the form:
+
+~~~
+urn:ai:org.agntcy:cid:<cid>[:<suffix>]
+~~~
+
+where `<cid>` is the record's content identifier (see
+{{content-addressed-storage}}) and the optional `<suffix>` disambiguates the
+per-module entries nested inside a container. Because the identifier is derived
+from the record CID, catalog identity inherits the immutability and
+verifiability properties of the underlying content addressing.
+
+## Trust Projection {#trust-projection}
+
+ADS projects its existing record-signing model (see {{security-model}}) into the
+AI Catalog `TrustManifest`. Signatures associated with a record are surfaced as
+the entry's `trust_manifest`, exposing publisher identity and provenance as
+`attestations` and `provenance` links.
+
+Consistent with {{AI-Catalog}}, the trust manifest is a *peer element*: it sits
+alongside the artifact within the catalog entry and does not wrap or modify the
+artifact. ADS carries these objects through its referrer model, in which
+signatures, public keys, and trust metadata are stored as referrer objects
+associated with a record (see {{content-provenance-and-digital-signatures}}).
+Where a catalog-native, self-contained signature is required, the trust manifest
+MAY carry a detached JWS {{RFC7515}} computed over its JSON Canonicalization
+{{RFC8785}} serialization.
+
+## AI Finder Service {#ai-finder-service}
+
+ADS exposes AI Catalog content through the AI Finder service, offered over gRPC
+and, via a gateway, as a REST API. The REST surface comprises:
+
+- `GET /v1/agents`: list catalog entries with deterministic, cacheable browsing
+  semantics. Results are filtered and ordered server-side (database filtering and
+  ordering, without relevance ranking) and paginated.
+
+- `GET /v1/agents/{cid}`: retrieve a single `CatalogEntry` by record CID,
+  providing a stable detail URL for any entry discovered through listing.
+
+- `GET /v1/agents/{cid}/export`: render the full agent record in a requested
+  export format. Supported formats include `oasf`, `a2a`, `agent-skill`, and
+  `mcp-ghcopilot`; the response carries the rendered bytes with an appropriate
+  content type.
+
+- `GET /.well-known/ai-catalog.json`: return the host's `WellKnownCatalog`
+  document (host descriptor, statically published entries, and dynamic
+  collections) at the well-known URI {{RFC8615}}.
+
+The export operation is the heterogeneity bridge: a single content-addressed
+OASF record can be materialized into the native format of several ecosystems
+(A2A agent cards, agent skills, MCP server descriptors) without changing its
+canonical storage representation.
+
+## Discovery Integration
+
+The AI Finder surface is *host-local*: the well-known document and the REST API
+describe the records held or indexed by a single host, and the AI Catalog
+nesting mechanism composes such documents into hierarchies. ADS complements this
+with *global* discovery: the distributed hash table (see
+{{dht-based-discovery-process}}) routes capability queries across hosts, which
+base AI Catalog—relying only on the well-known URI and nested references—does not
+provide. A `CatalogCollection.url` MAY therefore resolve to a nested `AICatalog`
+that is itself backed by a DHT or search query, allowing a static catalog entry
+point to expand into globally routed results. In this arrangement ADS acts as the
+content-routing backbone beneath AI Catalog's decentralized, nestable
+composition.
+
+## Conformance and Trust Layers
+
+ADS supports the progressive-complexity levels defined by {{AI-Catalog}}:
+
+- **Minimal**: entries carrying `identifier`, `media_type`, and `url` or `data`.
+- **Discoverable**: a `host` descriptor served at the well-known URI.
+- **Trusted**: entries carrying `trust_manifest`, `publisher`, attestations, and
+  provenance.
+
+Because ADS addresses every record by a cryptographic content identifier, it
+natively satisfies the AI Catalog content-addressing trust layer: substitution
+of catalog content is structurally detectable through CID verification,
+independent of transport or signature checks.
 
 # IANA Considerations
 
