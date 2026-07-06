@@ -5,11 +5,11 @@
 Independent Submission                                    L. Muscariello
 Internet-Draft                                                  R. Polic
 Intended status: Informational                                     Cisco
-Expires: 28 August 2026                                 24 February 2026
+Expires: 7 January 2027                                      6 July 2026
 
 
                         Agent Directory Service
-                         draft-mp-agntcy-ads-01
+                         draft-mp-agntcy-ads-02
 
 Abstract
 
@@ -47,7 +47,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 28 August 2026.
+   This Internet-Draft will expire on 7 January 2027.
 
 Copyright Notice
 
@@ -111,10 +111,20 @@ Table of Contents
      4.9.  Performance Optimizations
        4.9.1.  Bandwidth Optimization
        4.9.2.  Scalability Architecture
-   5.  IANA Considerations
-   6.  References
-     6.1.  Normative References
-     6.2.  Informative References
+   5.  AI Catalog Interoperability
+     5.1.  Overview
+     5.2.  Catalog Data Model
+       5.2.1.  Dynamic Collections
+     5.3.  Record-to-Catalog Projection
+       5.3.1.  Catalog Identifiers
+     5.4.  Trust Projection
+     5.5.  AI Finder Service
+     5.6.  Discovery Integration
+     5.7.  Conformance and Trust Layers
+   6.  IANA Considerations
+   7.  References
+     7.1.  Normative References
+     7.2.  Informative References
    Authors' Addresses
 
 1.  Conventions and Definitions
@@ -790,6 +800,15 @@ Table of Contents
    not have the functional capabilities required by the requesting
    system.
 
+   This skill-mandatory rule applies to the DHT capability index, which
+   uses skills as its primary key for global, cross-host routing.  It
+   does not constrain the host-local AI Finder catalog browse surface
+   (see Section 5.5), which filters and orders entries over arbitrary
+   fields and tags without requiring a skill criterion.  The two
+   surfaces are complementary: the DHT optimizes global capability
+   routing, while AI Finder provides deterministic browsing of a host's
+   catalog.
+
    This multi-taxonomic approach provides the flexibility to support
    diverse use cases while maintaining efficient indexing and search
    performance across all dimensions.
@@ -1314,17 +1333,229 @@ Result: Agent sha256:abc123... available from peers 12D3KooW... and 12D3KooX...
    agents while maintaining the security and reliability requirements of
    production systems.
 
-5.  IANA Considerations
+5.  AI Catalog Interoperability
+
+   ADS natively interoperates with the AI Catalog model [AI-Catalog], a
+   typed, nestable JSON container for discovering heterogeneous AI
+   artifacts (such as MCP servers, A2A agents, agent skills, and nested
+   catalogs).  ADS does not store a separate catalog: it projects its
+   content-addressed OASF records into AI Catalog documents on demand
+   and serves them through a discovery API.  This section specifies that
+   projection and the surfaces through which AI Catalog consumers access
+   ADS content.
+
+5.1.  Overview
+
+   The two models operate at complementary layers:
+
+   *  *OASF Records* provide a deep, strongly typed agent model stored
+      on a content-addressed substrate (OCI artifacts, see Section 3)
+      and routed through the distributed hash table (see Section 4).
+
+   *  *AI Catalog* provides a thin, artifact-agnostic interoperability
+      and discovery surface.  A catalog identifies each artifact by
+      media type and either references it (url) or embeds it (data),
+      without requiring consumers to parse the artifact's internal
+      schema.
+
+   ADS treats AI Catalog as a _consumption surface_ projected from
+   records: the OCI and DHT layers remain the storage and routing
+   substrate, while AI Catalog documents are derived views suitable for
+   generic, schema-agnostic clients.  The canonical AI Catalog media
+   type is application/ai-catalog+json, and ADS emits documents
+   conforming to AI Catalog specification version 1.0.
+
+5.2.  Catalog Data Model
+
+   ADS adopts the AI Catalog object model [AI-Catalog].  The top-level
+   AICatalog object carries a spec_version, an optional host descriptor,
+   a list of entries, and free-form metadata.
+
+   Each CatalogEntry carries:
+
+   *  identifier: a stable, globally unique identifier (a URN [RFC8141];
+      see Section 5.3)
+
+   *  display_name: a human-readable name
+
+   *  media_type: the artifact's media type (for example application/
+      mcp-server-card+json, application/a2a-agent-card+json, or
+      application/ai-catalog+json for a nested catalog)
+
+   *  exactly one of url (a reference to the artifact) or data (the
+      artifact embedded inline)
+
+   *  optional version, description, tags, publisher, trust_manifest,
+      and updated_at
+
+   Trust metadata is carried by the TrustManifest object (identity,
+   trust_schema, attestations, provenance, and a detached signature; see
+   Section 5.4).  The HostInfo and Publisher objects identify the
+   catalog operator and the publishing entity, respectively.  ADS
+   profiles these objects per [AI-Catalog]; field-level semantics follow
+   that specification.
+
+5.2.1.  Dynamic Collections
+
+   ADS extends the model with a WellKnownCatalog object served at the
+   well-known URI (see Section 5.5).  In addition to statically
+   published entries, it advertises collections: each CatalogCollection
+   names a dynamic, queryable view whose url resolves to a list of
+   records (for example a nested AICatalog) matching a server-side
+   query.  Collections let a host expose large or frequently changing
+   record sets without materializing a single static document.
+
+5.3.  Record-to-Catalog Projection
+
+   ADS derives catalog entries from OASF records through a deterministic
+   projection.  The projection is keyed on the OASF _integration
+   modules_ a record carries; modules that have no AI Catalog
+   representation are ignored.
+
+   A record is projectable only if it carries at least one _known_
+   module.  The following modules are recognized and map to the
+   indicated entry media types:
+
+        +======================+==================================+
+        | OASF module          | Catalog entry media type         |
+        +======================+==================================+
+        | integration/mcp      | application/mcp-server-card+json |
+        +----------------------+----------------------------------+
+        | integration/a2a      | application/a2a-agent-card+json  |
+        +----------------------+----------------------------------+
+        | core/language_model/ | application/agentskill+md        |
+        | agentskills          |                                  |
+        +----------------------+----------------------------------+
+
+                                  Table 1
+
+   The projection produces one of three outcomes:
+
+   *  *No known module*: the record is not projectable.  A catalog entry
+      MUST reference an artifact, and a record carrying no known module
+      exposes nothing to project.
+
+   *  *Exactly one known module*: the record projects to a _leaf_ entry
+      whose media_type is the module's media type and whose data carries
+      the module's structured data inline.
+
+   *  *Two or more known modules*: the record projects to a _container_
+      entry with media type application/ai-catalog+json whose data
+      embeds a nested AICatalog containing one entry per known module.
+
+   Entry fields are derived from the record: display_name from the
+   record name, and version, description, updated_at, and tags from the
+   corresponding record fields.  Entries within a container MUST be
+   emitted in a deterministic order so that identical records yield
+   byte-identical catalogs.
+
+5.3.1.  Catalog Identifiers
+
+   Each projected entry is identified by a content-addressed URN of the
+   form:
+
+   urn:ai:org.agntcy:cid:<cid>[:<suffix>]
+
+   where <cid> is the record's content identifier (see Section 3.1) and
+   the optional <suffix> disambiguates the per-module entries nested
+   inside a container.  Because the identifier is derived from the
+   record CID, catalog identity inherits the immutability and
+   verifiability properties of the underlying content addressing.
+
+5.4.  Trust Projection
+
+   ADS projects its existing record-signing model (see Section 4.8) into
+   the AI Catalog TrustManifest.  Signatures associated with a record
+   are surfaced as the entry's trust_manifest, exposing publisher
+   identity and provenance as attestations and provenance links.
+
+   Consistent with [AI-Catalog], the trust manifest is a _peer element_:
+   it sits alongside the artifact within the catalog entry and does not
+   wrap or modify the artifact.  ADS carries these objects through its
+   referrer model, in which signatures, public keys, and trust metadata
+   are stored as referrer objects associated with a record (see
+   Section 4.8.2).  Where a catalog-native, self-contained signature is
+   required, the trust manifest MAY carry a detached JWS [RFC7515]
+   computed over its JSON Canonicalization [RFC8785] serialization.
+
+5.5.  AI Finder Service
+
+   ADS exposes AI Catalog content through the AI Finder service, offered
+   over gRPC and, via a gateway, as a REST API.  The REST surface
+   comprises:
+
+   *  GET /v1/agents: list catalog entries with deterministic, cacheable
+      browsing semantics.  Results are filtered and ordered server-side
+      (database filtering and ordering, without relevance ranking) and
+      paginated.
+
+   *  GET /v1/agents/{cid}: retrieve a single CatalogEntry by record
+      CID, providing a stable detail URL for any entry discovered
+      through listing.
+
+   *  GET /v1/agents/{cid}/export: render the full agent record in a
+      requested export format.  Supported formats include oasf, a2a,
+      agent-skill, and mcp-ghcopilot; the response carries the rendered
+      bytes with an appropriate content type.
+
+   *  GET /.well-known/ai-catalog.json: return the host's
+      WellKnownCatalog document (host descriptor, statically published
+      entries, and dynamic collections) at the well-known URI [RFC8615].
+
+   The export operation is the heterogeneity bridge: a single content-
+   addressed OASF record can be materialized into the native format of
+   several ecosystems (A2A agent cards, agent skills, MCP server
+   descriptors) without changing its canonical storage representation.
+
+5.6.  Discovery Integration
+
+   The AI Finder surface is _host-local_: the well-known document and
+   the REST API describe the records held or indexed by a single host,
+   and the AI Catalog nesting mechanism composes such documents into
+   hierarchies.  ADS complements this with _global_ discovery: the
+   distributed hash table (see Section 4.5) routes capability queries
+   across hosts, which base AI Catalog—relying only on the well-known
+   URI and nested references—does not provide.  A CatalogCollection.url
+   MAY therefore resolve to a nested AICatalog that is itself backed by
+   a DHT or search query, allowing a static catalog entry point to
+   expand into globally routed results.  In this arrangement ADS acts as
+   the content-routing backbone beneath AI Catalog's decentralized,
+   nestable composition.
+
+5.7.  Conformance and Trust Layers
+
+   ADS supports the progressive-complexity levels defined by
+   [AI-Catalog]:
+
+   *  *Minimal*: entries carrying identifier, media_type, and url or
+      data.
+
+   *  *Discoverable*: a host descriptor served at the well-known URI.
+
+   *  *Trusted*: entries carrying trust_manifest, publisher,
+      attestations, and provenance.
+
+   Because ADS addresses every record by a cryptographic content
+   identifier, it natively satisfies the AI Catalog content-addressing
+   trust layer: substitution of catalog content is structurally
+   detectable through CID verification, independent of transport or
+   signature checks.
+
+6.  IANA Considerations
 
    This document has no IANA actions.
 
-6.  References
+7.  References
 
-6.1.  Normative References
+7.1.  Normative References
 
    [AGNTCY-OASF]
               Community, A., "Open Agent Schema Framework (OASF)", n.d.,
               <https://github.com/agntcy/oasf>.
+
+   [AI-Catalog]
+              Community, A. C., "AI Catalog Specification", n.d.,
+              <https://agent-card.github.io/ai-catalog/>.
 
    [OCI.Artifact]
               Initiative, O. C., "OCI Artifacts Guidance Specification",
@@ -1358,11 +1589,28 @@ Result: Agent sha256:abc123... available from peers 12D3KooW... and 12D3KooX...
               Hashes", RFC 6920, DOI 10.17487/RFC6920, April 2013,
               <https://www.rfc-editor.org/rfc/rfc6920>.
 
+   [RFC7515]  Jones, M., Bradley, J., and N. Sakimura, "JSON Web
+              Signature (JWS)", RFC 7515, DOI 10.17487/RFC7515, May
+              2015, <https://www.rfc-editor.org/rfc/rfc7515>.
+
+   [RFC8141]  Saint-Andre, P. and J. Klensin, "Uniform Resource Names
+              (URNs)", RFC 8141, DOI 10.17487/RFC8141, April 2017,
+              <https://www.rfc-editor.org/rfc/rfc8141>.
+
    [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
               2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
               May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
 
-6.2.  Informative References
+   [RFC8615]  Nottingham, M., "Well-Known Uniform Resource Identifiers
+              (URIs)", RFC 8615, DOI 10.17487/RFC8615, May 2019,
+              <https://www.rfc-editor.org/rfc/rfc8615>.
+
+   [RFC8785]  Rundgren, A., Jordan, B., and S. Erdtman, "JSON
+              Canonicalization Scheme (JCS)", RFC 8785,
+              DOI 10.17487/RFC8785, June 2020,
+              <https://www.rfc-editor.org/rfc/rfc8785>.
+
+7.2.  Informative References
 
    [AGNTCY-ADS]
               Muscariello, L., Pandey, V., and R. Polic, "The AGNTCY
