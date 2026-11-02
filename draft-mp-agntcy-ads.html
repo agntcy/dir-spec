@@ -14,27 +14,27 @@ records, enables the discovery of agent applications with specific skills for
 solving various problems. The implementation features distributed directories
 that interconnect through a content-routing protocol. 
     " name="description">
-<meta content="xml2rfc 3.34.0" name="generator">
+<meta content="xml2rfc 3.34.1" name="generator">
 <meta content="AI" name="keyword">
 <meta content="Agentic AI" name="keyword">
 <meta content="Directory Protocol" name="keyword">
 <meta content="Agent Discovery" name="keyword">
 <meta content="DHT" name="keyword">
-<meta content="draft-mp-agntcy-ads-02" name="ietf.draft">
+<meta content="draft-mp-agntcy-ads-03" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.34.0
-    Python 3.14.5
-    ConfigArgParse 1.7.5
+  xml2rfc 3.34.1
+    Python 3.14.8
+    ConfigArgParse 1.8.0
     google-i18n-address 3.1.1
     intervaltree 3.2.1
     Jinja2 3.1.6
     lxml 6.1.1
     natsort 8.4.0
-    platformdirs 4.10.0
+    platformdirs 4.13.4
     pycountry 24.6.1
     PyYAML 6.0.3
     requests 2.33.1
-    wcwidth 0.8.2
+    wcwidth 0.9.2
 -->
 <link href="draft-mp-agntcy-ads.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -70,7 +70,6 @@ that interconnect through a content-routing protocol.
   src: local('Lora Italic'), local('Lora-Italic'), url('https://martinthomson.github.io/rfc-css/fonts/lora-italic-latin-ext.woff2') format('woff2');
   unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
-
 @font-face {
   font-family: 'Lora';
   font-style: italic;
@@ -119,7 +118,6 @@ that interconnect through a content-routing protocol.
   src: local('Lora Regular'), local('Lora-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/lora-regular-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
-
 @font-face {
   font-family: 'Lora';
   font-style: normal;
@@ -184,7 +182,6 @@ that interconnect through a content-routing protocol.
   font-display: swap;
   src: local('Oxygen Mono'), local('OxygenMono-Regular'), url('https://martinthomson.github.io/rfc-css/fonts/oxygenmono-regular-latin.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-}
 }
 
 @font-face {
@@ -1053,11 +1050,11 @@ svg {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">agent-dir</td>
-<td class="right">July 2026</td>
+<td class="right">November 2026</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Muscariello &amp; Polic</td>
-<td class="center">Expires 7 January 2027</td>
+<td class="center">Expires 6 May 2027</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1067,15 +1064,15 @@ svg {
 <dt class="label-workgroup">Workgroup:</dt>
 <dd class="workgroup">Independent Submission</dd>
 <dt class="label-internet-draft">Internet-Draft:</dt>
-<dd class="internet-draft">draft-mp-agntcy-ads-02</dd>
+<dd class="internet-draft">draft-mp-agntcy-ads-03</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2026-07-06" class="published">6 July 2026</time>
+<time datetime="2026-11-02" class="published">2 November 2026</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Informational</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2027-01-07">7 January 2027</time></dd>
+<dd class="expires"><time datetime="2027-05-06">6 May 2027</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1128,7 +1125,7 @@ that interconnect through a content-routing protocol.<a href="#section-abstract-
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 7 January 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 6 May 2027.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1335,17 +1332,12 @@ that interconnect through a content-routing protocol.<a href="#section-abstract-
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2">
                 <p id="section-toc.1-1.5.2.2.1"><a href="#section-5.2" class="auto internal xref">5.2</a>.  <a href="#name-catalog-data-model" class="internal xref">Catalog Data Model</a></p>
-<ul class="compact toc ulBare ulEmpty">
-<li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.2.2.1">
-                    <p id="section-toc.1-1.5.2.2.2.1.1"><a href="#section-5.2.1" class="auto internal xref">5.2.1</a>.  <a href="#name-dynamic-collections" class="internal xref">Dynamic Collections</a></p>
-</li>
-                </ul>
 </li>
               <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3">
-                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-record-to-catalog-projectio" class="internal xref">Record-to-Catalog Projection</a></p>
+                <p id="section-toc.1-1.5.2.3.1"><a href="#section-5.3" class="auto internal xref">5.3</a>.  <a href="#name-catalog-projection-and-iden" class="internal xref">Catalog Projection and Identifiers</a></p>
 <ul class="compact toc ulBare ulEmpty">
 <li class="compact toc ulBare ulEmpty" id="section-toc.1-1.5.2.3.2.1">
-                    <p id="section-toc.1-1.5.2.3.2.1.1"><a href="#section-5.3.1" class="auto internal xref">5.3.1</a>.  <a href="#name-catalog-identifiers" class="internal xref">Catalog Identifiers</a></p>
+                    <p id="section-toc.1-1.5.2.3.2.1.1"><a href="#section-5.3.1" class="auto internal xref">5.3.1</a>.  <a href="#name-projected-identifiers" class="internal xref">Projected Identifiers</a></p>
 </li>
                 </ul>
 </li>
@@ -2857,11 +2849,12 @@ maintaining the security and reliability requirements of production systems.<a h
       </h2>
 <p id="section-5-1">ADS natively interoperates with the AI Catalog model <span>[<a href="#AI-Catalog" class="cite xref">AI-Catalog</a>]</span>, a typed,
 nestable JSON container for discovering heterogeneous AI artifacts (such as MCP
-servers, A2A agents, agent skills, and nested catalogs). ADS does not store a
-separate catalog: it projects its content-addressed OASF records into AI Catalog
-documents on demand and serves them through a discovery API. This section
-specifies that projection and the surfaces through which AI Catalog consumers
-access ADS content.<a href="#section-5-1" class="pilcrow">¶</a></p>
+servers, A2A agents, agent skills, and nested catalogs). ADS projects its
+content-addressed OASF records into AI Catalog documents and serves them through
+discovery APIs. This section specifies that projection and the surfaces through
+which AI Catalog consumers access ADS content. The AI Catalog specification
+version referenced here is 1.0; each catalog document's <code>specVersion</code> member
+<span class="bcp14">MUST</span> identify the version to which that document conforms.<a href="#section-5-1" class="pilcrow">¶</a></p>
 <div id="overview">
 <section id="section-5.1">
         <h3 id="name-overview">
@@ -2884,8 +2877,7 @@ parse the artifact's internal schema.<a href="#section-5.1-2.2.1" class="pilcrow
 <p id="section-5.1-3">ADS treats AI Catalog as a <em>consumption surface</em> projected from records: the OCI
 and DHT layers remain the storage and routing substrate, while AI Catalog
 documents are derived views suitable for generic, schema-agnostic clients. The
-canonical AI Catalog media type is <code>application/ai-catalog+json</code>, and ADS emits
-documents conforming to AI Catalog specification version <code>1.0</code>.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
+AI Catalog media type is <code>application/ai-catalog+json</code>.<a href="#section-5.1-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="catalog-data-model">
@@ -2893,61 +2885,43 @@ documents conforming to AI Catalog specification version <code>1.0</code>.<a hre
         <h3 id="name-catalog-data-model">
 <a href="#section-5.2" class="section-number selfRef">5.2. </a><a href="#name-catalog-data-model" class="section-name selfRef">Catalog Data Model</a>
         </h3>
-<p id="section-5.2-1">ADS adopts the AI Catalog object model <span>[<a href="#AI-Catalog" class="cite xref">AI-Catalog</a>]</span>. The top-level <code>AICatalog</code>
-object carries a <code>spec_version</code>, an optional <code>host</code> descriptor, a list of
-<code>entries</code>, and free-form <code>metadata</code>.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
-<p id="section-5.2-2">Each <code>CatalogEntry</code> carries:<a href="#section-5.2-2" class="pilcrow">¶</a></p>
-<ul class="normal">
-<li class="normal" id="section-5.2-3.1">
-            <p id="section-5.2-3.1.1"><code>identifier</code>: a stable, globally unique identifier (a URN <span>[<a href="#RFC8141" class="cite xref">RFC8141</a>]</span>; see
-<a href="#record-to-catalog-projection" class="auto internal xref">Section 5.3</a>)<a href="#section-5.2-3.1.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-5.2-3.2">
-            <p id="section-5.2-3.2.1"><code>display_name</code>: a human-readable name<a href="#section-5.2-3.2.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-5.2-3.3">
-            <p id="section-5.2-3.3.1"><code>media_type</code>: the artifact's media type (for example
+<p id="section-5.2-1">ADS-generated catalog documents <span class="bcp14">MUST</span> conform to the AI Catalog data model
+<span>[<a href="#AI-Catalog" class="cite xref">AI-Catalog</a>]</span>. An <code>AICatalog</code> <span class="bcp14">MUST</span> contain <code>specVersion</code> and <code>entries</code>. It <span class="bcp14">MAY</span>
+also contain <code>host</code>, <code>extensions</code>, <code>signature</code>, and <code>additionalSignatures</code> as
+defined by that specification. Producers <span class="bcp14">SHOULD</span> omit the reserved
+<code>additionalSignatures</code> member; consumers <span class="bcp14">MUST</span> accept and ignore it. ADS-specific
+information that is not defined by AI Catalog <span class="bcp14">MUST NOT</span> be represented using an
+undefined top-level member such as <code>metadata</code>.<a href="#section-5.2-1" class="pilcrow">¶</a></p>
+<p id="section-5.2-2">Each <code>CatalogEntry</code> <span class="bcp14">MUST</span> contain <code>identifier</code>, <code>type</code>, and exactly one of <code>url</code>
+or <code>data</code>. It <span class="bcp14">MAY</span> also contain <code>displayName</code>, <code>description</code>, <code>tags</code>, <code>version</code>,
+<code>updatedAt</code>, <code>extensions</code>, <code>publisher</code>, <code>digest</code>, and <code>trustManifests</code>.<a href="#section-5.2-2" class="pilcrow">¶</a></p>
+<p id="section-5.2-3">The <code>type</code> member identifies the artifact's media type, such as
 <code>application/mcp-server-card+json</code>, <code>application/a2a-agent-card+json</code>, or
-<code>application/ai-catalog+json</code> for a nested catalog)<a href="#section-5.2-3.3.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-5.2-3.4">
-            <p id="section-5.2-3.4.1">exactly one of <code>url</code> (a reference to the artifact) or <code>data</code> (the artifact
-embedded inline)<a href="#section-5.2-3.4.1" class="pilcrow">¶</a></p>
-</li>
-          <li class="normal" id="section-5.2-3.5">
-            <p id="section-5.2-3.5.1">optional <code>version</code>, <code>description</code>, <code>tags</code>, <code>publisher</code>, <code>trust_manifest</code>, and
-<code>updated_at</code><a href="#section-5.2-3.5.1" class="pilcrow">¶</a></p>
-</li>
-        </ul>
-<p id="section-5.2-4">Trust metadata is carried by the <code>TrustManifest</code> object (<code>identity</code>,
-<code>trust_schema</code>, <code>attestations</code>, <code>provenance</code>, and a detached signature; see
-<a href="#trust-projection" class="auto internal xref">Section 5.4</a>). The <code>HostInfo</code> and <code>Publisher</code> objects identify the
-catalog operator and the publishing entity, respectively. ADS profiles these
-objects per <span>[<a href="#AI-Catalog" class="cite xref">AI-Catalog</a>]</span>; field-level semantics follow that specification.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
-<div id="dynamic-collections">
-<section id="section-5.2.1">
-          <h4 id="name-dynamic-collections">
-<a href="#section-5.2.1" class="section-number selfRef">5.2.1. </a><a href="#name-dynamic-collections" class="section-name selfRef">Dynamic Collections</a>
-          </h4>
-<p id="section-5.2.1-1">ADS extends the model with a <code>WellKnownCatalog</code> object served at the well-known
-URI (see <a href="#ai-finder-service" class="auto internal xref">Section 5.5</a>). In addition to statically published <code>entries</code>,
-it advertises <code>collections</code>: each <code>CatalogCollection</code> names a dynamic, queryable
-view whose <code>url</code> resolves to a list of records (for example a nested
-<code>AICatalog</code>) matching a server-side query. Collections let a host expose
-large or frequently changing record sets without materializing a single static
-document.<a href="#section-5.2.1-1" class="pilcrow">¶</a></p>
+<code>application/ai-catalog+json</code> for a nested catalog. Member names and semantics
+are those defined by AI Catalog; in particular, producers <span class="bcp14">MUST</span> use <code>type</code>,
+<code>displayName</code>, and <code>updatedAt</code>, not <code>media_type</code>, <code>display_name</code>, or
+<code>updated_at</code>.<a href="#section-5.2-3" class="pilcrow">¶</a></p>
+<p id="section-5.2-4">The optional <code>host</code> member identifies the catalog operator. The optional
+<code>publisher</code> member on an entry identifies the artifact publisher. Trust
+contributions are represented by the entry's <code>trustManifests</code> array. Each
+<code>TrustManifest</code> identifies a <code>contributor</code> and <span class="bcp14">MAY</span> include <code>subject</code>,
+<code>signature</code>, <code>trustSchema</code>, <code>attestations</code>, <code>provenance</code>, and <code>extensions</code>,
+subject to the AI Catalog validity and verification requirements. ADS
+implementations <span class="bcp14">MUST</span> preserve the distinction between the catalog host, the
+artifact publisher, and each trust manifest contributor.<a href="#section-5.2-4" class="pilcrow">¶</a></p>
 </section>
 </div>
-</section>
-</div>
-<div id="record-to-catalog-projection">
+<div id="catalog-projection-and-identifiers">
 <section id="section-5.3">
-        <h3 id="name-record-to-catalog-projectio">
-<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-record-to-catalog-projectio" class="section-name selfRef">Record-to-Catalog Projection</a>
+        <h3 id="name-catalog-projection-and-iden">
+<a href="#section-5.3" class="section-number selfRef">5.3. </a><a href="#name-catalog-projection-and-iden" class="section-name selfRef">Catalog Projection and Identifiers</a>
         </h3>
 <p id="section-5.3-1">ADS derives catalog entries from OASF records through a deterministic
 projection. The projection is keyed on the OASF <em>integration modules</em> a record
-carries; modules that have no AI Catalog representation are ignored.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
+carries; modules that have no AI Catalog representation are ignored. Projected
+entries <span class="bcp14">MUST</span> use the AI Catalog member names and <span class="bcp14">MUST</span> provide exactly one of
+<code>url</code> or <code>data</code>. An inline <code>data</code> value <span class="bcp14">MUST</span> contain the complete artifact
+document identified by <code>type</code>.<a href="#section-5.3-1" class="pilcrow">¶</a></p>
 <p id="section-5.3-2">A record is projectable only if it carries at least one <em>known</em> module. The
 following modules are recognized and map to the indicated entry media types:<a href="#section-5.3-2" class="pilcrow">¶</a></p>
 <table class="center" id="table-1">
@@ -2955,7 +2929,7 @@ following modules are recognized and map to the indicated entry media types:<a h
 <thead>
             <tr>
               <th class="text-left" rowspan="1" colspan="1">OASF module</th>
-              <th class="text-left" rowspan="1" colspan="1">Catalog entry media type</th>
+              <th class="text-left" rowspan="1" colspan="1">Catalog entry type</th>
             </tr>
           </thead>
           <tbody>
@@ -2980,7 +2954,7 @@ following modules are recognized and map to the indicated entry media types:<a h
                 <code>core/language_model/agentskills</code>
 </td>
               <td class="text-left" rowspan="1" colspan="1">
-                <code>application/agentskill+md</code>
+                <code>application/agent-skills+md</code>
 </td>
             </tr>
           </tbody>
@@ -2988,41 +2962,45 @@ following modules are recognized and map to the indicated entry media types:<a h
 <p id="section-5.3-4">The projection produces one of three outcomes:<a href="#section-5.3-4" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.3-5.1">
-            <p id="section-5.3-5.1.1"><strong>No known module</strong>: the record is not projectable. A catalog entry <span class="bcp14">MUST</span>
-reference an artifact, and a record carrying no known module exposes nothing to
-project.<a href="#section-5.3-5.1.1" class="pilcrow">¶</a></p>
+            <p id="section-5.3-5.1.1"><strong>No known module</strong>: the record is not projectable and <span class="bcp14">MUST NOT</span> produce a
+catalog entry.<a href="#section-5.3-5.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.3-5.2">
             <p id="section-5.3-5.2.1"><strong>Exactly one known module</strong>: the record projects to a <em>leaf</em> entry whose
-<code>media_type</code> is the module's media type and whose <code>data</code> carries the module's
-structured data inline.<a href="#section-5.3-5.2.1" class="pilcrow">¶</a></p>
+<code>type</code> is the module's media type and whose <code>data</code> or <code>url</code> identifies the
+corresponding native artifact.<a href="#section-5.3-5.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.3-5.3">
             <p id="section-5.3-5.3.1"><strong>Two or more known modules</strong>: the record projects to a <em>container</em> entry with
-media type <code>application/ai-catalog+json</code> whose <code>data</code> embeds a nested
-<code>AICatalog</code> containing one entry per known module.<a href="#section-5.3-5.3.1" class="pilcrow">¶</a></p>
+<code>type</code> <code>application/ai-catalog+json</code> whose <code>data</code> embeds a nested <code>AICatalog</code>
+containing one entry per known module. The nested catalog <span class="bcp14">MUST</span> use
+<code>specVersion</code> and <code>entries</code> as defined by AI Catalog.<a href="#section-5.3-5.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.3-6">Entry fields are derived from the record: <code>display_name</code> from the record name,
-and <code>version</code>, <code>description</code>, <code>updated_at</code>, and <code>tags</code> from the corresponding
-record fields. Entries within a container <span class="bcp14">MUST</span> be emitted in a deterministic
-order so that identical records yield byte-identical catalogs.<a href="#section-5.3-6" class="pilcrow">¶</a></p>
-<div id="catalog-identifiers">
+<p id="section-5.3-6">Entry fields are derived from the record: <code>displayName</code> from the record name,
+and <code>version</code>, <code>description</code>, <code>updatedAt</code>, and <code>tags</code> from the corresponding
+record fields when present. Since AI Catalog recommends omitting <code>displayName</code>
+when the referenced artifact already carries its canonical name, the projection
+<span class="bcp14">SHOULD</span> omit it in that case unless an intentional display override is required.
+Entries within a container <span class="bcp14">MUST</span> be emitted in a deterministic order so that
+identical records yield byte-identical catalogs.<a href="#section-5.3-6" class="pilcrow">¶</a></p>
+<div id="projected-identifiers">
 <section id="section-5.3.1">
-          <h4 id="name-catalog-identifiers">
-<a href="#section-5.3.1" class="section-number selfRef">5.3.1. </a><a href="#name-catalog-identifiers" class="section-name selfRef">Catalog Identifiers</a>
+          <h4 id="name-projected-identifiers">
+<a href="#section-5.3.1" class="section-number selfRef">5.3.1. </a><a href="#name-projected-identifiers" class="section-name selfRef">Projected Identifiers</a>
           </h4>
-<p id="section-5.3.1-1">Each projected entry is identified by a content-addressed URN of the form:<a href="#section-5.3.1-1" class="pilcrow">¶</a></p>
-<div class="alignLeft art-text artwork" id="section-5.3.1-2">
-<pre>
-urn:ai:org.agntcy:cid:&lt;cid&gt;[:&lt;suffix&gt;]
-</pre><a href="#section-5.3.1-2" class="pilcrow">¶</a>
-</div>
-<p id="section-5.3.1-3">where <code>&lt;cid&gt;</code> is the record's content identifier (see
-<a href="#content-addressed-storage" class="auto internal xref">Section 3.1</a>) and the optional <code>&lt;suffix&gt;</code> disambiguates the
-per-module entries nested inside a container. Because the identifier is derived
-from the record CID, catalog identity inherits the immutability and
-verifiability properties of the underlying content addressing.<a href="#section-5.3.1-3" class="pilcrow">¶</a></p>
+<p id="section-5.3.1-1">The entry <code>identifier</code> identifies the logical artifact and <span class="bcp14">MUST</span> remain stable
+across versions and retrieval-URL changes. When an OASF record contains a
+publisher-authorized <code>urn:air</code> identifier, ADS <span class="bcp14">MUST</span> preserve it exactly.
+Otherwise, ADS <span class="bcp14">MAY</span> preserve a stable source identifier or assign an identifier
+under its control. An ADS-assigned identifier <span class="bcp14">MUST NOT</span> be reassigned to another
+artifact. A content identifier that changes when the record changes <span class="bcp14">MUST NOT</span> be
+used as the logical artifact identifier. ADS <span class="bcp14">MAY</span> expose the record's content
+identifier in an ADS-namespaced <code>extensions</code> member. ADS <span class="bcp14">SHOULD</span> set <code>digest</code> to
+the digest of the exact artifact representation when it can be expressed using
+the AI Catalog digest format. A record content identifier alone does not
+establish publisher identity or trust. The <code>urn:air</code> identifier syntax is
+defined by AI Catalog; URNs are specified in <span>[<a href="#RFC8141" class="cite xref">RFC8141</a>]</span>.<a href="#section-5.3.1-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -3033,17 +3011,22 @@ verifiability properties of the underlying content addressing.<a href="#section-
 <a href="#section-5.4" class="section-number selfRef">5.4. </a><a href="#name-trust-projection" class="section-name selfRef">Trust Projection</a>
         </h3>
 <p id="section-5.4-1">ADS projects its existing record-signing model (see <a href="#security-model" class="auto internal xref">Section 4.8</a>) into the
-AI Catalog <code>TrustManifest</code>. Signatures associated with a record are surfaced as
-the entry's <code>trust_manifest</code>, exposing publisher identity and provenance as
-<code>attestations</code> and <code>provenance</code> links.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
-<p id="section-5.4-2">Consistent with <span>[<a href="#AI-Catalog" class="cite xref">AI-Catalog</a>]</span>, the trust manifest is a <em>peer element</em>: it sits
-alongside the artifact within the catalog entry and does not wrap or modify the
-artifact. ADS carries these objects through its referrer model, in which
-signatures, public keys, and trust metadata are stored as referrer objects
-associated with a record (see <a href="#content-provenance-and-digital-signatures" class="auto internal xref">Section 4.8.2</a>).
-Where a catalog-native, self-contained signature is required, the trust manifest
-<span class="bcp14">MAY</span> carry a detached JWS <span>[<a href="#RFC7515" class="cite xref">RFC7515</a>]</span> computed over its JSON Canonicalization
-<span>[<a href="#RFC8785" class="cite xref">RFC8785</a>]</span> serialization.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
+AI Catalog <code>trustManifests</code> array. A projected manifest <span class="bcp14">MUST</span> use the AI Catalog
+member names and satisfy its manifest validity requirements. A signed manifest
+<span class="bcp14">MUST</span> include a <code>subject</code> binding the manifest to the entry's <code>identifier</code>,
+<code>type</code>, <code>digest</code>, and, when present, <code>version</code>. The entry <span class="bcp14">MUST</span> include the
+matching <code>digest</code>; the digest is computed over the retrieved artifact bytes for
+<code>url</code>, or over the JCS-canonicalized JSON value for <code>data</code>.<a href="#section-5.4-1" class="pilcrow">¶</a></p>
+<p id="section-5.4-2">Consistent with <span>[<a href="#AI-Catalog" class="cite xref">AI-Catalog</a>]</span>, each trust manifest is a peer element of the
+entry; it does not wrap or modify the artifact. ADS carries signatures, public
+keys, and trust metadata through its OCI referrer model (see
+<a href="#content-provenance-and-digital-signatures" class="auto internal xref">Section 4.8.2</a>). AI Catalog signatures use
+detached JWS <span>[<a href="#RFC7515" class="cite xref">RFC7515</a>]</span> over a JSON Canonicalization Scheme <span>[<a href="#RFC8785" class="cite xref">RFC8785</a>]</span> payload
+as specified by AI Catalog. An OCI or Sigstore <span>[<a href="#Sigstore" class="cite xref">Sigstore</a>]</span> signature <span class="bcp14">MUST NOT</span>
+be represented as a verified AI Catalog endorsement unless its signature,
+signer profile, and subject binding satisfy the AI Catalog verification
+requirements. Where ADS cannot produce a conforming manifest, it <span class="bcp14">MAY</span> retain the
+signature as an OCI referrer without projecting it into <code>trustManifests</code>.<a href="#section-5.4-2" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="ai-finder-service">
@@ -3070,15 +3053,21 @@ export format. Supported formats include <code>oasf</code>, <code>a2a</code>, <c
 content type.<a href="#section-5.5-2.3.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.5-2.4">
-            <p id="section-5.5-2.4.1"><code>GET /.well-known/ai-catalog.json</code>: return the host's <code>WellKnownCatalog</code>
-document (host descriptor, statically published entries, and dynamic
-collections) at the well-known URI <span>[<a href="#RFC8615" class="cite xref">RFC8615</a>]</span>.<a href="#section-5.5-2.4.1" class="pilcrow">¶</a></p>
+            <p id="section-5.5-2.4.1"><code>GET /.well-known/ai-catalog.json</code>: return an AI Catalog document at the
+well-known URI <span>[<a href="#RFC8615" class="cite xref">RFC8615</a>]</span>. The response <span class="bcp14">MUST</span> be a conforming <code>AICatalog</code>
+containing <code>specVersion</code> and <code>entries</code>; it <span class="bcp14">MAY</span> include <code>host</code> and other
+standard AI Catalog members. AI Catalog does not define a <code>WellKnownCatalog</code>
+type or a <code>collections</code> member.<a href="#section-5.5-2.4.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.5-3">The export operation is the heterogeneity bridge: a single content-addressed
+<p id="section-5.5-3">An ADS host <span class="bcp14">MAY</span> also advertise its catalog using the <code>ai-catalog</code> link relation
+defined by <span>[<a href="#AI-Catalog" class="cite xref">AI-Catalog</a>]</span>, in an HTTP <code>Link</code> header or an HTML <code>link</code> element.
+Clients <span class="bcp14">SHOULD</span> check for this relation during website discovery and <span class="bcp14">MAY</span> fall
+back to the well-known URI when no relation is advertised.<a href="#section-5.5-3" class="pilcrow">¶</a></p>
+<p id="section-5.5-4">The export operation is the heterogeneity bridge: a single content-addressed
 OASF record can be materialized into the native format of several ecosystems
 (A2A agent cards, agent skills, MCP server descriptors) without changing its
-canonical storage representation.<a href="#section-5.5-3" class="pilcrow">¶</a></p>
+canonical storage representation.<a href="#section-5.5-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="discovery-integration">
@@ -3092,11 +3081,13 @@ nesting mechanism composes such documents into hierarchies. ADS complements this
 with <em>global</em> discovery: the distributed hash table (see
 <a href="#dht-based-discovery-process" class="auto internal xref">Section 4.5</a>) routes capability queries across hosts, which
 base AI Catalog—relying only on the well-known URI and nested references—does not
-provide. A <code>CatalogCollection.url</code> <span class="bcp14">MAY</span> therefore resolve to a nested <code>AICatalog</code>
-that is itself backed by a DHT or search query, allowing a static catalog entry
-point to expand into globally routed results. In this arrangement ADS acts as the
-content-routing backbone beneath AI Catalog's decentralized, nestable
-composition.<a href="#section-5.6-1" class="pilcrow">¶</a></p>
+provide. The AI Catalog specification does not define queryable collections or
+dynamic discovery semantics. ADS <span class="bcp14">MAY</span> expose dynamic queries through its own
+REST or gRPC interfaces; these interfaces are separate from the AI Catalog data
+model. A catalog entry <span class="bcp14">MAY</span> reference a nested AI Catalog, but that document
+<span class="bcp14">MUST</span> itself conform to the standard catalog schema. In this arrangement ADS
+acts as the content-routing backbone beneath AI Catalog's decentralized,
+nestable composition.<a href="#section-5.6-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="conformance-and-trust-layers">
@@ -3104,23 +3095,30 @@ composition.<a href="#section-5.6-1" class="pilcrow">¶</a></p>
         <h3 id="name-conformance-and-trust-layer">
 <a href="#section-5.7" class="section-number selfRef">5.7. </a><a href="#name-conformance-and-trust-layer" class="section-name selfRef">Conformance and Trust Layers</a>
         </h3>
-<p id="section-5.7-1">ADS supports the progressive-complexity levels defined by <span>[<a href="#AI-Catalog" class="cite xref">AI-Catalog</a>]</span>:<a href="#section-5.7-1" class="pilcrow">¶</a></p>
+<p id="section-5.7-1">ADS supports the conformance levels defined by <span>[<a href="#AI-Catalog" class="cite xref">AI-Catalog</a>]</span>:<a href="#section-5.7-1" class="pilcrow">¶</a></p>
 <ul class="normal">
 <li class="normal" id="section-5.7-2.1">
-            <p id="section-5.7-2.1.1"><strong>Minimal</strong>: entries carrying <code>identifier</code>, <code>media_type</code>, and <code>url</code> or <code>data</code>.<a href="#section-5.7-2.1.1" class="pilcrow">¶</a></p>
+            <p id="section-5.7-2.1.1"><strong>Level 1, Minimal Catalog</strong>: entries carrying <code>identifier</code>, <code>type</code>, and
+exactly one of <code>url</code> or <code>data</code>.<a href="#section-5.7-2.1.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.7-2.2">
-            <p id="section-5.7-2.2.1"><strong>Discoverable</strong>: a <code>host</code> descriptor served at the well-known URI.<a href="#section-5.7-2.2.1" class="pilcrow">¶</a></p>
+            <p id="section-5.7-2.2.1"><strong>Level 2, Discoverable Catalog</strong>: a catalog with a <code>host</code> object; it <span class="bcp14">MAY</span> be
+served at the well-known URI.<a href="#section-5.7-2.2.1" class="pilcrow">¶</a></p>
 </li>
           <li class="normal" id="section-5.7-2.3">
-            <p id="section-5.7-2.3.1"><strong>Trusted</strong>: entries carrying <code>trust_manifest</code>, <code>publisher</code>, attestations, and
-provenance.<a href="#section-5.7-2.3.1" class="pilcrow">¶</a></p>
+            <p id="section-5.7-2.3.1"><strong>Level 3, Trusted Catalog</strong>: trust manifests and signatures are verified,
+including signer authentication, subject-to-entry release binding, and
+artifact digest verification, before their claims are relied upon.<a href="#section-5.7-2.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
-<p id="section-5.7-3">Because ADS addresses every record by a cryptographic content identifier, it
-natively satisfies the AI Catalog content-addressing trust layer: substitution
-of catalog content is structurally detectable through CID verification,
-independent of transport or signature checks.<a href="#section-5.7-3" class="pilcrow">¶</a></p>
+<p id="section-5.7-3">Because ADS addresses records by cryptographic content identifiers, consumers
+can detect substitution of a retrieved record by verifying its identifier.
+This does not, by itself, protect the catalog snapshot or authenticate the
+publisher. Consumers requiring snapshot integrity <span class="bcp14">SHOULD</span> verify the catalog
+signature according to AI Catalog or use an authenticated content-addressed
+mechanism. ADS deployments claiming Level 3 conformance <span class="bcp14">SHOULD</span> provide one of
+these mechanisms. Consumers verifying signed trust manifests <span class="bcp14">MUST</span> also verify
+the entry digest and the manifest's release binding.<a href="#section-5.7-3" class="pilcrow">¶</a></p>
 </section>
 </div>
 </section>
@@ -3150,7 +3148,7 @@ independent of transport or signature checks.<a href="#section-5.7-3" class="pil
 <dd class="break"></dd>
 <dt id="AI-Catalog">[AI-Catalog]</dt>
         <dd>
-<span class="refAuthor">Community, A. C.</span>, <span class="refTitle">"AI Catalog Specification"</span>, <span>n.d.</span>, <span>&lt;<a href="https://agent-card.github.io/ai-catalog/">https://agent-card.github.io/ai-catalog/</a>&gt;</span>. </dd>
+<span class="refAuthor">Group, A. C. W.</span>, <span class="refTitle">"AI Catalog Specification"</span>, <span>n.d.</span>, <span>&lt;<a href="https://ai-catalog.io/specification/">https://ai-catalog.io/specification/</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="OCI.Artifact">[OCI.Artifact]</dt>
         <dd>
@@ -3175,10 +3173,6 @@ independent of transport or signature checks.<a href="#section-5.7-3" class="pil
 <dt id="RFC2119">[RFC2119]</dt>
         <dd>
 <span class="refAuthor">Bradner, S.</span>, <span class="refTitle">"Key words for use in RFCs to Indicate Requirement Levels"</span>, <span class="seriesInfo">BCP 14</span>, <span class="seriesInfo">RFC 2119</span>, <span class="seriesInfo">DOI 10.17487/RFC2119</span>, <time datetime="1997-03" class="refDate">March 1997</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc2119">https://www.rfc-editor.org/rfc/rfc2119</a>&gt;</span>. </dd>
-<dd class="break"></dd>
-<dt id="RFC6920">[RFC6920]</dt>
-        <dd>
-<span class="refAuthor">Farrell, S.</span>, <span class="refAuthor">Kutscher, D.</span>, <span class="refAuthor">Dannewitz, C.</span>, <span class="refAuthor">Ohlman, B.</span>, <span class="refAuthor">Keranen, A.</span>, and <span class="refAuthor">P. Hallam-Baker</span>, <span class="refTitle">"Naming Things with Hashes"</span>, <span class="seriesInfo">RFC 6920</span>, <span class="seriesInfo">DOI 10.17487/RFC6920</span>, <time datetime="2013-04" class="refDate">April 2013</time>, <span>&lt;<a href="https://www.rfc-editor.org/rfc/rfc6920">https://www.rfc-editor.org/rfc/rfc6920</a>&gt;</span>. </dd>
 <dd class="break"></dd>
 <dt id="RFC7515">[RFC7515]</dt>
         <dd>
