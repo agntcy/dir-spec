@@ -7,7 +7,7 @@ title: "Agent Directory Service"
 abbrev: "agent-dir"
 category: info
 
-docname: draft-mp-agntcy-ads-02
+docname: draft-mp-agntcy-ads-03
 submissiontype: independent
 number:
 date:
@@ -38,7 +38,6 @@ author:
     email: rpolic@cisco.com
 
 normative:
-   RFC6920:
    RFC7515:
    RFC8141:
    RFC8615:
@@ -51,8 +50,8 @@ normative:
    AI-Catalog:
       title: "AI Catalog Specification"
       author:
-         - name: "Agent Card Community"
-      target: https://agent-card.github.io/ai-catalog/
+        - name: "Agent Card Working Group"
+      target: https://ai-catalog.io/specification/
    AGNTCY-OASF:
       title: "Open Agent Schema Framework (OASF)"
       author:
@@ -1289,11 +1288,12 @@ maintaining the security and reliability requirements of production systems.
 
 ADS natively interoperates with the AI Catalog model {{AI-Catalog}}, a typed,
 nestable JSON container for discovering heterogeneous AI artifacts (such as MCP
-servers, A2A agents, agent skills, and nested catalogs). ADS does not store a
-separate catalog: it projects its content-addressed OASF records into AI Catalog
-documents on demand and serves them through a discovery API. This section
-specifies that projection and the surfaces through which AI Catalog consumers
-access ADS content.
+servers, A2A agents, agent skills, and nested catalogs). ADS projects its
+content-addressed OASF records into AI Catalog documents and serves them through
+discovery APIs. This section specifies that projection and the surfaces through
+which AI Catalog consumers access ADS content. The AI Catalog specification
+version referenced here is 1.0; each catalog document's `specVersion` member
+MUST identify the version to which that document conforms.
 
 ## Overview
 
@@ -1311,107 +1311,113 @@ The two models operate at complementary layers:
 ADS treats AI Catalog as a *consumption surface* projected from records: the OCI
 and DHT layers remain the storage and routing substrate, while AI Catalog
 documents are derived views suitable for generic, schema-agnostic clients. The
-canonical AI Catalog media type is `application/ai-catalog+json`, and ADS emits
-documents conforming to AI Catalog specification version `1.0`.
+AI Catalog media type is `application/ai-catalog+json`.
 
 ## Catalog Data Model
 
-ADS adopts the AI Catalog object model {{AI-Catalog}}. The top-level `AICatalog`
-object carries a `spec_version`, an optional `host` descriptor, a list of
-`entries`, and free-form `metadata`.
+ADS-generated catalog documents MUST conform to the AI Catalog data model
+{{AI-Catalog}}. An `AICatalog` MUST contain `specVersion` and `entries`. It MAY
+also contain `host`, `extensions`, `signature`, and `additionalSignatures` as
+defined by that specification. Producers SHOULD omit the reserved
+`additionalSignatures` member; consumers MUST accept and ignore it. ADS-specific
+information that is not defined by AI Catalog MUST NOT be represented using an
+undefined top-level member such as `metadata`.
 
-Each `CatalogEntry` carries:
+Each `CatalogEntry` MUST contain `identifier`, `type`, and exactly one of `url`
+or `data`. It MAY also contain `displayName`, `description`, `tags`, `version`,
+`updatedAt`, `extensions`, `publisher`, `digest`, and `trustManifests`.
 
-- `identifier`: a stable, globally unique identifier (a URN {{RFC8141}}; see
-  {{record-to-catalog-projection}})
-- `display_name`: a human-readable name
-- `media_type`: the artifact's media type (for example
-  `application/mcp-server-card+json`, `application/a2a-agent-card+json`, or
-  `application/ai-catalog+json` for a nested catalog)
-- exactly one of `url` (a reference to the artifact) or `data` (the artifact
-  embedded inline)
-- optional `version`, `description`, `tags`, `publisher`, `trust_manifest`, and
-  `updated_at`
+The `type` member identifies the artifact's media type, such as
+`application/mcp-server-card+json`, `application/a2a-agent-card+json`, or
+`application/ai-catalog+json` for a nested catalog. Member names and semantics
+are those defined by AI Catalog; in particular, producers MUST use `type`,
+`displayName`, and `updatedAt`, not `media_type`, `display_name`, or
+`updated_at`.
 
-Trust metadata is carried by the `TrustManifest` object (`identity`,
-`trust_schema`, `attestations`, `provenance`, and a detached signature; see
-{{trust-projection}}). The `HostInfo` and `Publisher` objects identify the
-catalog operator and the publishing entity, respectively. ADS profiles these
-objects per {{AI-Catalog}}; field-level semantics follow that specification.
+The optional `host` member identifies the catalog operator. The optional
+`publisher` member on an entry identifies the artifact publisher. Trust
+contributions are represented by the entry's `trustManifests` array. Each
+`TrustManifest` identifies a `contributor` and MAY include `subject`,
+`signature`, `trustSchema`, `attestations`, `provenance`, and `extensions`,
+subject to the AI Catalog validity and verification requirements. ADS
+implementations MUST preserve the distinction between the catalog host, the
+artifact publisher, and each trust manifest contributor.
 
-### Dynamic Collections
-
-ADS extends the model with a `WellKnownCatalog` object served at the well-known
-URI (see {{ai-finder-service}}). In addition to statically published `entries`,
-it advertises `collections`: each `CatalogCollection` names a dynamic, queryable
-view whose `url` resolves to a list of records (for example a nested
-`AICatalog`) matching a server-side query. Collections let a host expose
-large or frequently changing record sets without materializing a single static
-document.
-
-## Record-to-Catalog Projection {#record-to-catalog-projection}
+## Catalog Projection and Identifiers
 
 ADS derives catalog entries from OASF records through a deterministic
 projection. The projection is keyed on the OASF *integration modules* a record
-carries; modules that have no AI Catalog representation are ignored.
+carries; modules that have no AI Catalog representation are ignored. Projected
+entries MUST use the AI Catalog member names and MUST provide exactly one of
+`url` or `data`. An inline `data` value MUST contain the complete artifact
+document identified by `type`.
 
 A record is projectable only if it carries at least one *known* module. The
 following modules are recognized and map to the indicated entry media types:
 
-| OASF module | Catalog entry media type |
+| OASF module | Catalog entry type |
 |---|---|
 | `integration/mcp` | `application/mcp-server-card+json` |
 | `integration/a2a` | `application/a2a-agent-card+json` |
-| `core/language_model/agentskills` | `application/agentskill+md` |
+| `core/language_model/agentskills` | `application/agent-skills+md` |
 
 The projection produces one of three outcomes:
 
-- **No known module**: the record is not projectable. A catalog entry MUST
-  reference an artifact, and a record carrying no known module exposes nothing to
-  project.
+- **No known module**: the record is not projectable and MUST NOT produce a
+  catalog entry.
 
 - **Exactly one known module**: the record projects to a *leaf* entry whose
-  `media_type` is the module's media type and whose `data` carries the module's
-  structured data inline.
+  `type` is the module's media type and whose `data` or `url` identifies the
+  corresponding native artifact.
 
 - **Two or more known modules**: the record projects to a *container* entry with
-  media type `application/ai-catalog+json` whose `data` embeds a nested
-  `AICatalog` containing one entry per known module.
+  `type` `application/ai-catalog+json` whose `data` embeds a nested `AICatalog`
+  containing one entry per known module. The nested catalog MUST use
+  `specVersion` and `entries` as defined by AI Catalog.
 
-Entry fields are derived from the record: `display_name` from the record name,
-and `version`, `description`, `updated_at`, and `tags` from the corresponding
-record fields. Entries within a container MUST be emitted in a deterministic
-order so that identical records yield byte-identical catalogs.
+Entry fields are derived from the record: `displayName` from the record name,
+and `version`, `description`, `updatedAt`, and `tags` from the corresponding
+record fields when present. Since AI Catalog recommends omitting `displayName`
+when the referenced artifact already carries its canonical name, the projection
+SHOULD omit it in that case unless an intentional display override is required.
+Entries within a container MUST be emitted in a deterministic order so that
+identical records yield byte-identical catalogs.
 
-### Catalog Identifiers
+### Projected Identifiers
 
-Each projected entry is identified by a content-addressed URN of the form:
-
-~~~
-urn:ai:org.agntcy:cid:<cid>[:<suffix>]
-~~~
-
-where `<cid>` is the record's content identifier (see
-{{content-addressed-storage}}) and the optional `<suffix>` disambiguates the
-per-module entries nested inside a container. Because the identifier is derived
-from the record CID, catalog identity inherits the immutability and
-verifiability properties of the underlying content addressing.
+The entry `identifier` identifies the logical artifact and MUST remain stable
+across versions and retrieval-URL changes. When an OASF record contains a
+publisher-authorized `urn:air` identifier, ADS MUST preserve it exactly.
+Otherwise, ADS MAY preserve a stable source identifier or assign an identifier
+under its control. An ADS-assigned identifier MUST NOT be reassigned to another
+artifact. A content identifier that changes when the record changes MUST NOT be
+used as the logical artifact identifier. ADS MAY expose the record's content
+identifier in an ADS-namespaced `extensions` member. ADS SHOULD set `digest` to
+the digest of the exact artifact representation when it can be expressed using
+the AI Catalog digest format. A record content identifier alone does not
+establish publisher identity or trust. The `urn:air` identifier syntax is
+defined by AI Catalog; URNs are specified in {{RFC8141}}.
 
 ## Trust Projection {#trust-projection}
 
 ADS projects its existing record-signing model (see {{security-model}}) into the
-AI Catalog `TrustManifest`. Signatures associated with a record are surfaced as
-the entry's `trust_manifest`, exposing publisher identity and provenance as
-`attestations` and `provenance` links.
+AI Catalog `trustManifests` array. A projected manifest MUST use the AI Catalog
+member names and satisfy its manifest validity requirements. A signed manifest
+MUST include a `subject` binding the manifest to the entry's `identifier`,
+`type`, `digest`, and, when present, `version`. The entry MUST include the
+matching `digest`; the digest is computed over the retrieved artifact bytes for
+`url`, or over the JCS-canonicalized JSON value for `data`.
 
-Consistent with {{AI-Catalog}}, the trust manifest is a *peer element*: it sits
-alongside the artifact within the catalog entry and does not wrap or modify the
-artifact. ADS carries these objects through its referrer model, in which
-signatures, public keys, and trust metadata are stored as referrer objects
-associated with a record (see {{content-provenance-and-digital-signatures}}).
-Where a catalog-native, self-contained signature is required, the trust manifest
-MAY carry a detached JWS {{RFC7515}} computed over its JSON Canonicalization
-{{RFC8785}} serialization.
+Consistent with {{AI-Catalog}}, each trust manifest is a peer element of the
+entry; it does not wrap or modify the artifact. ADS carries signatures, public
+keys, and trust metadata through its OCI referrer model (see
+{{content-provenance-and-digital-signatures}}). AI Catalog signatures use
+detached JWS {{RFC7515}} over a JSON Canonicalization Scheme {{RFC8785}} payload
+as specified by AI Catalog. An OCI or Sigstore {{Sigstore}} signature MUST NOT
+be represented as a verified AI Catalog endorsement unless its signature,
+signer profile, and subject binding satisfy the AI Catalog verification
+requirements. Where ADS cannot produce a conforming manifest, it MAY retain the
+signature as an OCI referrer without projecting it into `trustManifests`.
 
 ## AI Finder Service {#ai-finder-service}
 
@@ -1430,9 +1436,16 @@ and, via a gateway, as a REST API. The REST surface comprises:
   `mcp-ghcopilot`; the response carries the rendered bytes with an appropriate
   content type.
 
-- `GET /.well-known/ai-catalog.json`: return the host's `WellKnownCatalog`
-  document (host descriptor, statically published entries, and dynamic
-  collections) at the well-known URI {{RFC8615}}.
+- `GET /.well-known/ai-catalog.json`: return an AI Catalog document at the
+  well-known URI {{RFC8615}}. The response MUST be a conforming `AICatalog`
+  containing `specVersion` and `entries`; it MAY include `host` and other
+  standard AI Catalog members. AI Catalog does not define a `WellKnownCatalog`
+  type or a `collections` member.
+
+An ADS host MAY also advertise its catalog using the `ai-catalog` link relation
+defined by {{AI-Catalog}}, in an HTTP `Link` header or an HTML `link` element.
+Clients SHOULD check for this relation during website discovery and MAY fall
+back to the well-known URI when no relation is advertised.
 
 The export operation is the heterogeneity bridge: a single content-addressed
 OASF record can be materialized into the native format of several ecosystems
@@ -1447,25 +1460,34 @@ nesting mechanism composes such documents into hierarchies. ADS complements this
 with *global* discovery: the distributed hash table (see
 {{dht-based-discovery-process}}) routes capability queries across hosts, which
 base AI Catalog—relying only on the well-known URI and nested references—does not
-provide. A `CatalogCollection.url` MAY therefore resolve to a nested `AICatalog`
-that is itself backed by a DHT or search query, allowing a static catalog entry
-point to expand into globally routed results. In this arrangement ADS acts as the
-content-routing backbone beneath AI Catalog's decentralized, nestable
-composition.
+provide. The AI Catalog specification does not define queryable collections or
+dynamic discovery semantics. ADS MAY expose dynamic queries through its own
+REST or gRPC interfaces; these interfaces are separate from the AI Catalog data
+model. A catalog entry MAY reference a nested AI Catalog, but that document
+MUST itself conform to the standard catalog schema. In this arrangement ADS
+acts as the content-routing backbone beneath AI Catalog's decentralized,
+nestable composition.
 
 ## Conformance and Trust Layers
 
-ADS supports the progressive-complexity levels defined by {{AI-Catalog}}:
+ADS supports the conformance levels defined by {{AI-Catalog}}:
 
-- **Minimal**: entries carrying `identifier`, `media_type`, and `url` or `data`.
-- **Discoverable**: a `host` descriptor served at the well-known URI.
-- **Trusted**: entries carrying `trust_manifest`, `publisher`, attestations, and
-  provenance.
+- **Level 1, Minimal Catalog**: entries carrying `identifier`, `type`, and
+  exactly one of `url` or `data`.
+- **Level 2, Discoverable Catalog**: a catalog with a `host` object; it MAY be
+  served at the well-known URI.
+- **Level 3, Trusted Catalog**: trust manifests and signatures are verified,
+  including signer authentication, subject-to-entry release binding, and
+  artifact digest verification, before their claims are relied upon.
 
-Because ADS addresses every record by a cryptographic content identifier, it
-natively satisfies the AI Catalog content-addressing trust layer: substitution
-of catalog content is structurally detectable through CID verification,
-independent of transport or signature checks.
+Because ADS addresses records by cryptographic content identifiers, consumers
+can detect substitution of a retrieved record by verifying its identifier.
+This does not, by itself, protect the catalog snapshot or authenticate the
+publisher. Consumers requiring snapshot integrity SHOULD verify the catalog
+signature according to AI Catalog or use an authenticated content-addressed
+mechanism. ADS deployments claiming Level 3 conformance SHOULD provide one of
+these mechanisms. Consumers verifying signed trust manifests MUST also verify
+the entry digest and the manifest's release binding.
 
 # IANA Considerations
 
